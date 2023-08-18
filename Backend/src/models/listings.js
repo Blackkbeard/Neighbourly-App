@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-// const { Schema } = mongoose;
+
 const ListingSchema = new mongoose.Schema(
   {
     created_at: { type: Date, default: Date.now },
     title: { type: String, required: true, minLength: 1, maxLength: 100 },
     description: { type: String, required: true },
     type: { type: String, required: true, enums: ["free", "loan"] },
-    owner_id: { type: String, required: true },
+    owner_id: { type: String, required: true }, //user's _id
     date_available_from: { type: Date, default: Date.now },
     date_available_to: { type: Date },
     image_url: { type: String },

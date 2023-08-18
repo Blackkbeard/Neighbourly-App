@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const ListingModel = require("../models/listings");
 
 // Seed 2 listings for test user.
-//TODO: Update to vinesh's seeded user
+//TODO: Update owner_id to vinesh's seeded user
 const seedListings = async (req, res) => {
   try {
     await ListingModel.deleteMany();
