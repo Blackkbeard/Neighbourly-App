@@ -6,17 +6,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import GiteIcon from "@mui/icons-material/Gite";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
-
-const navBar = [
-  "The Neighbourhood",
-  "Profile",
-  "Transaction",
-  "Settings",
-  "Log Out",
-];
+import NavBar from "./NavBar";
 
 const TopBar = (props) => {
   const [anchorElUser, setAnchorElUser] = useState(false);
@@ -67,28 +58,10 @@ const TopBar = (props) => {
           )}
 
           {/* navigavtion bar */}
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {navBar.map((item) => (
-              <MenuItem key={item} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{item}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
+          <NavBar
+            anchorElUser={anchorElUser}
+            handleCloseUserMenu={handleCloseUserMenu}
+          ></NavBar>
         </Toolbar>
       </AppBar>
     </Box>
