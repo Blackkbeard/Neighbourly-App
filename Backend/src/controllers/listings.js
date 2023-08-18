@@ -52,4 +52,17 @@ const getAllListings = async (req, res) => {
   }
 };
 
-module.exports = { seedListings, getAllListings };
+// Get listing by listing_id
+const getListingbyId = async (req, res) => {
+  try {
+    const listing = await ListingModel.find({
+      listing_id: req.params.listing_id,
+    });
+    res.json(listing);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", message: "cannot get listing" });
+  }
+};
+
+module.exports = { seedListings, getAllListings, getListingbyId };
