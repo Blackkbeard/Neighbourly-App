@@ -5,8 +5,11 @@ const cors = require("cors"); //enables anyone to use the api
 const helmet = require("helmet"); //
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./src/db/db"); //import database
+
 connectDB();
+
 const listings = require("./src/routers/listings");
+const auth = require("./src/routers/auth");
 
 //allows api to be called 100 times within 15min interval
 const limit = rateLimit({
@@ -24,6 +27,7 @@ app.use(limit);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", listings);
+app.use("/auth", auth);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
