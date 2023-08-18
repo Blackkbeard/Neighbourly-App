@@ -10,7 +10,7 @@ import { StyledEngineProvider } from "@mui/material/styles";
 const navBar1 = [
   { item: "The Neighbourhood", link: "/" },
   { item: "Profile", link: "/profile" },
-  { item: "Transactions", link: "/transaction" },
+  { item: "Transactions", link: "/transactions" },
 ];
 
 const navBar2 = [

@@ -8,7 +8,7 @@ import Settings from "./pages/Settings";
 import ListingPage from "./pages/ListingPage";
 import OfferPage from "./pages/OfferPage";
 import AddOffer from "./pages/AddOffer";
-import Transaction from "./pages/Transaction";
+import Transactions from "./pages/Transactions";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
 
-        <Route path="/transaction" element={<Transaction />}></Route>
+        <Route path="/transactions" element={<Transactions />}></Route>
       </Routes>
     </div>
   );
