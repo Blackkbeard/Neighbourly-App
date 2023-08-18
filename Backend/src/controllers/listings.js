@@ -79,10 +79,52 @@ const createListing = async (req, res) => {
       image_url: req.body.image_url,
     });
     await createdListing.save();
-    res.json({ status: "ok", msg: "listing saved" });
+    res.json({
+      status: "ok",
+      msg: "listing saved",
+      listing_id: createdListing.listing_id,
+    });
   } catch (error) {
     console.log(error.message);
     res.json({ status: "error", message: "cannot create listing" });
+  }
+};
+
+//update a particular listing by listing_id
+const patchListing = async (req, res) => {
+  try {
+    const updatedListing = {};
+    if ("title" in req.body) updatedListing.title = req.body.title;
+    if ("description" in req.body)
+      updatedListing.description = req.body.description;
+    if ("type" in req.body) updatedListing.type = req.body.type;
+    if ("owner_id" in req.body) updatedListing.owner_id = req.body.owner_id;
+    if ("date_available_from" in req.body)
+      updatedListing.date_available_from = req.body.date_available_from;
+    if ("date_available_to" in req.body)
+      updatedListing.date_available_to = req.body.date_available_to;
+    if ("image_url" in req.body) updatedListing.image_url = req.body.image_url;
+
+    await ListingModel.updateMany(
+      { listing_id: req.params.listing_id },
+      updatedListing
+    );
+    res.json({ status: "okay", message: "listing updated" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", message: "cannot update listing" });
+  }
+};
+
+//delete a particular listing by id
+const deleteListing = async (req, res) => {
+  try {
+    
+    await ListingModel.findOneAndDelete({ listing_id: req.params.listing_id });
+    res.json({ status: "okay", message: "listing deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", message: "cannot delete listing" });
   }
 };
 
@@ -91,4 +133,6 @@ module.exports = {
   getAllListings,
   getListingbyId,
   createListing,
+  patchListing,
+  deleteListing,
 };
