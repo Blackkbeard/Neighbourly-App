@@ -2,8 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const ListingModel = require("../models/listings");
 
-// Seed 2 listings for test user.
-//TODO: Update owner_id to vinesh's seeded user
+// Seed 2 listings for test user
 const seedListings = async (req, res) => {
   try {
     await ListingModel.deleteMany();
@@ -14,7 +13,7 @@ const seedListings = async (req, res) => {
         title: "My beloved bike",
         description: `I’m too busy with my coding bootcamp to ride it. Feel free to borrow it on weekends`,
         type: "loan",
-        owner_id: "Owner1",
+        owner_id: "64df45f6d43f6b36609ea557",
         date_available_from: `${new Date()}`,
         date_available_to: "2022-09-30",
         image_url:
@@ -25,7 +24,7 @@ const seedListings = async (req, res) => {
         title: "Onions",
         description: `Onions are a rich source of fiber and prebiotics, which are necessary for optimal gut health. I bought way too many onions. Giving away for free`,
         type: "free",
-        owner_id: "Owner1",
+        owner_id: "64df45f6d43f6b36609ea557",
         date_available_from: `${new Date()}`,
         date_available_to: "2022-08-30",
         image_url:
@@ -54,7 +53,7 @@ const getAllListings = async (req, res) => {
 const getListingById = async (req, res) => {
   try {
     const listing = await ListingModel.findById(req.params.id);
-    // console.log(listing);
+
     if (!listing) {
       return res
         .status(400)
