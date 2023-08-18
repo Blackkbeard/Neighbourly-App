@@ -10,7 +10,7 @@ const seedListings = async (req, res) => {
     await ListingModel.create([
       {
         _id: "64d0f3f75676c304033d8c89",
-        listing_id: uuidv4(),
+        listing_id: "1cabb62c-5e73-4738-b2fd-3da98aa5c08f",
         title: "My beloved bike",
         description: `I’m too busy with my coding bootcamp to ride it. Feel free to borrow it on weekends`,
         type: "loan",
@@ -22,7 +22,7 @@ const seedListings = async (req, res) => {
       },
       {
         _id: "64d0f3f75676c304033d8c90",
-        listing_id: uuidv4(),
+        listing_id: "c66bb8e0-ef62-4f8a-a1b8-9b3b3cfb906d",
         title: "Onions",
         description: `Onions are a rich source of fiber and prebiotics, which are necessary for optimal gut health. I bought way too many onions. Giving away for free`,
         type: "free",
