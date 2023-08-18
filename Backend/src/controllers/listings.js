@@ -65,4 +65,30 @@ const getListingbyId = async (req, res) => {
   }
 };
 
-module.exports = { seedListings, getAllListings, getListingbyId };
+// Create new listing
+const createListing = async (req, res) => {
+  try {
+    const createdListing = new ListingModel({
+      listing_id: uuidv4(),
+      title: req.body.title,
+      description: req.body.description,
+      type: req.body.type,
+      owner_id: req.body.owner_id,
+      date_available_from: req.body.date_available_from,
+      date_available_to: req.body.date_available_to,
+      image_url: req.body.image_url,
+    });
+    await createdListing.save();
+    res.json({ status: "ok", msg: "listing saved" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", message: "cannot create listing" });
+  }
+};
+
+module.exports = {
+  seedListings,
+  getAllListings,
+  getListingbyId,
+  createListing,
+};
