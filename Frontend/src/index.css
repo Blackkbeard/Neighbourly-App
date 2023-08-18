@@ -50,6 +50,14 @@ body {
   border-radius: 2rem;
 }
 
+.btn {
+  background-color: var(--burgundy);
+  border-radius: 3rem;
+  text-transform: none;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 /* color */
 .lightpink {
   background-color: var(--lightpink);
