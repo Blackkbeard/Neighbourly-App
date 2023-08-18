@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import TopBar from "../components/TopBar";
 
 const Profile = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return (
+    <>
+      <TopBar showBurger={true}></TopBar>
+    </>
+  );
 };
 
 export default Profile;

@@ -25,7 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
 
-        <Route path="/settings" element={<Transaction />}></Route>
+        <Route path="/transaction" element={<Transaction />}></Route>
       </Routes>
     </div>
   );
