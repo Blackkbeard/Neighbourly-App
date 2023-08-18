@@ -1,10 +1,10 @@
 import React from "react";
-import AppBar from "../components/AppBar";
+import TopBar from "../components/TopBar";
 
 const SignIn = () => {
   return (
     <>
-      <AppBar></AppBar>
+      <TopBar></TopBar>
     </>
   );
 };
