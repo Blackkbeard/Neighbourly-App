@@ -48,7 +48,7 @@ const getAllListings = async (req, res) => {
     res.json(allListings);
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", msg: "error getting listings" });
+    res.json({ status: "error", msg: "Error getting listings" });
   }
 };
 
@@ -58,10 +58,16 @@ const getListingbyId = async (req, res) => {
     const listing = await ListingModel.find({
       listing_id: req.params.listing_id,
     });
+    console.log(listing);
+    if (listing.length === 0) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Listing not found" });
+    }
     res.json(listing);
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "cannot get listing" });
+    res.json({ status: "error", message: "Cannot get listing" });
   }
 };
 
@@ -81,12 +87,12 @@ const createListing = async (req, res) => {
     await createdListing.save();
     res.json({
       status: "ok",
-      msg: "listing saved",
+      msg: "Listing saved",
       listing_id: createdListing.listing_id,
     });
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "cannot create listing" });
+    res.json({ status: "error", message: "Cannot create listing" });
   }
 };
 
@@ -105,26 +111,34 @@ const patchListing = async (req, res) => {
       updatedListing.date_available_to = req.body.date_available_to;
     if ("image_url" in req.body) updatedListing.image_url = req.body.image_url;
 
-    await ListingModel.updateMany(
+    await ListingModel.updateOne(
       { listing_id: req.params.listing_id },
       updatedListing
     );
-    res.json({ status: "okay", message: "listing updated" });
+    res.json({ status: "okay", message: "Listing updated" });
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "cannot update listing" });
+    res.json({ status: "error", message: "Cannot update listing" });
   }
 };
 
 //delete a particular listing by id
 const deleteListing = async (req, res) => {
   try {
-    
+    const listing = await ListingModel.find({
+      listing_id: req.params.listing_id,
+    });
+    if (listing.length === 0) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Listing not found" });
+    }
     await ListingModel.findOneAndDelete({ listing_id: req.params.listing_id });
-    res.json({ status: "okay", message: "listing deleted" });
+
+    res.json({ status: "okay", message: "Listing deleted" });
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "cannot delete listing" });
+    res.json({ status: "error", message: "Cannot delete listing" });
   }
 };
 
