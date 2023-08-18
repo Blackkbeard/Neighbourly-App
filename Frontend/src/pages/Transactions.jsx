@@ -3,7 +3,7 @@ import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Container, Typography, Box } from "@mui/material";
 
-const Profile = () => {
+const Transactions = () => {
   return (
     <>
       <TopBar showBurger={true}></TopBar>
@@ -12,7 +12,13 @@ const Profile = () => {
         <Box>
           <Grid container>
             <Grid xs={12} style={{ borderStyle: "solid" }}>
-              <Typography textAlign="center">Profile</Typography>
+              <Typography textAlign="center">Transaction</Typography>
+            </Grid>
+            <Grid xs={5} style={{ borderStyle: "solid" }}>
+              <Typography textAlign="center">Transaction</Typography>
+            </Grid>
+            <Grid xs={7} style={{ borderStyle: "solid" }}>
+              <Typography textAlign="center">Transaction</Typography>
             </Grid>
           </Grid>
         </Box>
@@ -21,4 +27,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Transactions;
