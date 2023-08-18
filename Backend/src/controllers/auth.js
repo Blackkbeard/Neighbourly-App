@@ -12,7 +12,7 @@ const seedAuth = async (req, res) => {
     await AuthModel.create([
       {
         email: "test1@test.com",
-        hash: "testing123",
+        hash: "",
       },
       {
         email: "test2@test.com",
@@ -47,11 +47,10 @@ const register = async (req, res) => {
     if (auth) {
       return res.status(400).json({ msg: "Duplicate email" });
     }
-    const hash = await bcrypt.hash(req.body.password, 12);
+    const hash = await bcrypt.hash(req.body.password, 5);
     await AuthModel.create({
       email: req.body.email,
       hash,
-      user_id: uuidv4(),
     });
     res.status(201).json({ msg: "User created" });
   } catch (error) {
