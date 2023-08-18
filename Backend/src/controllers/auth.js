@@ -4,6 +4,34 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
+// To seed Data
+const seedAuth = async (req, res) => {
+  try {
+    await AuthModel.deleteMany();
+
+    await AuthModel.create([
+      {
+        email: "test1@test.com",
+        hash: "testing123",
+      },
+      {
+        email: "test2@test.com",
+        hash: "testing1234",
+      },
+      {
+        email: "test3@test.com",
+        hash: "testing12345",
+      },
+    ]);
+
+    res.json({ status: "ok", msg: "seeding successful" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ status: "error", msg: "seeding error" });
+  }
+};
+
+// To Register
 const register = async (req, res) => {
   try {
     const auth = await AuthModel.findOne({ email: req.body.email });
@@ -68,4 +96,4 @@ const refresh = (req, res) => {
     res.status(400).json({ status: "error", msg: "token refresh error" });
   }
 };
-module.exports = { register, login, refresh };
+module.exports = { seedAuth, register, login, refresh };
