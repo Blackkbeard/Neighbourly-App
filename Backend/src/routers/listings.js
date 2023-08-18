@@ -17,25 +17,15 @@ const router = express.Router();
 
 router.get("/listings/seed", seedListings);
 router.get("/listings/", getAllListings);
-router.get(
-  "/listings/:listing_id",
-  validateIdInParam,
-  checkValid,
-  getListingById
-);
+router.get("/listings/:id", validateIdInParam, checkValid, getListingById);
 router.put("/listings", validateCreateListing, checkValid, createListing);
 router.patch(
-  "/listings/:listing_id",
+  "/listings/:id",
   validateIdInParam,
   validatePatchListing,
   checkValid,
   patchListing
 );
-router.delete(
-  "/listings/:listing_id",
-  validateIdInParam,
-  checkValid,
-  deleteListing
-);
+router.delete("/listings/:id", validateIdInParam, checkValid, deleteListing);
 
 module.exports = router;
