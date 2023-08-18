@@ -3,6 +3,7 @@ const express = require("express");
 
 const ListingModel = require("../models/listings");
 
+// Seed 2 listings for test user. Update to vinesh's seeded user
 const seedListings = async (req, res) => {
   try {
     await ListingModel.deleteMany();
@@ -14,6 +15,7 @@ const seedListings = async (req, res) => {
         title: "My beloved bike",
         description: `I’m too busy with my coding bootcamp to ride it. Feel free to borrow it on weekends`,
         type: "loan",
+        owner_id: "Owner1",
         date_available_from: `${new Date()}`,
         date_available_to: "2022-09-30",
         image_url:
@@ -25,6 +27,7 @@ const seedListings = async (req, res) => {
         title: "Onions",
         description: `Onions are a rich source of fiber and prebiotics, which are necessary for optimal gut health. I bought way too many onions. Giving away for free`,
         type: "free",
+        owner_id: "Owner1",
         date_available_from: `${new Date()}`,
         date_available_to: "2022-08-30",
         image_url:
@@ -38,4 +41,15 @@ const seedListings = async (req, res) => {
   }
 };
 
-module.exports = { seedListings };
+// Get all listings
+const getAllListings = async (req, res) => {
+  try {
+    const allListings = await ListingModel.find();
+    res.json(allListings);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", msg: "error getting listings" });
+  }
+};
+
+module.exports = { seedListings, getAllListings };
