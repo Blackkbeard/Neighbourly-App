@@ -23,7 +23,8 @@ app.use(helmet());
 app.use(limit);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/", listings);
+
+app.use("/api", listings);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
