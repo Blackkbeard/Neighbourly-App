@@ -8,7 +8,7 @@ const {
   validateRefreshToken,
 } = require("../validators/auth");
 
-const checkValid = require("../middlware/checkValid");
+const checkValid = require("../middleware/checkValid");
 
 router.put("/register", validateRegistrationData, checkValid, register);
 router.post("/login", validateLoginData, checkValid, login);
