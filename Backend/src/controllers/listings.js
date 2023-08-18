@@ -52,14 +52,12 @@ const getAllListings = async (req, res) => {
   }
 };
 
-// Get listing by listing_id
+// Get listing by _id
 const getListingById = async (req, res) => {
   try {
-    const listing = await ListingModel.find({
-      listing_id: req.params.listing_id,
-    });
-    console.log(listing);
-    if (listing.length === 0) {
+    const listing = await ListingModel.findById(req.params.id);
+    // console.log(listing);
+    if (!listing) {
       return res
         .status(400)
         .json({ status: "error", error: "Listing not found" });

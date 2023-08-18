@@ -1,7 +1,7 @@
 const { check, param } = require("express-validator");
 
 const validateIdInParam = [
-  param("id", "invalid id").isLength({ min: 36, max: 36 }),
+  param("id", "invalid id").isLength({ min: 24, max: 24 }),
 ];
 
 const validateCreateListing = [

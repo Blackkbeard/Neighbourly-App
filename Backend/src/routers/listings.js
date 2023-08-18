@@ -17,12 +17,7 @@ const router = express.Router();
 
 router.get("/listings/seed", seedListings);
 router.get("/listings/", getAllListings);
-router.get(
-  "/listings/:listing_id",
-  validateIdInParam,
-  checkValid,
-  getListingById
-);
+router.get("/listings/:id", validateIdInParam, checkValid, getListingById);
 router.put("/listings", validateCreateListing, checkValid, createListing);
 router.patch(
   "/listings/:listing_id",

@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 // const { Schema } = mongoose;
 const ListingSchema = new mongoose.Schema(
   {
-    // listing_id: { type: String, required: true, minLength: 1, maxLength: 50 },
     created_at: { type: Date, default: Date.now },
     title: { type: String, required: true, minLength: 1, maxLength: 100 },
     description: { type: String, required: true },
