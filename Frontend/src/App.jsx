@@ -12,7 +12,7 @@ import Transaction from "./pages/Transaction";
 
 function App() {
   return (
-    <div className="container">
+    <div className="margin-padding-0">
       <Routes>
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/registration" element={<Registration />}></Route>
