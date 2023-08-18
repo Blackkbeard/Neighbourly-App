@@ -5,6 +5,7 @@ const OfferPage = () => {
   return (
     <>
       <TopBar showBurger={true}></TopBar>
+      The Neighbourhood
     </>
   );
 };

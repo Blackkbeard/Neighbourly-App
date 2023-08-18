@@ -5,6 +5,7 @@ const Settings = () => {
   return (
     <>
       <TopBar showBurger={true}></TopBar>
+      Settings
     </>
   );
 };

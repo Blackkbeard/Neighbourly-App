@@ -8,6 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import GiteIcon from "@mui/icons-material/Gite";
 import Avatar from "@mui/material/Avatar";
 import NavBar from "./NavBar";
+import { NavLink } from "react-router-dom";
 
 const TopBar = (props) => {
   const [anchorElUser, setAnchorElUser] = useState(false);
@@ -30,6 +31,8 @@ const TopBar = (props) => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 1 }}
+            component={NavLink}
+            to="/"
           >
             <GiteIcon />
           </IconButton>
@@ -40,7 +43,7 @@ const TopBar = (props) => {
           {/* conditional rendering of avatar & burger menu */}
           {props.showBurger && (
             <>
-              <IconButton sx={{ p: 1 }}>
+              <IconButton sx={{ p: 1 }} component={NavLink} to="/profile">
                 <Avatar />
               </IconButton>
 

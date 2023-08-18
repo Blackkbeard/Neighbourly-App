@@ -5,6 +5,7 @@ const Transaction = () => {
   return (
     <>
       <TopBar showBurger={true}></TopBar>
+      Transaction
     </>
   );
 };

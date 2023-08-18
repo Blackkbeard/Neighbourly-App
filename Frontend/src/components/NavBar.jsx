@@ -2,13 +2,14 @@ import React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
+import { NavLink } from "react-router-dom";
 
 const navBar = [
-  "The Neighbourhood",
-  "Profile",
-  "Transaction",
-  "Settings",
-  "Log Out",
+  { item: "The Neighbourhood", link: "/" },
+  { item: "Profile", link: "/profile" },
+  { item: "Transaction", link: "/transaction" },
+  { item: "Settings", link: "/settings" },
+  { item: "Log Out", link: "/" },
 ];
 
 const NavBar = (props) => {
@@ -29,9 +30,15 @@ const NavBar = (props) => {
       open={Boolean(props.anchorElUser)}
       onClose={props.handleCloseUserMenu}
     >
-      {navBar.map((item) => (
-        <MenuItem key={item} onClick={props.handleCloseUserMenu}>
-          <Typography textAlign="center">{item}</Typography>
+      {navBar.map((item, id) => (
+        <MenuItem
+          key={id}
+          onClick={props.handleCloseUserMenu}
+          component={NavLink}
+          to={item["link"]}
+          style={{ textDecoration: "none" }}
+        >
+          <Typography textAlign="center">{item["item"]}</Typography>
         </MenuItem>
       ))}
     </Menu>

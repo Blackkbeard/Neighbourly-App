@@ -5,6 +5,7 @@ const Profile = () => {
   return (
     <>
       <TopBar showBurger={true}></TopBar>
+      Profile
     </>
   );
 };
