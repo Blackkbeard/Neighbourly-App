@@ -10,15 +10,13 @@ const seedTransactions = async (req, res) => {
 
     await TransactionModel.create([
       {
-        transaction_id: uuidv4(),
-        listing_id: "64d0f3f75676c304033d8c89",
+        listing_id: "64d0f3f75676c304033d8c90",
         owner_id: "owner1",
         requester_id: "requester1",
         type: "pending_response",
       },
       {
-        transaction_id: uuidv4(),
-        listing_id: "64d0f3f75676c304033d8c90",
+        listing_id: "64d0f3f75676c304033d8c89",
         owner_id: "owner1",
         requester_id: "requester1",
         type: "pending_response",
