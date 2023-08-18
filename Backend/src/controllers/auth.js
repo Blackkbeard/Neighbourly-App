@@ -30,7 +30,16 @@ const seedAuth = async (req, res) => {
     res.status(400).json({ status: "error", msg: "seeding error" });
   }
 };
-
+// To get all RegisteredData
+const getAllAccount = async (req, res) => {
+  try {
+    const allAcc = await AuthModel.find();
+    res.json(allBooks);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", msg: error.message });
+  }
+};
 // To Register
 const register = async (req, res) => {
   try {

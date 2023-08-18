@@ -9,7 +9,7 @@ const {
 } = require("../validators/auth");
 
 const checkValid = require("../middleware/checkValid");
-const { auth } = require("../middleware/auth");
+// const { auth } = require("../middleware/auth");
 
 router.get("/seed", seedAuth);
 router.put("/register", validateRegistrationData, checkValid, register);
