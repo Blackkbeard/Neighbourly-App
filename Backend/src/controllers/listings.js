@@ -33,10 +33,10 @@ const seedListings = async (req, res) => {
           "https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/onions.jpg?itok=NqLGNDHS",
       },
     ]);
-    res.json({ status: "ok", msg: "seeding successful" });
+    res.json({ status: "ok", msg: "Seeding successful" });
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ status: "error", msg: "seeding error" });
+    res.status(400).json({ status: "error", msg: "Seeding error" });
   }
 };
 
@@ -47,7 +47,7 @@ const getAllListings = async (req, res) => {
     res.json(allListings);
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", msg: "Error getting listings" });
+    res.status(400).json({ status: "error", msg: "Error getting listings" });
   }
 };
 
@@ -66,7 +66,7 @@ const getListingById = async (req, res) => {
     res.json(listing);
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "Cannot get listing" });
+    res.status(400).json({ status: "error", message: "Cannot get listing" });
   }
 };
 
@@ -91,13 +91,22 @@ const createListing = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "Cannot create listing" });
+    res.status(400).json({ status: "error", message: "Cannot create listing" });
   }
 };
 
 //update a particular listing by listing_id
 const patchListing = async (req, res) => {
   try {
+    const listing = await ListingModel.find({
+      listing_id: req.params.listing_id,
+    });
+    if (listing.length === 0) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Listing not found" });
+    }
+
     const updatedListing = {};
     if ("title" in req.body) updatedListing.title = req.body.title;
     if ("description" in req.body)
@@ -114,10 +123,10 @@ const patchListing = async (req, res) => {
       { listing_id: req.params.listing_id },
       updatedListing
     );
-    res.json({ status: "okay", message: "Listing updated" });
+    res.json({ status: "ok", message: "Listing updated" });
   } catch (error) {
     console.log(error.message);
-    res.json({ status: "error", message: "Cannot update listing" });
+    res.status(400).json({ status: "error", message: "Cannot update listing" });
   }
 };
 
@@ -134,7 +143,7 @@ const deleteListing = async (req, res) => {
     }
     await ListingModel.findOneAndDelete({ listing_id: req.params.listing_id });
 
-    res.json({ status: "okay", message: "Listing deleted" });
+    res.json({ status: "ok", message: "Listing deleted" });
   } catch (error) {
     console.log(error.message);
     res.json({ status: "error", message: "Cannot delete listing" });
