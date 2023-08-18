@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require("uuid");
-const express = require("express");
 
 const ListingModel = require("../models/listings");
 
@@ -53,7 +52,7 @@ const getAllListings = async (req, res) => {
 };
 
 // Get listing by listing_id
-const getListingbyId = async (req, res) => {
+const getListingById = async (req, res) => {
   try {
     const listing = await ListingModel.find({
       listing_id: req.params.listing_id,
@@ -145,7 +144,7 @@ const deleteListing = async (req, res) => {
 module.exports = {
   seedListings,
   getAllListings,
-  getListingbyId,
+  getListingById,
   createListing,
   patchListing,
   deleteListing,
