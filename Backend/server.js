@@ -7,7 +7,7 @@ const rateLimit = require("express-rate-limit");
 const connectDB = require("./src/db/db"); //import database
 
 connectDB();
-
+const transactions = require("./src/routers/transactions");
 const listings = require("./src/routers/listings");
 const auth = require("./src/routers/auth");
 
@@ -26,6 +26,7 @@ app.use(limit);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", listings);
+app.use("/api", transactions);
 app.use("/auth", auth);
 
 const PORT = process.env.PORT || 5001;
