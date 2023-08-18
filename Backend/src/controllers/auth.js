@@ -51,6 +51,7 @@ const register = async (req, res) => {
     await AuthModel.create({
       email: req.body.email,
       hash,
+      user_id: uuidv4(),
     });
     res.status(201).json({ msg: "User created" });
   } catch (error) {
