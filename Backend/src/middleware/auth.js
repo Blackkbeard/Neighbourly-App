@@ -20,6 +20,4 @@ const auth = (req, res, next) => {
   }
 };
 
-// AuthAdmin not necessary
-
 module.exports = { auth };
