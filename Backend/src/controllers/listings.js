@@ -17,6 +17,7 @@ const seedListings = async (req, res) => {
         listing_id: uuidv4(),
       },
     ]);
+    console.log("seeded");
 
     res.json({ status: "ok", msg: "seeding successful" });
   } catch (error) {
