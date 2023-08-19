@@ -1,21 +1,46 @@
 import React from "react";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import { NavLink } from "react-router-dom";
+
+import {
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  MenuList,
+  Typography,
+  Divider,
+} from "@mui/material";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import GiteIcon from "@mui/icons-material/Gite";
+import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 const navBar1 = [
-  { item: "The Neighbourhood", link: "/" },
-  { item: "Profile", link: "/profile" },
-  { item: "Transactions", link: "/transactions" },
+  {
+    item: "The Neighbourhood",
+    link: "/",
+    icon: <GiteIcon fontSize="large" />,
+  },
+  {
+    item: "Profile",
+    link: "/profile",
+    icon: <PersonOutlineOutlinedIcon fontSize="large" />,
+  },
+  {
+    item: "Transactions",
+    link: "/transactions",
+    icon: <SwapHorizOutlinedIcon fontSize="large" />,
+  },
 ];
 
 const navBar2 = [
-  { item: "Settings", link: "/settings" },
-  { item: "Log Out", link: "/" },
+  {
+    item: "Settings",
+    link: "/settings",
+    icon: <SettingsOutlinedIcon fontSize="large" />,
+  },
+  { item: "Log Out", link: "/", icon: <CloseIcon fontSize="large" /> },
 ];
 
 const NavBar = (props) => {
@@ -40,18 +65,19 @@ const NavBar = (props) => {
       >
         <MenuList>
           <MenuItem className="menu-item" disabled>
-            Howdy, User
+            <Typography textAlign="center">Howdy, USER-NAME</Typography>
           </MenuItem>
           {navBar1.map((item, id) => (
             <MenuItem
               key={id}
               onClick={props.handleCloseUserMenu}
               component={NavLink}
-              to={item["link"]}
+              to={item.link}
               style={{ textDecoration: "none" }}
               className="menu-item"
             >
-              <Typography textAlign="center">{item["item"]}</Typography>
+              <ListItemIcon sx={{ mr: "1rem" }}>{item.icon}</ListItemIcon>
+              <Typography textAlign="center">{item.item}</Typography>
             </MenuItem>
           ))}
           <Divider variant="middle" />
@@ -60,11 +86,12 @@ const NavBar = (props) => {
               key={id}
               onClick={props.handleCloseUserMenu}
               component={NavLink}
-              to={item["link"]}
+              to={item.link}
               style={{ textDecoration: "none" }}
               className="menu-item"
             >
-              <Typography textAlign="center">{item["item"]}</Typography>
+              <ListItemIcon sx={{ mr: "1rem" }}>{item.icon}</ListItemIcon>
+              <Typography textAlign="center">{item.item}</Typography>
             </MenuItem>
           ))}
         </MenuList>

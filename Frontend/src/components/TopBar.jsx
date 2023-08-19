@@ -32,7 +32,11 @@ const TopBar = (props) => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: "1rem", ml: "0.3rem" }}
+              sx={{
+                mr: "1rem",
+                ml: "0.3rem",
+                ":hover": { backgroundColor: "rgba(187, 0, 84, 0.85)" },
+              }}
               className="burgundy"
               component={NavLink}
               to="/"
