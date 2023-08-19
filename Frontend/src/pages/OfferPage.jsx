@@ -31,7 +31,7 @@ const OfferPage = () => {
             <Grid container alignItems="center">
               <Grid xs={12}>
                 <Typography variant="h5" textAlign="start" margin="2rem 0">
-                  Happing in xx neighbourhood
+                  Happing in USER-LOCATION neighbourhood
                 </Typography>
               </Grid>
 

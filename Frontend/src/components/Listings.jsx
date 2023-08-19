@@ -9,6 +9,8 @@ import {
   Typography,
   CardActionArea,
   Avatar,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 
 const Listings = () => {
@@ -25,13 +27,17 @@ const Listings = () => {
               <CardHeader
                 // onClick to listing owner profile
                 avatar={
-                  <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
+                  <Tooltip title="View Profile" placement="top">
+                    <IconButton onClick={() => console.log("to profile")}>
+                      <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
+                    </IconButton>
+                  </Tooltip>
                 }
                 title="Listing owner"
                 subheader="Listing date"
                 style={{ backgroundColor: "var(--lightpink)" }}
               />
-              <CardActionArea>
+              <CardActionArea onClick={() => console.log("to listing")}>
                 <CardMedia
                   component="img"
                   height="140"

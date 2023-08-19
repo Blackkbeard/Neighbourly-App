@@ -64,6 +64,10 @@ body {
   align-items: center;
 }
 
+.btn:hover {
+  background-color: lightgrey;
+}
+
 .search-bar {
   background-color: var(--dustypink);
   border-radius: 2rem;
