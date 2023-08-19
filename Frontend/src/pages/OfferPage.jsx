@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Container, Typography, Box } from "@mui/material";
 import Btn from "../components/Btn";
+import UserContext from "../context/user";
 
 const OfferPage = () => {
+  const userCtx = useContext(UserContext);
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>
