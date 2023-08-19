@@ -2,6 +2,7 @@
 
 :root {
   --lightpink: rgba(255, 248, 247, 1);
+  --dustypink: rgba(242, 229, 230, 1);
   --burgundy: rgba(187, 0, 84, 1);
   --brown: rgba(143, 110, 117, 1);
   --bgm: rgba(255, 255, 255, 1);
@@ -56,8 +57,16 @@ body {
   color: white;
   border-radius: 3rem;
   text-transform: none;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  background-color: var(--dustypink);
+  border-radius: 2rem;
 }
 
 /* color */

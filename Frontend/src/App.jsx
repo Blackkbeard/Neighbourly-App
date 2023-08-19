@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import UserContext from "./context/user";
 
@@ -14,12 +14,12 @@ import Transactions from "./pages/Transactions";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userInfo, setUserInfo] = useState("");
 
   return (
     <div className="margin-padding-0">
       <UserContext.Provider
-        value={{ accessToken, setAccessToken, userId, setUserId }}
+        value={{ accessToken, setAccessToken, userInfo, setUserInfo }}
       >
         <Routes>
           <Route path="/sign-in" element={<SignIn />}></Route>

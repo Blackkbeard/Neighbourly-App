@@ -1,9 +1,22 @@
 import React, { useContext } from "react";
-import TopBar from "../components/TopBar";
-import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box } from "@mui/material";
-import Btn from "../components/Btn";
 import UserContext from "../context/user";
+import Grid from "@mui/material/Unstable_Grid2";
+import {
+  Container,
+  Typography,
+  Box,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  StyledEngineProvider,
+} from "@mui/material";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
+import TopBar from "../components/TopBar";
+import Btn from "../components/Btn";
+import Listings from "../components/Listings";
 
 const OfferPage = () => {
   const userCtx = useContext(UserContext);
@@ -12,22 +25,54 @@ const OfferPage = () => {
     <>
       <TopBar showBurger={true}></TopBar>
 
-      <Container maxWidth="lg">
-        <Box>
-          <Grid container>
-            <Grid xs={6} style={{ borderStyle: "solid" }}>
-              <Typography textAlign="center">The Neighbourhood</Typography>
+      <StyledEngineProvider injectFirst>
+        <Container maxWidth="lg">
+          <Box>
+            <Grid container alignItems="center">
+              <Grid xs={12}>
+                <Typography variant="h5" textAlign="start" margin="2rem 0">
+                  Happing in xx neighbourhood
+                </Typography>
+              </Grid>
+
+              {/* Material UI Search Bar */}
+              <Grid xs={10}>
+                <FormControl
+                  sx={{ width: "20rem" }}
+                  variant="outlined"
+                  className="search-bar"
+                  color="secondary"
+                >
+                  <InputLabel
+                    htmlFor="outlined-adornment"
+                    sx={{ ml: "0.5rem" }}
+                  >
+                    Search
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment"
+                    type="text"
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton edge="end" disabled sx={{ mr: "0.1rem" }}>
+                          <SearchOutlinedIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Search"
+                    className="search-bar"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid xs={2}>
+                <Btn>+ Add Offer</Btn>
+              </Grid>
+
+              <Listings></Listings>
             </Grid>
-            <Grid xs={6} style={{ borderStyle: "solid" }}>
-              <Typography textAlign="center">The Neighbourhood</Typography>
-              <Btn>Leave A Review</Btn>
-              <Btn isBrown={true} width={15}>
-                Re-list This Item
-              </Btn>
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
+          </Box>
+        </Container>
+      </StyledEngineProvider>
     </>
   );
 };
