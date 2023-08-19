@@ -31,14 +31,17 @@ const OfferPage = () => {
             <Grid container alignItems="center">
               <Grid xs={12}>
                 <Typography variant="h5" textAlign="start" margin="2rem 0">
-                  Happing in USER-LOCATION neighbourhood
+                  Happening in USER-LOCATION neighbourhood
                 </Typography>
               </Grid>
 
               {/* Material UI Search Bar */}
               <Grid xs={10}>
                 <FormControl
-                  sx={{ width: "20rem" }}
+                  sx={{
+                    width: "20rem",
+                    input: { fontFamily: "var(--font)" },
+                  }}
                   variant="outlined"
                   className="search-bar"
                   color="secondary"
@@ -47,7 +50,7 @@ const OfferPage = () => {
                     htmlFor="outlined-adornment"
                     sx={{ ml: "0.5rem" }}
                   >
-                    Search
+                    <Typography>Search</Typography>
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment"

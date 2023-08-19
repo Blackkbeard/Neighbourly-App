@@ -65,7 +65,7 @@ const NavBar = (props) => {
       >
         <MenuList>
           <MenuItem className="menu-item" disabled>
-            Howdy, USER-NAME
+            <Typography textAlign="center">Howdy, USER-NAME</Typography>
           </MenuItem>
           {navBar1.map((item, id) => (
             <MenuItem

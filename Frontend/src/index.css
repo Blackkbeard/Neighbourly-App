@@ -1,19 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Lato:wght@400;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,700&family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap");
+
 :root {
   --lightpink: rgba(255, 248, 247, 1);
   --dustypink: rgba(242, 229, 230, 1);
   --burgundy: rgba(187, 0, 84, 1);
   --brown: rgba(143, 110, 117, 1);
   --bgm: rgba(255, 255, 255, 1);
+  /* --font: "Oxygen", sans-serif; */
+  /* --font: "Josefin Sans", sans-serif; */
+  /* --font: "Lato", sans-serif; */
+  /* --font: "Nunito Sans", sans-serif; */
+  /* --font: "Open Sans", sans-serif; */
+  --font: "Raleway", sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html {
-  font-family: "Oxygen", sans-serif;
+/* apply font family */
+.MuiTypography-root,
+body {
+  font-family: var(--font);
 }
 
 body {
