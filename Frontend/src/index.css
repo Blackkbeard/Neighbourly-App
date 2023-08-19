@@ -3,6 +3,7 @@
 :root {
   --lightpink: rgba(255, 248, 247, 1);
   --burgundy: rgba(187, 0, 84, 1);
+  --brown: rgba(143, 110, 117, 1);
   --bgm: rgba(255, 255, 255, 1);
 }
 
@@ -52,6 +53,7 @@ body {
 
 .btn {
   background-color: var(--burgundy);
+  color: white;
   border-radius: 3rem;
   text-transform: none;
   padding-left: 2rem;
@@ -65,6 +67,10 @@ body {
 
 .burgundy {
   background-color: var(--burgundy);
+}
+
+.brown {
+  background-color: var(--brown);
 }
 
 .burgundy-text {

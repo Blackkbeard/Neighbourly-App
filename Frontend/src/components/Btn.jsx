@@ -9,7 +9,7 @@ const Btn = (props) => {
         <Button
           variant="contained"
           onClick={props.onClick}
-          className="btn"
+          className={props.isBrown ? "btn brown" : "btn burgundy"}
         >
           {props.children}
         </Button>
