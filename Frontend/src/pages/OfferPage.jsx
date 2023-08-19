@@ -20,8 +20,10 @@ const OfferPage = () => {
             </Grid>
             <Grid xs={6} style={{ borderStyle: "solid" }}>
               <Typography textAlign="center">The Neighbourhood</Typography>
-              <Btn>Sign In</Btn>
-              <Btn isBrown={true}>Cancel</Btn>
+              <Btn>Leave A Review</Btn>
+              <Btn isBrown={true} width={15}>
+                Re-list This Item
+              </Btn>
             </Grid>
           </Grid>
         </Box>

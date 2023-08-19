@@ -10,6 +10,7 @@ const Btn = (props) => {
           variant="contained"
           onClick={props.onClick}
           className={props.isBrown ? "btn brown" : "btn burgundy"}
+          style={{ width: `${props.width}rem` }}
         >
           {props.children}
         </Button>
