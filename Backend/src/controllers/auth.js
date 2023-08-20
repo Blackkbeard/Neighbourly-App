@@ -66,6 +66,7 @@ const register = async (req, res) => {
     await AuthModel.create({
       email: req.body.email,
       hash,
+      display_name: req.body.email,
       location: req.body.location,
       postal_code: req.body.postal_code,
       biography: req.body.biography,
@@ -129,11 +130,27 @@ const refresh = (req, res) => {
   }
 };
 
-// const updateProfile = (req, res) => {
-//   try {
-//   } catch (error) {
-//     console.log(error.message);
-//     res.status(400).json({ status: "error", msg: "update profile error" });
-//   }
-// };
-module.exports = { seedAuth, register, getAllAccount, login, refresh };
+const updateProfile = async (req, res) => {
+  try {
+    const updatedProfile = {};
+    if ("display_name" in req.body)
+      updatedProfile.display_name = req.body.display_name;
+    if ("location" in req.body) updatedProfile.location = req.body.location;
+    if ("postal_code" in req.body)
+      updatedProfile.postal_code = req.body.postal_code;
+    if ("biography" in req.body) updatedProfile.biography = req.body.biography;
+    await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
+    res.json({ status: "ok", msg: "Account updated" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", msg: error.message });
+  }
+};
+module.exports = {
+  seedAuth,
+  register,
+  getAllAccount,
+  login,
+  refresh,
+  updateProfile,
+};
