@@ -2,7 +2,14 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, TextField } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Button,
+  Link,
+} from "@mui/material";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
 
@@ -16,7 +23,6 @@ const SignIn = (props) => {
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
-      userCtx.setRole(decoded.role);
     } else {
       alert(JSON.stringify(res.data));
     }
@@ -39,7 +45,14 @@ const SignIn = (props) => {
             <Grid xs={7} style={{ borderStyle: "solid" }}>
               <Typography textAlign="center">Sign-in</Typography>
             </Grid>
-            <Grid xs={5} style={{ borderStyle: "solid" }}>
+            <Grid
+              xs={5}
+              style={{ borderStyle: "solid" }}
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
               <Typography textAlign="center">Sign-in</Typography>
               <TextField
                 id="outlined-basic"
@@ -55,10 +68,14 @@ const SignIn = (props) => {
                 defaultValue="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Btn onClick={handleLogin}>Login</Btn>
-              <Btn isBrown={true} width={15}>
-                Cancel
+              <Link>No Account? Create Account</Link>
+              <Button variant="text">No Account? Create Account</Button>
+              <Btn variant="text" onClick={handleLogin}>
+                Sign In
               </Btn>
+              {/* <Btn isBrown={true} width={15}>
+                Cancel
+              </Btn> */}
             </Grid>
           </Grid>
         </Box>

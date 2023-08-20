@@ -39,7 +39,14 @@ const Registration = () => {
           autoComplete="off"
         >
           <Grid container>
-            <Grid xs={12} style={{ borderStyle: "solid" }}>
+            <Grid
+              xs={12}
+              style={{ borderStyle: "solid" }}
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
               <Typography textAlign="center">
                 Register For an Account
               </Typography>
