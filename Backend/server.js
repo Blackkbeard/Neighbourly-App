@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const connectDB = require("./src/db/db"); //import database
 
 connectDB();
+
 const transactions = require("./src/routers/transactions");
 const listings = require("./src/routers/listings");
 const auth = require("./src/routers/auth");
