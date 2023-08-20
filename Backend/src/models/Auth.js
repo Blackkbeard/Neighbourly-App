@@ -6,9 +6,9 @@ const AuthSchema = new mongoose.Schema(
     hash: { type: String, required: true, minLength: 6, maxLength: 100 },
     display_name: { type: String, required: false },
     location: {
-      type: Object,
+      type: String,
       required: true,
-      enum: ["Yishun", "Queenstown", "Outram park", "Jurong East"],
+      enum: ["Yishun", "Queenstown", "Outram Park", "Jurong East"],
       default: "",
     }, //default location is ""?  to hardcode into options
     postal_code: {
@@ -21,8 +21,8 @@ const AuthSchema = new mongoose.Schema(
     biography: {
       type: String,
       default: "",
-      required: true,
-      minLength: 1,
+      required: false,
+      minLength: 0,
       maxLength: 100,
     },
     help_count: { type: Number, default: 0 },

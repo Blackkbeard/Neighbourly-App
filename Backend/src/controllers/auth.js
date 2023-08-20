@@ -13,14 +13,29 @@ const seedAuth = async (req, res) => {
       {
         email: "test1@test.com",
         hash: "testing1234",
+        location: "Yishun",
+        postal_code: 123456,
+        biography: "I am a test user1",
+        help_count: 0,
+        rating: 0,
       },
       {
         email: "test2@test.com",
         hash: "testing1234",
+        location: "Outram Park",
+        postal_code: 123456,
+        biography: "I am a test user2",
+        help_count: 0,
+        rating: 0,
       },
       {
         email: "test3@test.com",
         hash: "testing12345",
+        location: "Queenstown",
+        postal_code: 123456,
+        biography: "I am a test user3",
+        help_count: 0,
+        rating: 0,
       },
     ]);
 
@@ -51,6 +66,11 @@ const register = async (req, res) => {
     await AuthModel.create({
       email: req.body.email,
       hash,
+      location: req.body.location,
+      postal_code: req.body.postal_code,
+      biography: req.body.biography,
+      help_count: 0,
+      rating: 0,
     });
     res.status(201).json({ msg: "User created" });
   } catch (error) {
@@ -62,10 +82,13 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const auth = await AuthModel.findOne({ email: req.body.email });
-    // the (!auth) is not necessary, but it's a good practice to check if the user exists
-    // if (!auth) {
-    //   return res.status(400).json({ status: "error", msg: "You Do not have an account. Please register" });
-    // }
+
+    if (!auth) {
+      return res.status(400).json({
+        status: "error",
+        msg: "You Do not have an account. Please register",
+      });
+    }
     const result = await bcrypt.compare(req.body.password, auth.hash);
     if (!result) {
       console.log("email or password error");
@@ -75,7 +98,7 @@ const login = async (req, res) => {
       email: auth.email,
     };
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
-      expiresIn: "30d",
+      expiresIn: "20m",
       jwtid: uuidv4(),
     });
     const refresh = jwt.sign(claims, process.env.REFRESH_SECRET, {
@@ -105,4 +128,12 @@ const refresh = (req, res) => {
     res.status(400).json({ status: "error", msg: "token refresh error" });
   }
 };
+
+// const updateProfile = (req, res) => {
+//   try {
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(400).json({ status: "error", msg: "update profile error" });
+//   }
+// };
 module.exports = { seedAuth, register, getAllAccount, login, refresh };
