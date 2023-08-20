@@ -69,21 +69,21 @@ const ProfileSetup = () => {
                 id="outlined-basic"
                 label="Required"
                 variant="outlined"
-                defaultValue="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                defaultValue="Display Name"
+                // onChange={(e) => setDispName(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
-                label="Required"
+                label="Biography"
                 variant="outlined"
-                defaultValue="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                defaultValue="Intrests & Hobbies"
+                // onChange={(e) => setBio(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
-                label="Required"
+                label="Phone Number"
                 variant="outlined"
-                defaultValue="Email"
+                defaultValue="Mobile Number"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Btn>Update</Btn>
