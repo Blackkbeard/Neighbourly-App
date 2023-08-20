@@ -12,7 +12,7 @@ const seedAuth = async (req, res) => {
     await AuthModel.create([
       {
         email: "test1@test.com",
-        hash: "",
+        hash: "testing1234",
       },
       {
         email: "test2@test.com",
