@@ -55,7 +55,7 @@ const SignIn = (props) => {
                 defaultValue="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Btn onClick={() => props.setShowLogin()}>Login</Btn>
+              <Btn onClick={handleLogin}>Login</Btn>
               <Btn isBrown={true} width={15}>
                 Cancel
               </Btn>
