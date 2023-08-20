@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   Link,
+  Avatar,
 } from "@mui/material";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
@@ -44,6 +45,13 @@ const SignIn = (props) => {
           <Grid container>
             <Grid xs={7} style={{ borderStyle: "solid" }}>
               <Typography textAlign="center">Sign-in</Typography>
+              <Avatar
+                alt=""
+                src="https://seeklogo.com/images/G/general-assembly-logo-D5C634F07A-seeklogo.com.png"
+                sx={{ width: 600, height: 600 }}
+                display="flex"
+                justifyContent="center"
+              />
             </Grid>
             <Grid
               xs={5}
