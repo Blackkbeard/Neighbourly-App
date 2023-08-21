@@ -11,28 +11,26 @@ const seedAuth = async (req, res) => {
 
     await AuthModel.create([
       {
+        _id: "64e2c2fcdce21246ef81b8ed",
         email: "desmond@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-        location: "Yishun",
-        postal_code: 123456,
         biography: "I am a test user1",
         help_count: 0,
         rating: 0,
+        location: [{"Yishun","760758",}],
       },
       {
+        _id: "64e2c2fcdce21246ef81b8ee",
         email: "hwee@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-        location: "Outram Park",
-        postal_code: 123456,
         biography: "I am a test user2",
         help_count: 0,
         rating: 0,
       },
       {
-        email: "test3@test.com",
+        _id: "64e2c2ffdce21246ef81b8f4",
+        email: "vinesh@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-        location: "Queenstown",
-        postal_code: 123456,
         biography: "I am a test user3",
         help_count: 0,
         rating: 0,
