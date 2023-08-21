@@ -32,13 +32,14 @@ const Transactions = (props) => {
   return (
     <>
       <Card
-        key={props.id}
+        key={props.idx}
+        id={props.id}
         variant="outlined"
         style={{
           borderRadius: "1rem",
           margin: "0.6rem",
         }}
-        onClick={() => {
+        onClick={(e) => {
           props.setSelectedTxnId(props.id);
         }}
       >

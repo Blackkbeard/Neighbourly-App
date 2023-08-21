@@ -7,7 +7,6 @@ import {
   Container,
   Typography,
   Box,
-  Avatar,
   Divider,
   ToggleButton,
   ToggleButtonGroup,
@@ -21,45 +20,55 @@ const Transactions = (props) => {
   const fetchData = useFetch();
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("listings");
-  const [selectedTxnId, setSelectedTxnId] = useState();
   const [selectedTxn, setSelectedTxn] = useState({});
+  const [selectedTxnId, setSelectedTxnId] = useState("");
 
   //fetch all transactions by owner
   const getTransactionsByOwner = async () => {
     const res = await fetchData("/api/transactions", "POST", {
-      owner_id: "64e2c2fcdce21246ef81b8ed",
+      owner_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
     });
 
     if (res.ok) {
-      console.log(res.data);
       setTransactions(res.data); //store in state
-      setSelectedTxnId(res.data[0]._id);
-      console.log(selectedTxnId);
     } else {
       alert(JSON.stringify(res.data));
-      console.log(res.data);
     }
   };
 
-  //fetch selected txn details
-  const getSelectedTxn = async () => {
-    const res = await fetchData("/api/transactions/" + selectedTxnId);
+  //get selected transaction
+  const getSelectedTxn = async (id) => {
+    const res = await fetchData("/api/transactions/" + id);
+    if (!id) {
+      // Return early if id is empty
+      return;
+    }
 
     if (res.ok) {
-      setSelectedTxn(res.data);
+      console.log(res.data);
+      setSelectedTxn(res.data); //store in state
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
 
+  //On first render, get all transactions
   useEffect(() => {
     getTransactionsByOwner();
   }, []);
 
+  //On first render, select first transaction
   useEffect(() => {
-    getSelectedTxn();
-  }, selectedTxnId);
+    if (Object.keys(selectedTxn).length === 0 && transactions.length > 0) {
+      setSelectedTxn(transactions[0]); //
+    }
+  }, [transactions]);
+
+  //Update selected transaction when selected transaction changes
+  useEffect(() => {
+    getSelectedTxn(selectedTxnId);
+  }, [selectedTxnId]);
 
   const handleToggle = (event, newSelection) => {
     setTxnToggle(newSelection);
@@ -125,39 +134,13 @@ const Transactions = (props) => {
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid xs={6}>
-              <Box sx={{ display: "flex" }} xs={12}>
-                <Box
-                  xs={2}
-                  sx={{ display: "flex", flexDirection: "column" }}
-                  margin="1rem"
-                >
-                  <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
-                </Box>
-                <Box
-                  sx={{ display: "flex", flexDirection: "column" }}
-                  margin="1rem"
-                >
-                  <Typography component="div" variant="h6">
-                    {selectedTxn.requester_id.display_name}
-                  </Typography>
-                  <Typography
-                    variant="subtitle"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    Neighbour in {selectedTxn.requester_id.location[0].district}
-                  </Typography>
-                </Box>
-              </Box>
-
-              <Divider
-                variant="middle"
-                sx={{ marginLeft: "5%", marginRight: "5%" }}
-              />
-
-              <TransactionDetails
-                selectedTxn={selectedTxn}
-              ></TransactionDetails>
+              {Object.keys(selectedTxn).length > 0 ? (
+                <TransactionDetails
+                  selectedTxn={selectedTxn}
+                ></TransactionDetails>
+              ) : (
+                <Box>Loading..</Box>
+              )}
             </Grid>
           </Grid>
         </Box>
