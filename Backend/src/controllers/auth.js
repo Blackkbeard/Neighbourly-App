@@ -17,7 +17,15 @@ const seedAuth = async (req, res) => {
         biography: "I am a test user1",
         help_count: 0,
         rating: 0,
-        location: [{"Yishun","760758",}],
+        mobile_number: 12345678,
+        location: [
+          {
+            district: "Yishun",
+            postal_code: 760758,
+            latitude: 1.42602952702202,
+            longitude: 103.834266086838,
+          },
+        ],
       },
       {
         _id: "64e2c2fcdce21246ef81b8ee",
@@ -26,6 +34,16 @@ const seedAuth = async (req, res) => {
         biography: "I am a test user2",
         help_count: 0,
         rating: 0,
+        mobile_number: 12345678,
+
+        location: [
+          {
+            district: "Yishun",
+            postal_code: 760761,
+            latitude: 1.4253984246908402,
+            longitude: 103.83325903597616,
+          },
+        ],
       },
       {
         _id: "64e2c2ffdce21246ef81b8f4",
@@ -34,6 +52,16 @@ const seedAuth = async (req, res) => {
         biography: "I am a test user3",
         help_count: 0,
         rating: 0,
+        mobile_number: 12345678,
+
+        location: [
+          {
+            district: "Yishun",
+            postal_code: 760753,
+            latitude: 1.4269870421973032,
+            longitude: 103.83462747028466,
+          },
+        ],
       },
     ]);
 
@@ -66,7 +94,7 @@ const register = async (req, res) => {
       hash,
       display_name: req.body.email,
       location: req.body.location,
-      postal_code: req.body.postal_code,
+      mobile_number: req.body.mobile_number,
       biography: req.body.biography,
       help_count: 0,
       rating: 0,

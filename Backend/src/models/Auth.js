@@ -2,24 +2,21 @@ const mongoose = require("mongoose");
 
 const LocationSchema = new mongoose.Schema(
   {
-    area: {
-      location: {
-        type: String,
-        required: true,
-        enum: ["Yishun", "Queenstown", "Outram Park", "Jurong East"],
-        default: "",
-      },
-      postal_code: {
-        type: Number,
-        default: "",
-        required: true,
-        minLength: 1,
-        maxLength: 6,
-      },
-
-      longitude: { type: Number, required: true, default: 0 }, // Corrected indentation
-      latitude: { type: Number, required: true, default: 0 },
+    district: {
+      type: String,
+      required: true,
+      enum: ["Yishun", "Queenstown", "Outram Park", "Jurong East"],
     },
+    postal_code: {
+      type: Number,
+
+      required: true,
+      minLength: 1,
+      maxLength: 6,
+    },
+    latitude: { type: Number, required: true },
+
+    longitude: { type: Number, required: true }, // Corrected indentation
   },
   { collection: "Location" }
 );
@@ -37,7 +34,7 @@ const AuthSchema = new mongoose.Schema(
       minLength: 0,
       maxLength: 100,
     },
-    mobile_number: { type: Number, required: true, minLength: 8, maxLength: 8 },
+    mobile_number: { type: Number, required: true, minLength: 1, maxLength: 9 },
     help_count: { type: Number, default: 0 },
     rating: { type: Number, default: 0 },
     created_at: { type: Date, required: true, default: Date.now },
@@ -48,4 +45,3 @@ const AuthSchema = new mongoose.Schema(
 module.exports = mongoose.model("Auth", AuthSchema);
 
 // to create location schema
-module.exports = mongoose.model("Location", LocationSchema);
