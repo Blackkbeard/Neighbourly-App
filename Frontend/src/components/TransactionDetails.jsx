@@ -11,27 +11,32 @@ const TransactionDetails = (props) => {
 
   let content = "";
 
-  const handleAcceptTxn = async (id) => {
+  //Functions
+
+  //When user clicks "Accept", update transaction status to "accepted"
+  const updateTxnStatus = async (newStatus) => {
     const res = await fetchData(
       "/api/transactions/" + props.selectedTxn._id,
       "PATCH",
       {
-        status: "accepted",
+        status: newStatus,
       }
     );
     if (res.ok) {
       setOpen(true);
-      props.setTransactionState("accepted");
+      props.setTransactionState(newStatus);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
 
+  //Close snackbar
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
+
     setOpen(false);
   };
 
@@ -57,10 +62,21 @@ const TransactionDetails = (props) => {
           </Typography>
 
           <Box sx={{ display: "flex", m: "0.5rem" }}>
-            <Btn width={10} onClick={handleAcceptTxn}>
+            <Btn
+              width={10}
+              onClick={() => {
+                updateTxnStatus("accepted");
+              }}
+            >
               Accept
             </Btn>
-            <Btn isBrown={true} width={10}>
+            <Btn
+              isBrown={true}
+              width={10}
+              onClick={() => {
+                updateTxnStatus("declined");
+              }}
+            >
               Decline
             </Btn>
           </Box>
@@ -91,7 +107,14 @@ const TransactionDetails = (props) => {
           </Typography>
 
           <Box sx={{ display: "flex", m: "0.5rem" }}>
-            <Btn width={15}>Transaction Completed</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                updateTxnStatus("completed");
+              }}
+            >
+              Transaction Completed
+            </Btn>
           </Box>
 
           <Typography
@@ -205,7 +228,14 @@ const TransactionDetails = (props) => {
           </Typography>
 
           <Box sx={{ display: "flex", m: "0.5rem" }}>
-            <Btn width={15}>Transaction Completed</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                updateTxnStatus("completed");
+              }}
+            >
+              Transaction Completed
+            </Btn>
           </Box>
 
           <Typography
@@ -268,7 +298,6 @@ const TransactionDetails = (props) => {
           </Typography>
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
             <Btn width={15}>Leave a review</Btn>
-            <Btn width={15}>Re-list this item</Btn>
           </Box>
         </Box>
       );
