@@ -40,6 +40,7 @@ const Transactions = (props) => {
         style={{
           borderRadius: "1rem",
           margin: "1rem",
+          backgroundColor: "var(--lightpink)",
         }}
         onClick={(e) => {
           props.setSelectedTxnId(props.id);

@@ -35,6 +35,19 @@ const Transactions = (props) => {
     }
   };
 
+  //fetch all transactions by owner
+  const getTransactionsByRequester = async () => {
+    const res = await fetchData("/api/transactions", "POST", {
+      requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
+    });
+
+    if (res.ok) {
+      setTransactions(res.data); //store in state
+    } else {
+      alert(JSON.stringify(res.data));
+    }
+  };
+
   //get selected transaction
   const getSelectedTxn = async (id) => {
     const res = await fetchData("/api/transactions/" + id);
@@ -54,8 +67,9 @@ const Transactions = (props) => {
 
   //On first render, get all transactions
   useEffect(() => {
-    getTransactionsByOwner();
-  }, []);
+    if (txnToggle === "listings") getTransactionsByOwner();
+    else if (txnToggle === "requests") getTransactionsByRequester();
+  }, [txnToggle]);
 
   //On first render, select first transaction
   useEffect(() => {
@@ -71,7 +85,6 @@ const Transactions = (props) => {
 
   const handleToggle = (event, newSelection) => {
     setTxnToggle(newSelection);
-    //TODO: toggle to requests section
   };
 
   return (
@@ -81,6 +94,7 @@ const Transactions = (props) => {
       <Container maxWidth="lg">
         <Box>
           <Grid container>
+            {/* header section */}
             <Grid xs={12}>
               <Typography variant="h5" textAlign="start" margin="2rem 0">
                 Your transactions
@@ -92,7 +106,6 @@ const Transactions = (props) => {
                 onChange={handleToggle}
                 aria-label="transaction selection"
               >
-                {/* add icons */}
                 <ToggleButton
                   value="listings"
                   aria-label="listings"
@@ -101,7 +114,7 @@ const Transactions = (props) => {
                   My Listings
                 </ToggleButton>
                 <ToggleButton
-                  value="rewuests"
+                  value="requests"
                   aria-label="requests"
                   sx={{ borderRadius: "5rem" }}
                 >
@@ -115,6 +128,7 @@ const Transactions = (props) => {
               />
             </Grid>
 
+            {/* transaction list */}
             <Grid xs={4.5}>
               {transactions.map((item, idx) => {
                 return (
@@ -131,11 +145,15 @@ const Transactions = (props) => {
                 );
               })}
             </Grid>
+
             <Divider orientation="vertical" flexItem />
+
+            {/* transaction details */}
             <Grid xs={7}>
               {Object.keys(selectedTxn).length > 0 ? (
                 <TransactionDetails
                   selectedTxn={selectedTxn}
+                  txnToggle={txnToggle}
                 ></TransactionDetails>
               ) : (
                 <Box>
