@@ -13,6 +13,7 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
+import Avt from "./Avt";
 
 const Listings = (props) => {
   return (
@@ -30,11 +31,11 @@ const Listings = (props) => {
                 avatar={
                   <Tooltip title="View Profile" placement="top">
                     <IconButton onClick={() => console.log("to profile")}>
-                      <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
+                      <Avt size={3}></Avt>
                     </IconButton>
                   </Tooltip>
                 }
-                title="Listing owner"
+                title={item.owner_id.display_name}
                 subheader={item.created_at.split("T")[0]}
                 style={{ backgroundColor: "var(--lightpink)" }}
               />
