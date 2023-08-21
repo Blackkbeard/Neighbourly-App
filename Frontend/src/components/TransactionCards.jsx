@@ -5,12 +5,9 @@ import {
   Card,
   CardContent,
   CardMedia,
-  CardHeader,
   Typography,
   CardActionArea,
   Avatar,
-  Tooltip,
-  IconButton,
   Box,
 } from "@mui/material";
 
@@ -39,7 +36,7 @@ const Listings = () => {
                     Listing Title
                   </Typography>
                   <Typography
-                    variant="subtitle1"
+                    variant="subtitle"
                     color="text.secondary"
                     component="div"
                   >

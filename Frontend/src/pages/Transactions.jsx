@@ -1,7 +1,7 @@
 import { React, useContext } from "react";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, Avatar } from "@mui/material";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
 import TransactionCard from "../components/TransactionCards";
@@ -36,7 +36,44 @@ const Transactions = () => {
                 borderRadius: "1rem",
               }}
             >
-              <Typography textAlign="center">Transactions</Typography>
+              <Box
+                sx={{ display: "flex" }}
+                xs={12}
+                style={{ borderStyle: "solid" }}
+              >
+                <Box
+                  xs={2}
+                  sx={{ display: "flex", flexDirection: "column" }}
+                  margin="1rem"
+                >
+                  <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
+                </Box>
+                <Box
+                  sx={{ display: "flex", flexDirection: "column" }}
+                  margin="1rem"
+                >
+                  <Typography component="div" variant="h6">
+                    RequesterName
+                  </Typography>
+                  <Typography
+                    variant="subtitle"
+                    color="text.secondary"
+                    component="div"
+                    
+                  >
+                    Neighbour in NEIGHBOURHOOD
+                  </Typography>
+                </Box>
+              </Box>
+              <Box>
+                <Typography
+                  variant="body"
+                  color="text.secondary"
+                  component="div"
+                >
+                  Neighbour in NEIGHBOURHOOD
+                </Typography>
+              </Box>
               <Btn>Sign</Btn>
               <Btn isBrown={true} width={15}>
                 Cancel
