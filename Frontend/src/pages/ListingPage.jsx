@@ -40,6 +40,11 @@ const ListingPage = () => {
   // states & ref
   const [listing, setListing] = useState({});
   const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const titleRef = useRef("");
+  const descriptionRef = useRef("");
+  const typeRef = useRef("");
 
   // functions
   const handleOpenDelete = () => {
@@ -48,6 +53,14 @@ const ListingPage = () => {
 
   const handleCloseDelete = () => {
     setOpenDelete(false);
+  };
+
+  const handleOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
   };
 
   const handleSnackbarClose = (event, reason) => {
@@ -74,21 +87,12 @@ const ListingPage = () => {
     }
   };
 
-  const handleOpenEdit = () => {
-    setOpenEdit(true);
-  };
-
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
-  };
-
   // endpoint
   const getListingById = async () => {
     const res = await fetchData("/api/listings/" + params.item);
 
     if (res.ok) {
       setListing(res.data);
-      console.log(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -228,6 +232,55 @@ const ListingPage = () => {
           <Btn onClick={deleteListing} autoFocus>
             Delete Listing
           </Btn>
+        </DialogActions>
+      </Dialog>
+
+      {/* dialog for edit listing */}
+      <Dialog open={openEdit} onClose={handleCloseEdit}>
+        <DialogTitle>Edit Listing Details</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Title"
+            type="text"
+            fullWidth
+            variant="outlined"
+            defaultValue={listing.title}
+            inputRef={titleRef}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Description"
+            multiline
+            minRows={4}
+            type="text"
+            fullWidth
+            variant="outlined"
+            defaultValue={listing.description}
+            inputRef={descriptionRef}
+          />
+          <TextField
+            autoFocus
+            select
+            margin="dense"
+            label="Type"
+            type="text"
+            fullWidth
+            variant="outlined"
+            defaultValue={listing.type === "loan" ? "For Loan" : "Free"}
+            inputRef={typeRef}
+          >
+            <MenuItem value="For Loan">For Loan</MenuItem>
+            <MenuItem value="Free">Free</MenuItem>
+          </TextField>
+        </DialogContent>
+        <DialogActions>
+          <Btn onClick={handleCloseEdit} isBrown={true}>
+            Cancel
+          </Btn>
+          <Btn onClick={updateListing}>Confirm</Btn>
         </DialogActions>
       </Dialog>
     </>
