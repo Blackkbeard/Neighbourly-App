@@ -41,7 +41,7 @@ const seedListings = async (req, res) => {
 // Get all listings
 const getAllListings = async (req, res) => {
   try {
-    const allListings = await ListingModel.find();
+    const allListings = await ListingModel.find().populate("owner_id");
     res.json(allListings);
   } catch (error) {
     console.log(error.message);
