@@ -24,6 +24,7 @@ import {
   DialogTitle,
   TextField,
   MenuItem,
+  CircularProgress,
   Snackbar,
   Alert,
 } from "@mui/material";
@@ -158,7 +159,13 @@ const ListingPage = () => {
             </Grid>
 
             <Grid xs={5}>
-              <CardMedia component="img" image={listing.image_url} />
+              {listing.image_url ? (
+                <CardMedia component="img" image={listing.image_url} />
+              ) : (
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+              )}
             </Grid>
             <Grid xs={7}>
               <Card elevation={0}>

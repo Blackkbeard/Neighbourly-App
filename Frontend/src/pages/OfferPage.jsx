@@ -11,6 +11,7 @@ import {
   InputAdornment,
   IconButton,
   StyledEngineProvider,
+  CircularProgress,
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
@@ -89,7 +90,13 @@ const OfferPage = () => {
               </Grid>
 
               {/* listings card */}
-              <Listings listings={listings}></Listings>
+              {listings ? (
+                <Listings listings={listings}></Listings>
+              ) : (
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+              )}
             </Grid>
           </Box>
         </Container>
