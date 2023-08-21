@@ -15,7 +15,7 @@ const TransactionSchema = new mongoose.Schema(
     },
     listing_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "listings",
+      ref: "Listing",
       required: true,
     },
     status: {
