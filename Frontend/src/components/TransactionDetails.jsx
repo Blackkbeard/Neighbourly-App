@@ -3,6 +3,7 @@ import { Box, Typography, Divider } from "@mui/material";
 import Btn from "./Btn";
 import Avt from "./Avt";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const TransactionDetails = (props) => {
   const transactionState = props.selectedTxn.status;
@@ -52,7 +53,9 @@ const TransactionDetails = (props) => {
           {props.selectedTxn.requester_id.mobile_number}
           <br />
           <br />
-          Arrange a meet-up with {props.selectedTxn.requester_id.display_name}
+          Arrange a meet-up with {
+            props.selectedTxn.requester_id.display_name
+          }{" "}
           directly.
         </Typography>
 
@@ -102,9 +105,9 @@ const TransactionDetails = (props) => {
         >
           Thanks for being neighbourly!
           <br />
-          <VolunteerActivismIcon
-            sx={{ fontSize: "40px" }}
-          ></VolunteerActivismIcon>
+          <FavoriteBorderIcon
+            sx={{ fontSize: "60px", color: "pink" }}
+          ></FavoriteBorderIcon>
         </Typography>
 
         <Typography
