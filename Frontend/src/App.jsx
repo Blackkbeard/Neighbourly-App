@@ -28,7 +28,7 @@ function App() {
 
           <Route path="/" element={<OfferPage />}></Route>
           <Route path="/add-offer" element={<AddOffer />}></Route>
-          <Route path="/listing-page" element={<ListingPage />}></Route>
+          <Route path="/listing/:item" element={<ListingPage />}></Route>
 
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/settings" element={<Settings />}></Route>

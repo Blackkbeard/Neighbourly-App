@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -37,24 +38,29 @@ const Listings = (props) => {
                 subheader={item.created_at.split("T")[0]}
                 style={{ backgroundColor: "var(--lightpink)" }}
               />
-              <CardActionArea onClick={() => console.log("to listing")}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  //   image="/sample-image.webp"
-                  image={item.image_url}
-                  alt="green iguana"
-                  style={{ height: "12rem" }}
-                />
-                <CardContent style={{ backgroundColor: "var(--lightpink)" }}>
-                  <Typography gutterBottom variant="h6" component="div">
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.type === "loan" ? "For Loan" : "Free"}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+              <Link
+                to={`/listing/${item._id}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    //   image="/sample-image.webp"
+                    image={item.image_url}
+                    alt="green iguana"
+                    style={{ height: "12rem" }}
+                  />
+                  <CardContent style={{ backgroundColor: "var(--lightpink)" }}>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.type === "loan" ? "For Loan" : "Free"}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Link>
             </Card>
           </Grid>
         );
