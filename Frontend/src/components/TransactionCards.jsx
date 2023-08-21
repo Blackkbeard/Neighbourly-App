@@ -33,7 +33,7 @@ const Listings = () => {
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <CardContent sx={{ flex: "1 0 auto" }}>
                   <Typography component="div" variant="h6">
-                    Listing Title
+                    ListingTitle
                   </Typography>
                   <Typography
                     variant="subtitle"
