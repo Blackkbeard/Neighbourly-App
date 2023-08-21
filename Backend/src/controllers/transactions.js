@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const TransactionModel = require("../models/Transactions");
 
-//Seed 2 transactions for test user.
+//Seed 3 transactions for test users
 const seedTransactions = async (req, res) => {
   try {
     await TransactionModel.deleteMany();
@@ -87,7 +87,9 @@ const getTransactionsByRequesterId = async (req, res) => {
     res.json(transactions);
   } catch (error) {
     console.log(error.message);
-    res.status(400).json({ status: "error", message: "Cannot get listings" });
+    res
+      .status(400)
+      .json({ status: "error", message: "Cannot get transactions" });
   }
 };
 
@@ -113,8 +115,45 @@ const createTransaction = async (req, res) => {
   }
 };
 
-//Update transaction
-//Delete transaction
+//Update transaction by transaction _id
+const updateTransaction = async (req, res) => {
+  try {
+    const transaction = await TransactionModel.findById(req.params.id);
+    if (!transaction) {
+      return res
+        .status(400)
+        .json({ status: "error", error: "Transaction not found" });
+    }
+
+    const updatedTransaction = {};
+    if ("owner_id" in req.body) updatedTransaction.owner_id = req.body.owner_id;
+    if ("requester_id" in req.body)
+      updatedTransaction.requester_id = req.body.requester_id;
+    if ("listing_id" in req.body)
+      updatedTransaction.listing_id = req.body.listing_id;
+
+    await TransactionModel.findByIdAndUpdate(req.params.id, updatedTransaction);
+
+    res.json({ status: "ok", message: "Transaction updated" });
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(400)
+      .json({ status: "error", message: "Cannot update transaction" });
+  }
+};
+
+//Delete a particular transaction by transaction _id
+const deleteTransaction = async (req, res) => {
+  try {
+    await TransactionModel.findByIdAndDelete(req.params.id);
+
+    res.json({ status: "ok", message: "Transaction deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", message: "Cannot delete transaction" });
+  }
+};
 
 module.exports = {
   seedTransactions,
@@ -122,4 +161,6 @@ module.exports = {
   getTransactionsByOwnerId,
   getTransactionsByRequesterId,
   createTransaction,
+  updateTransaction,
+  deleteTransaction,
 };

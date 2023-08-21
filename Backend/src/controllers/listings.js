@@ -94,7 +94,6 @@ const createListing = async (req, res) => {
 const patchListing = async (req, res) => {
   try {
     const listing = await ListingModel.findById(req.params.id);
-    // console.log(listing);
     if (!listing) {
       return res
         .status(400)

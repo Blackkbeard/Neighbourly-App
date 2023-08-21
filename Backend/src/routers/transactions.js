@@ -5,6 +5,8 @@ const {
   getTransactionsByOwnerId,
   getTransactionsByRequesterId,
   createTransaction,
+  updateTransaction,
+  deleteTransaction,
 } = require("../controllers/transactions");
 const checkValid = require("../middleware/checkValid");
 const router = express.Router();
@@ -16,4 +18,6 @@ router.get("/transactions/:requester_id", getTransactionsByRequesterId);
 // router.get("/transactions/:listing_id", getTransactionsByOwnerId);
 // ^ TODO: add
 router.put("/transactions", createTransaction);
+router.patch("/transactions/:id", updateTransaction);
+router.delete("/transactions/:id", deleteTransaction);
 module.exports = router;
