@@ -18,9 +18,12 @@ import TransactionCard from "../components/TransactionCards";
 
 const Transactions = (props) => {
   const userCtx = useContext(UserContext);
-  const [transactions, setTransactions] = useState([]);
   const fetchData = useFetch();
+  const [transactions, setTransactions] = useState([]);
+  const [txnToggle, setTxnToggle] = useState("listings");
+  const [selectedTxn, setSelectedTxn] = useState();
 
+  //fetch transactions by owner
   const getTransactionsByOwner = async () => {
     const res = await fetchData(
       "/api/transactions",
@@ -42,8 +45,6 @@ const Transactions = (props) => {
   useEffect(() => {
     getTransactionsByOwner();
   }, []);
-
-  const [txnToggle, setTxnToggle] = React.useState("listings");
 
   const handleToggle = (event, newSelection) => {
     setTxnToggle(newSelection);
@@ -101,6 +102,7 @@ const Transactions = (props) => {
                     listingImage={item.listing_id.image_url}
                     requesterName={item.requester_id.display_name}
                     requesterImage={item.requester_id.image_url}
+                    setSelectedTxn={setSelectedTxn}
                   />
                 );
               })}
