@@ -13,10 +13,10 @@ import {
   IconButton,
 } from "@mui/material";
 
-const Listings = () => {
+const Listings = (props) => {
   return (
     <>
-      {[1, 2, 3, 4].map((item, id) => {
+      {props.listings.map((item, id) => {
         return (
           <Grid xs={4} key={id}>
             <Card
@@ -34,23 +34,24 @@ const Listings = () => {
                   </Tooltip>
                 }
                 title="Listing owner"
-                subheader="Listing date"
+                subheader={item.created_at.split("T")[0]}
                 style={{ backgroundColor: "var(--lightpink)" }}
               />
               <CardActionArea onClick={() => console.log("to listing")}>
                 <CardMedia
                   component="img"
                   height="140"
-                  image="/sample-image.webp"
+                  //   image="/sample-image.webp"
+                  image={item.image_url}
                   alt="green iguana"
                   style={{ height: "12rem" }}
                 />
                 <CardContent style={{ backgroundColor: "var(--lightpink)" }}>
                   <Typography gutterBottom variant="h6" component="div">
-                    Listing item name
+                    {item.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Listing type
+                    {item.type === "loan" ? "For Loan" : "Free"}
                   </Typography>
                 </CardContent>
               </CardActionArea>
