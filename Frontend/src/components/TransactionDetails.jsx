@@ -7,8 +7,6 @@ import useFetch from "../hooks/useFetch";
 
 const TransactionDetails = (props) => {
   const fetchData = useFetch();
-  const [open, setOpen] = useState(false);
-
   let content = "";
 
   //Functions
@@ -23,21 +21,12 @@ const TransactionDetails = (props) => {
       }
     );
     if (res.ok) {
-      setOpen(true);
+      snackbarContent = `Transaction successfully ${newStatus}`;
       props.setTransactionState(newStatus);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
-  };
-
-  //Close snackbar
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
   };
 
   if (props.txnToggle === "listings") {
@@ -329,12 +318,6 @@ const TransactionDetails = (props) => {
       <Divider variant="middle" sx={{ marginLeft: "5%", marginRight: "5%" }} />
       {/* display this if props.selectedTxn.status is "pending" */}
       {content}
-
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Transaction Accepted!
-        </Alert>
-      </Snackbar>
     </>
   );
 };
