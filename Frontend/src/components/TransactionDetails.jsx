@@ -13,7 +13,6 @@ const TransactionDetails = (props) => {
       <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
         <Typography
           variant="body"
-          color="text.secondary"
           component="div"
           display="block"
           margin="1rem"
@@ -41,7 +40,6 @@ const TransactionDetails = (props) => {
       <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
         <Typography
           variant="body"
-          color="text.secondary"
           component="div"
           display="block"
           margin="1rem"
@@ -54,9 +52,7 @@ const TransactionDetails = (props) => {
           {props.selectedTxn.requester_id.mobile_number}
           <br />
           <br />
-          Arrange a meet-up with {
-            props.selectedTxn.requester_id.display_name
-          }{" "}
+          Arrange a meet-up with {props.selectedTxn.requester_id.display_name}
           directly.
         </Typography>
 
@@ -66,7 +62,6 @@ const TransactionDetails = (props) => {
 
         <Typography
           variant="body"
-          color="text.secondary"
           component="div"
           display="block"
           margin="1rem"
@@ -82,7 +77,6 @@ const TransactionDetails = (props) => {
       <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
         <Typography
           variant="body"
-          color="text.secondary"
           component="div"
           display="block"
           margin="1rem"
@@ -100,25 +94,29 @@ const TransactionDetails = (props) => {
     content = (
       <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
         <Typography
-          variant="h6"
-          color="text.secondary"
+          variant="h2"
           component="div"
           display="block"
           margin="1rem"
+          align="center"
         >
           Thanks for being neighbourly!
+          <br />
+          <VolunteerActivismIcon
+            sx={{ fontSize: "40px" }}
+          ></VolunteerActivismIcon>
         </Typography>
 
         <Typography
           variant="body"
-          color="text.secondary"
           component="div"
           display="block"
           margin="1rem"
+          align="center"
         >
           This transaction is complete.
         </Typography>
-        <Box sx={{ display: "flex", m: "0.5rem" }}>
+        <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
           <Btn width={15}>Leave a review</Btn>
           <Btn width={15}>Re-list this item</Btn>
         </Box>
