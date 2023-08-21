@@ -32,15 +32,8 @@ const seedTransactions = async (req, res) => {
       {
         _id: "64e2c98f2097aba61989d93f",
         listing_id: "64d0f3f75676c304033d8c90",
-        owner_id: "64e2c2fcdce21246ef81b8ed",
-        requester_id: "64e2c2fcdce21246ef81b8ee",
-        status: "accepted",
-      },
-      {
-        listing_id: "64e36389fc0a8f373e6c1973",
         owner_id: "64e2c2fcdce21246ef81b8ee",
         requester_id: "64e2c2fcdce21246ef81b8ed",
-        status: "pending_owner_response",
       },
     ]);
     res.json({ status: "ok", msg: "Seeding transactions successful" });
