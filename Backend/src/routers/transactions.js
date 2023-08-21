@@ -6,6 +6,7 @@ const {
   createTransaction,
   updateTransaction,
   deleteTransaction,
+  getTransactionsByOwnerId,
 } = require("../controllers/transactions");
 const {
   validateCreateTransaction,
@@ -18,6 +19,7 @@ const router = express.Router();
 router.get("/transactions/seed", seedTransactions);
 router.get("/transactions", getAllTransactions);
 router.get("/transactions/:id", validateIdInParam, getTransactionById);
+router.post("/transactions", validateIdInParam, getTransactionsByOwnerId);
 router.put(
   "/transactions",
   validateCreateTransaction,
