@@ -40,7 +40,11 @@ const seedTransactions = async (req, res) => {
 // Get all transactions
 const getAllTransactions = async (req, res) => {
   try {
-    const allTransactions = await TransactionModel.find();
+    const allTransactions = await TransactionModel.find().populate([
+      "owner_id",
+      "requester_id",
+      "listing_id",
+    ]);
     res.json(allTransactions);
   } catch (error) {
     console.log(error.message);
