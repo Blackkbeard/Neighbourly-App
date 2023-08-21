@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../context/user";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -17,9 +17,27 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import TopBar from "../components/TopBar";
 import Btn from "../components/Btn";
 import Listings from "../components/Listings";
+import useFetch from "../hooks/useFetch";
 
 const OfferPage = () => {
   const userCtx = useContext(UserContext);
+  const [listings, setListings] = useState([]);
+  const fetchData = useFetch();
+
+  const getListings = async () => {
+    const res = await fetchData("/api/listings");
+
+    if (res.ok) {
+      setListings(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getListings();
+  }, []);
 
   return (
     <>
@@ -34,7 +52,6 @@ const OfferPage = () => {
                   Happening in USER-LOCATION neighbourhood
                 </Typography>
               </Grid>
-
               {/* Material UI Search Bar */}
               <Grid xs={10}>
                 <FormControl
@@ -71,7 +88,8 @@ const OfferPage = () => {
                 <Btn>+ Add Offer</Btn>
               </Grid>
 
-              <Listings></Listings>
+              {/* listings card */}
+              <Listings listings={listings}></Listings>
             </Grid>
           </Box>
         </Container>

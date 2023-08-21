@@ -15,6 +15,7 @@ import Transactions from "./pages/Transactions";
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [userInfo, setUserInfo] = useState("");
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <div className="margin-padding-0">
@@ -28,7 +29,7 @@ function App() {
 
           <Route path="/" element={<OfferPage />}></Route>
           <Route path="/add-offer" element={<AddOffer />}></Route>
-          <Route path="/listing-page" element={<ListingPage />}></Route>
+          <Route path="/listing/:item" element={<ListingPage />}></Route>
 
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/settings" element={<Settings />}></Route>

@@ -16,7 +16,7 @@ const checkValid = require("../middleware/checkValid");
 const router = express.Router();
 
 router.get("/listings/seed", seedListings);
-router.get("/listings/", getAllListings);
+router.get("/listings", getAllListings);
 router.get("/listings/:id", validateIdInParam, checkValid, getListingById);
 router.put("/listings", validateCreateListing, checkValid, createListing);
 router.patch(

@@ -11,31 +11,58 @@ const seedAuth = async (req, res) => {
 
     await AuthModel.create([
       {
+        _id: "64e2c2fcdce21246ef81b8ed",
         email: "desmond@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-        location: "Yishun",
-        postal_code: 123456,
+        display_name: "desmond@test.com",
         biography: "I am a test user1",
         help_count: 0,
         rating: 0,
+        mobile_number: 12345678,
+        location: [
+          {
+            district: "Yishun",
+            postal_code: 760758,
+            latitude: 1.42602952702202,
+            longitude: 103.834266086838,
+          },
+        ],
       },
       {
+        _id: "64e2c2fcdce21246ef81b8ee",
         email: "hwee@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-        location: "Outram Park",
-        postal_code: 123456,
+        display_name: "hwee@test.com",
         biography: "I am a test user2",
         help_count: 0,
         rating: 0,
+        mobile_number: 12345678,
+        location: [
+          {
+            district: "Yishun",
+            postal_code: 760761,
+            latitude: 1.4253984246908402,
+            longitude: 103.83325903597616,
+          },
+        ],
       },
       {
-        email: "test3@test.com",
+        _id: "64e2c2ffdce21246ef81b8f4",
+        email: "vinesh@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-        location: "Queenstown",
-        postal_code: 123456,
+        display_name: "vinesh@test.com",
         biography: "I am a test user3",
         help_count: 0,
         rating: 0,
+        mobile_number: 12345678,
+        location: [
+          {
+            district: "Yishun",
+            postal_code: 760753,
+            latitude: 1.4269870421973032,
+            longitude: 103.83462747028466,
+          },
+        ],
       },
     ]);
 
@@ -68,7 +95,7 @@ const register = async (req, res) => {
       hash,
       display_name: req.body.email,
       location: req.body.location,
-      postal_code: req.body.postal_code,
+      mobile_number: req.body.mobile_number,
       biography: req.body.biography,
       help_count: 0,
       rating: 0,
@@ -132,15 +159,35 @@ const refresh = (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const updatedProfile = {};
-    if ("display_name" in req.body)
-      updatedProfile.display_name = req.body.display_name;
-    if ("location" in req.body) updatedProfile.location = req.body.location;
-    if ("postal_code" in req.body)
-      updatedProfile.postal_code = req.body.postal_code;
-    if ("biography" in req.body) updatedProfile.biography = req.body.biography;
+    const authDB = await AuthModel.findById(req.params.id);
 
-    await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
+    if ("display_name" in req.body) authDB.display_name = req.body.display_name;
+    if ("mobile_number" in req.body)
+      authDB.mobile_number = req.body.mobile_number;
+    if ("biography" in req.body) authDB.biography = req.body.biography;
+    if ("help_count" in req.body) authDB.help_count = req.body.help_count;
+    if ("rating" in req.body) authDB.rating = req.body.rating;
+    if ("district" in req.body) authDB.location[0].district = req.body.district;
+    if ("postal_code" in req.body)
+      authDB.location[0].postal_code = req.body.postal_code;
+
+    await authDB.save();
+
+    // const updatedProfile = {};
+    // if ("display_name" in req.body)
+    //   updatedProfile.display_name = req.body.display_name;
+    // if ("mobile_number" in req.body)
+    //   updatedProfile.mobile_number = req.body.mobile_number;
+
+    // if ("location" in req.body) updatedProfile.location = req.body.location;
+    // if ("postal_code" in req.body)
+    //   updatedProfile.location[0].postal_code = req.body.postal_code;
+    // if ("biography" in req.body) updatedProfile.biography = req.body.biography;
+    // if ("help_count" in req.body)
+    //   updatedProfile.help_count = req.body.help_count;
+    // if ("rating" in req.body) updatedProfile.rating = req.body.rating;
+    // await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
+
     res.json({ status: "ok", msg: "Account updated" });
   } catch (error) {
     console.log(error.message);

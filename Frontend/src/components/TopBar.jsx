@@ -6,10 +6,10 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import GiteIcon from "@mui/icons-material/Gite";
-import Avatar from "@mui/material/Avatar";
 import NavBar from "./NavBar";
 import { NavLink } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
+import Avt from "./Avt";
 
 const TopBar = (props) => {
   const [anchorElUser, setAnchorElUser] = useState(false);
@@ -56,7 +56,7 @@ const TopBar = (props) => {
             {props.showBurger && (
               <>
                 <IconButton sx={{ p: 1 }} component={NavLink} to="/profile">
-                  <Avatar />
+                  <Avt />
                 </IconButton>
 
                 <IconButton
