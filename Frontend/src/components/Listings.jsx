@@ -20,7 +20,7 @@ const Listings = (props) => {
     <>
       {props.listings.map((item, id) => {
         return (
-          <Grid xs={5} key={id}>
+          <Grid xs={4} key={id}>
             <Card
               sx={{ maxWidth: 345 }}
               variant="outlined"

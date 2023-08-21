@@ -31,6 +31,18 @@ const seedListings = async (req, res) => {
         image_url:
           "https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/onions.jpg?itok=NqLGNDHS",
       },
+      {
+        _id: "64e309be042d3dfff95cdd1c",
+        title: "3D printer",
+        description:
+          "3D printer collecting dust, please help me to use it! Bring your own files",
+        type: "loan",
+        owner_id: "64e2c2fcdce21246ef81b8ed",
+        date_available_from: "2023-08-18",
+        date_available_to: "2022-09-30",
+        image_url:
+          "https://www.cnet.com/a/img/resize/2aca23cc045a449acf6e22d7a14dd96746aa52b3/hub/2022/04/14/d29a64b0-3bd8-4ce5-8d0b-94baf53cc5dc/3d-printer-promo-blue.jpg?auto=webp&fit=crop&height=1200&width=1200",
+      },
     ]);
     res.json({ status: "ok", msg: "Seeding successful" });
   } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
 import TopBar from "../components/TopBar";
@@ -17,6 +17,11 @@ import {
   CardContent,
   Chip,
   CardActions,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import Btn from "../components/Btn";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -25,14 +30,39 @@ import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
 
 const ListingPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const fetchData = useFetch();
+
+  // states
   const [listing, setListing] = useState({});
+  const [openDelete, setOpenDelete] = useState(false);
+
+  // functions
+  const handleClickOpen = () => {
+    setOpenDelete(true);
+  };
+
+  const handleClose = () => {
+    setOpenDelete(false);
+  };
 
   const getListingById = async () => {
     const res = await fetchData("/api/listings/" + params.item);
 
     if (res.ok) {
       setListing(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const deleteListing = async () => {
+    const res = await fetchData("/api/listings/" + params.item, "DELETE");
+
+    if (res.ok) {
+      setOpenDelete(true);
+      navigate("/");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -93,13 +123,51 @@ const ListingPage = () => {
 
                   {/* add conditional rendering for owner */}
                   <Btn startIcon={<ModeEditOutlineOutlinedIcon />}>Edit</Btn>
-                  <Btn startIcon={<DeleteForeverOutlinedIcon />}>Delete</Btn>
+                  <Btn
+                    startIcon={<DeleteForeverOutlinedIcon />}
+                    onClick={handleClickOpen}
+                  >
+                    Delete
+                  </Btn>
                 </CardActions>
               </Card>
             </Grid>
           </Grid>
         </Box>
       </Container>
+
+      {/* dialog for delete listing */}
+      <Dialog
+        open={openDelete}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <Typography variant="h5">
+            Are you sure you want to delete this listing?
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <Typography variant="body1">
+              This action cannot be undone. Once deleted, the listing and all
+              associated data will be permanently removed from the system.
+              <br />
+              <br />
+              Please confirm your decision.
+            </Typography>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Btn onClick={handleClose} isBrown={true}>
+            Cancel
+          </Btn>
+          <Btn onClick={deleteListing} autoFocus>
+            Confirm
+          </Btn>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
