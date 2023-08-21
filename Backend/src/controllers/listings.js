@@ -13,7 +13,7 @@ const seedListings = async (req, res) => {
         title: "My beloved bike",
         description: `I’m too busy with my coding bootcamp to ride it. Feel free to borrow it on weekends`,
         type: "loan",
-        owner_id: "64df45f6d43f6b36609ea557",
+        owner_id: "64e2c2fcdce21246ef81b8ed",
         date_available_from: `${new Date()}`,
         date_available_to: "2022-09-30",
         image_url:
@@ -24,7 +24,7 @@ const seedListings = async (req, res) => {
         title: "Onions",
         description: `Onions are a rich source of fiber and prebiotics, which are necessary for optimal gut health. I bought way too many onions. Giving away for free`,
         type: "free",
-        owner_id: "64df45f6d43f6b36609ea557",
+        owner_id: "64e2c2fcdce21246ef81b8ee",
         date_available_from: `${new Date()}`,
         date_available_to: "2022-08-30",
         image_url:
