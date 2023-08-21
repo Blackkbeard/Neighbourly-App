@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
@@ -22,6 +22,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextField,
+  MenuItem,
 } from "@mui/material";
 import Btn from "../components/Btn";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -33,19 +35,33 @@ const ListingPage = () => {
   const navigate = useNavigate();
   const fetchData = useFetch();
 
-  // states
+  // states & ref
   const [listing, setListing] = useState({});
   const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const titleRef = useRef("");
+  const descriptionRef = useRef("");
+  const typeRef = useRef("");
 
   // functions
-  const handleClickOpen = () => {
+  const handleOpenDelete = () => {
     setOpenDelete(true);
   };
 
-  const handleClose = () => {
+  const handleCloseDelete = () => {
     setOpenDelete(false);
   };
 
+  const handleOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+  // endpoint
   const getListingById = async () => {
     const res = await fetchData("/api/listings/" + params.item);
 
@@ -63,6 +79,24 @@ const ListingPage = () => {
     if (res.ok) {
       setOpenDelete(true);
       navigate("/");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const updateListing = async () => {
+    const res = await fetchData("/api/listings/" + params.item, "PATCH", {
+      title: titleRef.current.value,
+      description: descriptionRef.current.value,
+      type: typeRef.current.value === "For Loan" ? "loan" : "free",
+      // image_url:
+      //   "https://i.pcmag.com/imagery/roundups/06msR0ZNV3Oc2GfpqCu9AcT-14..v1632927607.jpg",
+    });
+
+    if (res.ok) {
+      getListingById();
+      setOpenEdit(false);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -122,10 +156,15 @@ const ListingPage = () => {
                   <Btn startIcon={<HandshakeTwoToneIcon />}>Submit Request</Btn>
 
                   {/* add conditional rendering for owner */}
-                  <Btn startIcon={<ModeEditOutlineOutlinedIcon />}>Edit</Btn>
+                  <Btn
+                    startIcon={<ModeEditOutlineOutlinedIcon />}
+                    onClick={handleOpenEdit}
+                  >
+                    Edit
+                  </Btn>
                   <Btn
                     startIcon={<DeleteForeverOutlinedIcon />}
-                    onClick={handleClickOpen}
+                    onClick={handleOpenDelete}
                   >
                     Delete
                   </Btn>
@@ -139,33 +178,78 @@ const ListingPage = () => {
       {/* dialog for delete listing */}
       <Dialog
         open={openDelete}
-        onClose={handleClose}
+        onClose={handleCloseDelete}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <Typography variant="h5">
-            Are you sure you want to delete this listing?
-          </Typography>
+          Are you sure you want to delete this listing?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <Typography variant="body1">
-              This action cannot be undone. Once deleted, the listing and all
-              associated data will be permanently removed from the system.
-              <br />
-              <br />
-              Please confirm your decision.
-            </Typography>
+            This action cannot be undone. Once deleted, the listing and all
+            associated data will be permanently removed from the system.
+            <br />
+            <br />
+            Please confirm your decision.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Btn onClick={handleClose} isBrown={true}>
+          <Btn onClick={handleCloseDelete} isBrown={true}>
             Cancel
           </Btn>
           <Btn onClick={deleteListing} autoFocus>
-            Confirm
+            Delete Listing
           </Btn>
+        </DialogActions>
+      </Dialog>
+
+      {/* dialog for edit listing */}
+      <Dialog open={openEdit} onClose={handleCloseEdit}>
+        <DialogTitle>Edit Listing Details</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Title"
+            type="text"
+            fullWidth
+            variant="outlined"
+            defaultValue={listing.title}
+            inputRef={titleRef}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Description"
+            multiline
+            minRows={4}
+            type="text"
+            fullWidth
+            variant="outlined"
+            defaultValue={listing.description}
+            inputRef={descriptionRef}
+          />
+          <TextField
+            autoFocus
+            select
+            margin="dense"
+            label="Type"
+            type="text"
+            fullWidth
+            variant="outlined"
+            defaultValue={listing.type === "loan" ? "For Loan" : "Free"}
+            inputRef={typeRef}
+          >
+            <MenuItem value="For Loan">For Loan</MenuItem>
+            <MenuItem value="Free">Free</MenuItem>
+          </TextField>
+        </DialogContent>
+        <DialogActions>
+          <Btn onClick={handleCloseEdit} isBrown={true}>
+            Cancel
+          </Btn>
+          <Btn onClick={updateListing}>Confirm</Btn>
         </DialogActions>
       </Dialog>
     </>

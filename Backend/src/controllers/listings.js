@@ -127,7 +127,7 @@ const patchListing = async (req, res) => {
       updatedListing.date_available_to = req.body.date_available_to;
     if ("image_url" in req.body) updatedListing.image_url = req.body.image_url;
 
-    await ListingModel.findByIdAndUpdate(req.params.id, updatedListings);
+    await ListingModel.findByIdAndUpdate(req.params.id, updatedListing);
 
     res.json({ status: "ok", message: "Listing updated" });
   } catch (error) {
