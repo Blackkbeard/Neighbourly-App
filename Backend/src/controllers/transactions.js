@@ -24,7 +24,7 @@ const seedTransactions = async (req, res) => {
       },
       {
         _id: "64e2c98f2097aba61989d93e",
-        listing_id: "64d0f3f75676c304033d8c89",
+        listing_id: "64d0f3f75676c304033d8c90",
         owner_id: "64e2c2fcdce21246ef81b8ed",
         requester_id: "64e2c2fcdce21246ef81b8ee",
         status: "accepted",
