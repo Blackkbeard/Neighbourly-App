@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
 import TopBar from "../components/TopBar";
@@ -30,10 +30,14 @@ import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
 
 const ListingPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const fetchData = useFetch();
+
+  // states
   const [listing, setListing] = useState({});
   const [openDelete, setOpenDelete] = useState(false);
 
+  // functions
   const handleClickOpen = () => {
     setOpenDelete(true);
   };
@@ -57,7 +61,8 @@ const ListingPage = () => {
     const res = await fetchData("/api/listings/" + params.item, "DELETE");
 
     if (res.ok) {
-      //GO TO SUCCESS DELETE PAGE
+      setOpenDelete(true);
+      navigate("/");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -139,18 +144,26 @@ const ListingPage = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <Typography variant="h5">Confirm delete item?</Typography>
+          <Typography variant="h5">
+            Are you sure you want to delete this listing?
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Once the listing is deleted,
+            <Typography variant="body1">
+              This action cannot be undone. Once deleted, the listing and all
+              associated data will be permanently removed from the system.
+              <br />
+              <br />
+              Please confirm your decision.
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Btn onClick={handleClose} isBrown={true}>
             Cancel
           </Btn>
-          <Btn onClick={handleClose} autoFocus>
+          <Btn onClick={deleteListing} autoFocus>
             Confirm
           </Btn>
         </DialogActions>
