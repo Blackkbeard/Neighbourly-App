@@ -8,13 +8,15 @@ const TransactionSchema = new mongoose.Schema(
     listing_id: { type: String, required: true }, //listing's _id
     status: {
       type: String,
+      required: true,
       enums: [
-        "pending_response",
-        "accepted",
-        "declined",
+        "pending_owner_response",
+        "owner_accepted",
+        "owner_declined",
         "completed",
         "expired",
       ],
+      default: "pending_owner_response",
     },
   },
   { collection: "transactions" }

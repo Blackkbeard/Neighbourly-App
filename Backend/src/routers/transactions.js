@@ -2,22 +2,33 @@ const express = require("express");
 const {
   seedTransactions,
   getAllTransactions,
-  getTransactionsByOwnerId,
-  getTransactionsByRequesterId,
+  getTransactionById,
   createTransaction,
   updateTransaction,
   deleteTransaction,
 } = require("../controllers/transactions");
+const {
+  validateCreateTransaction,
+  validateUpdateTransaction,
+  validateIdInParam,
+} = require("../validators/transactions");
 const checkValid = require("../middleware/checkValid");
 const router = express.Router();
 
 router.get("/transactions/seed", seedTransactions);
 router.get("/transactions", getAllTransactions);
-router.get("/transactions/:owner_id", getTransactionsByOwnerId);
-router.get("/transactions/:requester_id", getTransactionsByRequesterId);
-// router.get("/transactions/:listing_id", getTransactionsByOwnerId);
-// ^ TODO: add
-router.put("/transactions", createTransaction);
-router.patch("/transactions/:id", updateTransaction);
-router.delete("/transactions/:id", deleteTransaction);
+router.get("/transactions/:id", validateIdInParam, getTransactionById);
+router.put(
+  "/transactions",
+  validateCreateTransaction,
+  checkValid,
+  createTransaction
+);
+router.patch(
+  "/transactions/:id",
+  validateUpdateTransaction,
+  checkValid,
+  updateTransaction
+);
+router.delete("/transactions/:id", validateIdInParam, deleteTransaction);
 module.exports = router;

@@ -50,19 +50,17 @@ const getAllTransactions = async (req, res) => {
   }
 };
 
-// Get transactions by owner's id
-const getTransactionsByOwnerId = async (req, res) => {
+// Get transactions by transaction id
+const getTransactionById = async (req, res) => {
   try {
-    const transactions = await TransactionModel.find({
-      owner_id: req.params.owner_id,
-    });
-
-    if (transactions.length === 0) {
+    const transaction = await TransactionModel.findById(req.params.id);
+    console.log(transaction);
+    if (!transaction) {
       return res
         .status(400)
-        .json({ status: "error", error: "Transactions not found" });
+        .json({ status: "error", error: "Transaction not found" });
     }
-    res.json(transactions);
+    res.json(transaction);
   } catch (error) {
     console.log(error.message);
     res
@@ -71,27 +69,26 @@ const getTransactionsByOwnerId = async (req, res) => {
   }
 };
 
-// Get transactions by requester's's id
-// TODO: debug
-const getTransactionsByRequesterId = async (req, res) => {
-  try {
-    const transactions = await TransactionModel.find({
-      requester_id: req.params.requester_id,
-    });
+// Get transactions by owner's id
+// const getTransactionsByOwnerId = async (req, res) => {
+//   try {
+//     const transactions = await TransactionModel.find({
+//       owner_id: req.params.owner_id,
+//     });
 
-    if (transactions.length === 0) {
-      return res
-        .status(400)
-        .json({ status: "error", error: "Transactions not found" });
-    }
-    res.json(transactions);
-  } catch (error) {
-    console.log(error.message);
-    res
-      .status(400)
-      .json({ status: "error", message: "Cannot get transactions" });
-  }
-};
+//     if (transactions.length === 0) {
+//       return res
+//         .status(400)
+//         .json({ status: "error", error: "Transactions not found" });
+//     }
+//     res.json(transactions);
+//   } catch (error) {
+//     console.log(error.message);
+//     res
+//       .status(400)
+//       .json({ status: "error", message: "Cannot get transaction" });
+//   }
+// };
 
 //Create new transaction
 const createTransaction = async (req, res) => {
@@ -158,8 +155,8 @@ const deleteTransaction = async (req, res) => {
 module.exports = {
   seedTransactions,
   getAllTransactions,
-  getTransactionsByOwnerId,
-  getTransactionsByRequesterId,
+  getTransactionById,
+  // getTransactionsByOwnerId,
   createTransaction,
   updateTransaction,
   deleteTransaction,
