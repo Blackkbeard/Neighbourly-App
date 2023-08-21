@@ -13,21 +13,25 @@ const validateCreateTransaction = [
   check("listing_id", "invalid listing_id").isLength({ min: 24, max: 24 }),
   check(
     "status",
-    `type should be either "pending_owner_response", "owner_accepted", "owner_declined", "completed", or "expired"`
+    `type should be either "pending_owner_response", "accepted", "declined", "completed", or "expired"`
   )
     .optional()
     .isIn([
       "pending_owner_response",
-      "owner_accepted",
-      "owner_declined",
+      "accepted",
+      "declined",
       "completed",
       "expired",
     ]),
 ];
 
-const validateGetByOwnerId = [
-  check("owner_id", "owner_id is required").not().isEmpty(),
-  check("owner_id", "invalid owner_id").isLength({ min: 24, max: 24 }),
+const validateGetByUserId = [
+  check("owner_id", "invalid owner_id")
+    .optional()
+    .isLength({ min: 24, max: 24 }),
+  check("requester_id", "invalid requester_id")
+    .optional()
+    .isLength({ min: 24, max: 24 }),
 ];
 
 const validateUpdateTransaction = [
@@ -42,13 +46,13 @@ const validateUpdateTransaction = [
     .isLength({ min: 24, max: 24 }),
   check(
     "status",
-    `type should be either "pending_owner_response", "owner_accepted", "owner_declined", "completed", or "expired"`
+    `type should be either "pending_owner_response", "accepted", "declined", "completed", or "expired"`
   )
     .optional()
     .isIn([
       "pending_owner_response",
-      "owner_accepted",
-      "owner_declined",
+      "accepted",
+      "declined",
       "completed",
       "expired",
     ]),
@@ -57,6 +61,6 @@ const validateUpdateTransaction = [
 module.exports = {
   validateCreateTransaction,
   validateUpdateTransaction,
-  validateGetByOwnerId,
+  validateGetByUserId,
   validateIdInParam,
 };

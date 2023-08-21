@@ -6,12 +6,12 @@ const {
   createTransaction,
   updateTransaction,
   deleteTransaction,
-  getTransactionsByOwnerId,
+  getTransactionsByUserId,
 } = require("../controllers/transactions");
 const {
   validateCreateTransaction,
   validateUpdateTransaction,
-  validateGetByOwnerId,
+  validateGetByUserId,
   validateIdInParam,
 } = require("../validators/transactions");
 const checkValid = require("../middleware/checkValid");
@@ -27,9 +27,9 @@ router.get(
 );
 router.post(
   "/transactions",
-  validateGetByOwnerId,
+  validateGetByUserId,
   checkValid,
-  getTransactionsByOwnerId
+  getTransactionsByUserId
 );
 router.put(
   "/transactions",
@@ -39,7 +39,7 @@ router.put(
 );
 router.patch(
   "/transactions/:id",
-  validateIdInParam,
+  validateIdInParam,g
   validateUpdateTransaction,
   checkValid,
   updateTransaction

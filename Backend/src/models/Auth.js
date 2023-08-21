@@ -49,6 +49,7 @@ const AuthSchema = new mongoose.Schema(
     rating: { type: Number, required: false, default: 0 },
     created_at: { type: Date, required: true, default: Date.now },
     location: [LocationSchema],
+    image_url: { type: String, required: false },
   },
   { collection: "auth" }
 );

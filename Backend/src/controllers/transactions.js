@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const TransactionModel = require("../models/Transactions");
 
-//Seed 3 transactions for test users
+//seed test transactions
 const seedTransactions = async (req, res) => {
   try {
     await TransactionModel.deleteMany();
@@ -20,14 +20,20 @@ const seedTransactions = async (req, res) => {
         listing_id: "64d0f3f75676c304033d8c89",
         owner_id: "64e2c2fcdce21246ef81b8ed",
         requester_id: "64e2c2ffdce21246ef81b8f4",
-        status: "pending_owner_response",
+        status: "completed",
       },
       {
         _id: "64e2c98f2097aba61989d93e",
         listing_id: "64d0f3f75676c304033d8c89",
         owner_id: "64e2c2fcdce21246ef81b8ed",
-        requester_id: "64e2c2fcdce21246ef81b8ee",
-        status: "accepted",
+        requester_id: "64e2c2ffdce21246ef81b8f4",
+        status: "declined",
+      },
+      {
+        _id: "64e2c98f2097aba61989d93f",
+        listing_id: "64d0f3f75676c304033d8c90",
+        owner_id: "64e2c2fcdce21246ef81b8ee",
+        requester_id: "64e2c2fcdce21246ef81b8ed",
       },
     ]);
     res.json({ status: "ok", msg: "Seeding transactions successful" });
@@ -75,12 +81,19 @@ const getTransactionById = async (req, res) => {
   }
 };
 
-// Get transactions by owner's id
-const getTransactionsByOwnerId = async (req, res) => {
+// Get transactions by owner or requester's id
+const getTransactionsByUserId = async (req, res) => {
   try {
-    const transactions = await TransactionModel.find({
-      owner_id: req.body.owner_id,
-    }).populate(["owner_id", "requester_id", "listing_id"]);
+    let transactions = [];
+    if ("owner_id" in req.body) {
+      transactions = await TransactionModel.find({
+        owner_id: req.body.owner_id,
+      }).populate(["owner_id", "requester_id", "listing_id"]);
+    } else if ("requester_id" in req.body) {
+      transactions = await TransactionModel.find({
+        requester_id: req.body.requester_id,
+      }).populate(["owner_id", "requester_id", "listing_id"]);
+    }
 
     if (transactions.length === 0) {
       return res
@@ -103,6 +116,7 @@ const createTransaction = async (req, res) => {
       owner_id: req.body.owner_id,
       requester_id: req.body.requester_id,
       listing_id: req.body.listing_id,
+      status: req.body.status,
     });
     await createdTransaction.save();
     res.json({
@@ -163,7 +177,7 @@ module.exports = {
   seedTransactions,
   getAllTransactions,
   getTransactionById,
-  getTransactionsByOwnerId,
+  getTransactionsByUserId,
   createTransaction,
   updateTransaction,
   deleteTransaction,

@@ -7,6 +7,7 @@ import {
   CardActionArea,
   Box,
   Chip,
+  Grid,
 } from "@mui/material";
 import Avt from "./Avt";
 
@@ -32,49 +33,67 @@ const Transactions = (props) => {
   return (
     <>
       <Card
-        key={props.id}
+        key={props.idx}
+        id={props.id}
         variant="outlined"
         style={{
           borderRadius: "1rem",
-          margin: "0.6rem",
+          margin: "1rem",
+          backgroundColor: "var(--lightpink)",
         }}
-        onClick={() => {
+        onClick={(e) => {
           props.setSelectedTxnId(props.id);
         }}
       >
         <CardActionArea
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
-          <Box sx={{ display: "flex", flexShrink: 1, flexDirection: "column" }}>
-            <CardContent sx={{ flex: "0 auto" }}>
-              <Avt size={3}></Avt>
-            </CardContent>
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent sx={{ flex: "0 auto" }}>
-              <Typography component="div" variant="subtitle">
-                {props.listingTitle}
-              </Typography>
-              <Typography
-                variant="subtitle"
-                color="text.secondary"
-                component="div"
-              >
-                {props.requesterName}
-              </Typography>
-              <Chip
-                label={statusLabel}
-                variant="outlined"
-                sx={{ mb: "1rem", margin: "0.2rem" }}
+          <Grid container>
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: "flex",
+                flexShrink: 1,
+                flexDirection: "column",
+              }}
+            >
+              <CardContent sx={{ flex: "0 auto" }}>
+                <Avt size={3}></Avt>
+                {/* //TODO: add requester or owner image */}
+              </CardContent>
+            </Grid>
+            <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
+              <CardContent sx={{ flex: "0 auto" }}>
+                <Typography component="div" variant="subtitle">
+                  {props.listingTitle}
+                </Typography>
+                <Typography
+                  variant="subtitle"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {props.txnToggle === "listings"
+                    ? props.requesterName
+                    : props.ownerName}
+                </Typography>
+                <Chip
+                  label={statusLabel}
+                  variant="outlined"
+                  sx={{ mb: "1rem", my: "0.5rem" }}
+                />
+              </CardContent>
+            </Grid>
+            <Grid item xs={4}>
+              <CardMedia
+                component="img"
+                sx={{ height: 60 }}
+                image={props.listingImage}
+                alt="Listing img"
+                style={{ height: "9rem" }}
               />
-            </CardContent>
-          </Box>
-          <CardMedia
-            component="img"
-            sx={{ width: 100 }}
-            image={props.listingImage}
-            alt="Listing img"
-          />
+            </Grid>
+          </Grid>
         </CardActionArea>
       </Card>
     </>

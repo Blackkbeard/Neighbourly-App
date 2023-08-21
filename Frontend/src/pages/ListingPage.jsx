@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
@@ -22,6 +22,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextField,
+  MenuItem,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import Btn from "../components/Btn";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -33,24 +37,58 @@ const ListingPage = () => {
   const navigate = useNavigate();
   const fetchData = useFetch();
 
-  // states
+  // states & ref
   const [listing, setListing] = useState({});
   const [openDelete, setOpenDelete] = useState(false);
 
   // functions
-  const handleClickOpen = () => {
+  const handleOpenDelete = () => {
     setOpenDelete(true);
   };
 
-  const handleClose = () => {
+  const handleCloseDelete = () => {
     setOpenDelete(false);
   };
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const handleSubmitRequest = async () => {
+    const res = await fetchData("/api/transactions/", "PUT", {
+      owner_id: listing.owner_id._id,
+      requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: get requester_id
+      listing_id: params.item,
+    });
+
+    if (res.ok) {
+      setOpen(true);
+      navigate("/transactions");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const handleOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+  // endpoint
   const getListingById = async () => {
     const res = await fetchData("/api/listings/" + params.item);
 
     if (res.ok) {
       setListing(res.data);
+      console.log(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -63,6 +101,24 @@ const ListingPage = () => {
     if (res.ok) {
       setOpenDelete(true);
       navigate("/");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const updateListing = async () => {
+    const res = await fetchData("/api/listings/" + params.item, "PATCH", {
+      title: titleRef.current.value,
+      description: descriptionRef.current.value,
+      type: typeRef.current.value === "For Loan" ? "loan" : "free",
+      // image_url:
+      //   "https://i.pcmag.com/imagery/roundups/06msR0ZNV3Oc2GfpqCu9AcT-14..v1632927607.jpg",
+    });
+
+    if (res.ok) {
+      getListingById();
+      setOpenEdit(false);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -119,13 +175,23 @@ const ListingPage = () => {
                 </CardContent>
                 <CardActions>
                   {/* add conditional rendering for neighbour */}
-                  <Btn startIcon={<HandshakeTwoToneIcon />}>Submit Request</Btn>
+                  <Btn
+                    onClick={handleSubmitRequest}
+                    startIcon={<HandshakeTwoToneIcon />}
+                  >
+                    Submit Request
+                  </Btn>
 
                   {/* add conditional rendering for owner */}
-                  <Btn startIcon={<ModeEditOutlineOutlinedIcon />}>Edit</Btn>
+                  <Btn
+                    startIcon={<ModeEditOutlineOutlinedIcon />}
+                    onClick={handleOpenEdit}
+                  >
+                    Edit
+                  </Btn>
                   <Btn
                     startIcon={<DeleteForeverOutlinedIcon />}
-                    onClick={handleClickOpen}
+                    onClick={handleOpenDelete}
                   >
                     Delete
                   </Btn>
@@ -139,32 +205,28 @@ const ListingPage = () => {
       {/* dialog for delete listing */}
       <Dialog
         open={openDelete}
-        onClose={handleClose}
+        onClose={handleCloseDelete}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <Typography variant="h5">
-            Are you sure you want to delete this listing?
-          </Typography>
+          Are you sure you want to delete this listing?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <Typography variant="body1">
-              This action cannot be undone. Once deleted, the listing and all
-              associated data will be permanently removed from the system.
-              <br />
-              <br />
-              Please confirm your decision.
-            </Typography>
+            This action cannot be undone. Once deleted, the listing and all
+            associated data will be permanently removed from the system.
+            <br />
+            <br />
+            Please confirm your decision.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Btn onClick={handleClose} isBrown={true}>
+          <Btn onClick={handleCloseDelete} isBrown={true}>
             Cancel
           </Btn>
           <Btn onClick={deleteListing} autoFocus>
-            Confirm
+            Delete Listing
           </Btn>
         </DialogActions>
       </Dialog>
