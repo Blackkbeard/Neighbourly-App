@@ -92,7 +92,7 @@ const Transactions = (props) => {
               />
             </Grid>
 
-            <Grid xs={4}>
+            <Grid xs={5}>
               {transactions.map((item, idx) => {
                 return (
                   <TransactionCard
@@ -109,7 +109,7 @@ const Transactions = (props) => {
               })}
             </Grid>
             <Divider orientation="vertical" flexItem />
-            <Grid xs={7}>
+            <Grid xs={6}>
               <Box sx={{ display: "flex" }} xs={12}>
                 <Box
                   xs={2}
