@@ -128,6 +128,7 @@ const updateTransaction = async (req, res) => {
       updatedTransaction.requester_id = req.body.requester_id;
     if ("listing_id" in req.body)
       updatedTransaction.listing_id = req.body.listing_id;
+    if ("status" in req.body) updatedTransaction.status = req.body.status;
 
     await TransactionModel.findByIdAndUpdate(req.params.id, updatedTransaction);
 
