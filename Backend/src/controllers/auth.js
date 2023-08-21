@@ -11,8 +11,8 @@ const seedAuth = async (req, res) => {
 
     await AuthModel.create([
       {
-        email: "test1@test.com",
-        hash: "testing1234",
+        email: "desmond@test.com",
+        hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         location: "Yishun",
         postal_code: 123456,
         biography: "I am a test user1",
@@ -20,8 +20,8 @@ const seedAuth = async (req, res) => {
         rating: 0,
       },
       {
-        email: "test2@test.com",
-        hash: "testing1234",
+        email: "hwee@test.com",
+        hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         location: "Outram Park",
         postal_code: 123456,
         biography: "I am a test user2",
@@ -30,7 +30,7 @@ const seedAuth = async (req, res) => {
       },
       {
         email: "test3@test.com",
-        hash: "testing12345",
+        hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         location: "Queenstown",
         postal_code: 123456,
         biography: "I am a test user3",
@@ -139,6 +139,7 @@ const updateProfile = async (req, res) => {
     if ("postal_code" in req.body)
       updatedProfile.postal_code = req.body.postal_code;
     if ("biography" in req.body) updatedProfile.biography = req.body.biography;
+
     await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
     res.json({ status: "ok", msg: "Account updated" });
   } catch (error) {
@@ -146,6 +147,7 @@ const updateProfile = async (req, res) => {
     res.json({ status: "error", msg: error.message });
   }
 };
+
 module.exports = {
   seedAuth,
   register,
