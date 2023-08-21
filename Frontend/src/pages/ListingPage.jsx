@@ -90,7 +90,7 @@ const ListingPage = () => {
                 <CardActions>
                   {/* add conditional rendering for neighbour */}
                   <Btn startIcon={<HandshakeTwoToneIcon />}>Submit Request</Btn>
-                  
+
                   {/* add conditional rendering for owner */}
                   <Btn startIcon={<ModeEditOutlineOutlinedIcon />}>Edit</Btn>
                   <Btn startIcon={<DeleteForeverOutlinedIcon />}>Delete</Btn>

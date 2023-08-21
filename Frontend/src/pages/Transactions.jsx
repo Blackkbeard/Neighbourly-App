@@ -1,12 +1,20 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import TopBar from "../components/TopBar";
-import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, Avatar } from "@mui/material";
-import Divider from "@mui/material/Divider";
-import Btn from "../components/Btn";
 import UserContext from "../context/user";
-import TransactionCard from "../components/TransactionCards";
 import useFetch from "../hooks/useFetch";
+
+import Grid from "@mui/material/Unstable_Grid2";
+import {
+  Container,
+  Typography,
+  Box,
+  Avatar,
+  Divider,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
+import TopBar from "../components/TopBar";
+import Btn from "../components/Btn";
+import TransactionCard from "../components/TransactionCards";
 
 const Transactions = (props) => {
   const userCtx = useContext(UserContext);
@@ -35,6 +43,13 @@ const Transactions = (props) => {
     getTransactionsByOwner();
   }, []);
 
+  const [txnToggle, setTxnToggle] = React.useState("listings");
+
+  const handleToggle = (event, newSelection) => {
+    setTxnToggle(newSelection);
+    //TODO: toggle to requests section
+  };
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>
@@ -46,7 +61,36 @@ const Transactions = (props) => {
               <Typography variant="h5" textAlign="start" margin="2rem 0">
                 Your transactions
               </Typography>
+
+              <ToggleButtonGroup
+                value={txnToggle}
+                exclusive
+                onChange={handleToggle}
+                aria-label="transaction selection"
+              >
+                {/* add icons */}
+                <ToggleButton
+                  value="listings"
+                  aria-label="listings"
+                  sx={{ borderRadius: "5rem" }}
+                >
+                  My Listings
+                </ToggleButton>
+                <ToggleButton
+                  value="rewuests"
+                  aria-label="requests"
+                  sx={{ borderRadius: "5rem" }}
+                >
+                  My Requests
+                </ToggleButton>
+              </ToggleButtonGroup>
+
+              <Divider
+                variant="middle"
+                sx={{ marginLeft: "5%", marginRight: "5%", margin: "1rem" }}
+              />
             </Grid>
+
             <Grid xs={4}>
               {transactions.map((item, idx) => {
                 return (

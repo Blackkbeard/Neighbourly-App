@@ -1,15 +1,13 @@
 import React from "react";
-
-import Grid from "@mui/material/Unstable_Grid2";
 import {
   Card,
   CardContent,
   CardMedia,
   Typography,
   CardActionArea,
-  Avatar,
   Box,
 } from "@mui/material";
+import Avt from "./Avt";
 
 const Listings = (props) => {
   return (
@@ -20,12 +18,12 @@ const Listings = (props) => {
         variant="outlined"
         style={{
           borderRadius: "1rem",
-          margin: "1rem",
+          margin: "0.6rem",
         }}
       >
         <Box sx={{ display: "flex", flexShrink: 1, flexDirection: "column" }}>
           <CardContent sx={{ flex: "0 auto" }}>
-            <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
+            <Avt size={3}></Avt>
           </CardContent>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
