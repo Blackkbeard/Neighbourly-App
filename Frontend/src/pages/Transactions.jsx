@@ -59,7 +59,6 @@ const Transactions = () => {
                     variant="subtitle"
                     color="text.secondary"
                     component="div"
-                    
                   >
                     Neighbour in NEIGHBOURHOOD
                   </Typography>
@@ -70,14 +69,27 @@ const Transactions = () => {
                   variant="body"
                   color="text.secondary"
                   component="div"
+                  display="block"
+                  margin="1rem"
                 >
-                  Neighbour in NEIGHBOURHOOD
+                  RequesterName is interested in ListingTitle.
+                </Typography>
+                <Typography
+                  variant="body"
+                  color="text.secondary"
+                  component="div"
+                  display="block"
+                  margin="1rem"
+                >
+                  Accept this request?
                 </Typography>
               </Box>
-              <Btn>Sign</Btn>
-              <Btn isBrown={true} width={15}>
-                Cancel
-              </Btn>
+              <Box display="flex" margin="1rem">
+                <Btn width={15}> Accept</Btn>
+                <Btn isBrown={true} width={15}>
+                  Request
+                </Btn>
+              </Box>
             </Grid>
           </Grid>
         </Box>
