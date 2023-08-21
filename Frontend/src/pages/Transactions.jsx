@@ -100,6 +100,7 @@ const Transactions = (props) => {
                     id={item._id}
                     listingTitle={item.listing_id.title}
                     listingImage={item.listing_id.image_url}
+                    status={item.status}
                     requesterName={item.requester_id.display_name}
                     requesterImage={item.requester_id.image_url}
                     setSelectedTxn={setSelectedTxn}
@@ -138,50 +139,52 @@ const Transactions = (props) => {
                 sx={{ marginLeft: "5%", marginRight: "5%" }}
               />
               <Box>
-                <Typography
-                  variant="body"
-                  color="text.secondary"
-                  component="div"
-                  display="block"
-                  margin="1rem"
-                >
-                  RequesterName is interested in ListingTitle.
-                </Typography>
-                <Typography
-                  variant="body"
-                  color="text.secondary"
-                  component="div"
-                  display="block"
-                  margin="1rem"
-                >
-                  Accept this request?
-                </Typography>
-                <Typography
-                  variant="body"
-                  color="text.secondary"
-                  component="div"
-                  display="block"
-                  margin="1rem"
-                >
-                  Once accepted, you will exchange mobile numbers to arrange a
-                  meet-up.
-                </Typography>
+                <Box>
+                  <Typography
+                    variant="body"
+                    color="text.secondary"
+                    component="div"
+                    display="block"
+                    margin="1rem"
+                  >
+                    RequesterName is interested in ListingTitle.
+                  </Typography>
+                  <Typography
+                    variant="body"
+                    color="text.secondary"
+                    component="div"
+                    display="block"
+                    margin="1rem"
+                  >
+                    Accept this request?
+                  </Typography>
+                  <Typography
+                    variant="body"
+                    color="text.secondary"
+                    component="div"
+                    display="block"
+                    margin="1rem"
+                  >
+                    Once accepted, you will exchange mobile numbers to arrange a
+                    meet-up.
+                  </Typography>
 
-                <Typography
-                  variant="body"
-                  color="text.secondary"
-                  component="div"
-                  display="block"
-                  margin="1rem"
-                >
-                  Your mobile number: +65 91234567
-                </Typography>
-              </Box>
-              <Box display="flex" margin="1rem">
-                <Btn width={10}>Accept</Btn>
-                <Btn isBrown={true} width={10}>
-                  Decline
-                </Btn>
+                  <Typography
+                    variant="body"
+                    color="text.secondary"
+                    component="div"
+                    display="block"
+                    margin="1rem"
+                  >
+                    Your mobile number: +65 91234567
+                  </Typography>
+                </Box>
+                <Box display="flex" margin="1rem">
+                  <Btn width={10}>Accept</Btn>
+                  <Btn isBrown={true} width={10}>
+                    Decline
+                  </Btn>
+                </Box>
               </Box>
             </Grid>
           </Grid>
