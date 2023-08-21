@@ -11,6 +11,7 @@ const Btn = (props) => {
           onClick={props.onClick}
           className={props.isBrown ? "btn brown" : "btn burgundy"}
           style={{ width: `${props.width}rem` }}
+          startIcon={props.startIcon}
         >
           {props.children}
         </Button>

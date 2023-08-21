@@ -19,6 +19,9 @@ import {
   CardActions,
 } from "@mui/material";
 import Btn from "../components/Btn";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
 
 const ListingPage = () => {
   const params = useParams();
@@ -85,8 +88,12 @@ const ListingPage = () => {
                   </Box>
                 </CardContent>
                 <CardActions>
-                  {/* add conditional rendering for owner/neighbour */}
-                  <Btn>Submit Request</Btn>
+                  {/* add conditional rendering for neighbour */}
+                  <Btn startIcon={<HandshakeTwoToneIcon />}>Submit Request</Btn>
+                  
+                  {/* add conditional rendering for owner */}
+                  <Btn startIcon={<ModeEditOutlineOutlinedIcon />}>Edit</Btn>
+                  <Btn startIcon={<DeleteForeverOutlinedIcon />}>Delete</Btn>
                 </CardActions>
               </Card>
             </Grid>
