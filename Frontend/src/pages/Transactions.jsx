@@ -1,14 +1,56 @@
-import { React, useContext } from "react";
-import TopBar from "../components/TopBar";
-import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, Avatar } from "@mui/material";
-import Divider from "@mui/material/Divider";
-import Btn from "../components/Btn";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
+
+import Grid from "@mui/material/Unstable_Grid2";
+import {
+  Container,
+  Typography,
+  Box,
+  Avatar,
+  Divider,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
+import TopBar from "../components/TopBar";
+import Btn from "../components/Btn";
 import TransactionCard from "../components/TransactionCards";
 
-const Transactions = () => {
+const Transactions = (props) => {
   const userCtx = useContext(UserContext);
+  const fetchData = useFetch();
+  const [transactions, setTransactions] = useState([]);
+  const [txnToggle, setTxnToggle] = useState("listings");
+  const [selectedTxn, setSelectedTxn] = useState();
+
+  //fetch transactions by owner
+  const getTransactionsByOwner = async () => {
+    const res = await fetchData(
+      "/api/transactions",
+      "POST",
+      {
+        owner_id: "64e2c2fcdce21246ef81b8ed",
+      },
+      userCtx.accessToken
+    );
+
+    if (res.ok) {
+      setTransactions(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getTransactionsByOwner();
+  }, []);
+
+  const handleToggle = (event, newSelection) => {
+    setTxnToggle(newSelection);
+    //TODO: toggle to requests section
+  };
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>
@@ -20,9 +62,50 @@ const Transactions = () => {
               <Typography variant="h5" textAlign="start" margin="2rem 0">
                 Your transactions
               </Typography>
+
+              <ToggleButtonGroup
+                value={txnToggle}
+                exclusive
+                onChange={handleToggle}
+                aria-label="transaction selection"
+              >
+                {/* add icons */}
+                <ToggleButton
+                  value="listings"
+                  aria-label="listings"
+                  sx={{ borderRadius: "5rem" }}
+                >
+                  My Listings
+                </ToggleButton>
+                <ToggleButton
+                  value="rewuests"
+                  aria-label="requests"
+                  sx={{ borderRadius: "5rem" }}
+                >
+                  My Requests
+                </ToggleButton>
+              </ToggleButtonGroup>
+
+              <Divider
+                variant="middle"
+                sx={{ marginLeft: "5%", marginRight: "5%", margin: "1rem" }}
+              />
             </Grid>
+
             <Grid xs={4}>
-              <TransactionCard></TransactionCard>
+              {transactions.map((item, idx) => {
+                return (
+                  <TransactionCard
+                    key={idx}
+                    id={item._id}
+                    listingTitle={item.listing_id.title}
+                    listingImage={item.listing_id.image_url}
+                    requesterName={item.requester_id.display_name}
+                    requesterImage={item.requester_id.image_url}
+                    setSelectedTxn={setSelectedTxn}
+                  />
+                );
+              })}
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid xs={7}>

@@ -20,7 +20,7 @@ const Listings = (props) => {
     <>
       {props.listings.map((item, id) => {
         return (
-          <Grid xs={4} key={id}>
+          <Grid xs={5} key={id}>
             <Card
               sx={{ maxWidth: 345 }}
               variant="outlined"
@@ -53,7 +53,7 @@ const Listings = (props) => {
                     style={{ height: "12rem" }}
                   />
                   <CardContent style={{ backgroundColor: "var(--lightpink)" }}>
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="h7" component="div">
                       {item.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">

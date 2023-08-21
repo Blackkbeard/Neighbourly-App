@@ -9,14 +9,18 @@ const LocationSchema = new mongoose.Schema(
     },
     postal_code: {
       type: Number,
-
+      default: 0,
       required: true,
       minLength: 1,
       maxLength: 6,
     },
-    latitude: { type: Number, required: true },
+    latitude: { type: Number, required: true, default: 0 },
 
-    longitude: { type: Number, required: true }, // Corrected indentation
+    longitude: {
+      type: Number,
+      required: true,
+      default: 0,
+    }, // Corrected indentation
   },
   { collection: "Location" }
 );
@@ -35,8 +39,8 @@ const AuthSchema = new mongoose.Schema(
       maxLength: 100,
     },
     mobile_number: { type: Number, required: true, minLength: 1, maxLength: 9 },
-    help_count: { type: Number, default: 0 },
-    rating: { type: Number, default: 0 },
+    help_count: { type: Number, required: false, default: 0 },
+    rating: { type: Number, required: false, default: 0 },
     created_at: { type: Date, required: true, default: Date.now },
     location: [LocationSchema],
   },
