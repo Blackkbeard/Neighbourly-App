@@ -53,6 +53,21 @@ const ListingPage = () => {
     setOpenDelete(false);
   };
 
+  const handleSubmitRequest = async () => {
+    const res = await fetchData("/api/transactions/", "PUT", {
+      owner_id: listing.owner_id._id,
+      requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: get requester_id
+      listing_id: params.item,
+    });
+
+    if (res.ok) {
+      navigate("/transactions");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
@@ -67,6 +82,7 @@ const ListingPage = () => {
 
     if (res.ok) {
       setListing(res.data);
+      console.log(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -153,7 +169,12 @@ const ListingPage = () => {
                 </CardContent>
                 <CardActions>
                   {/* add conditional rendering for neighbour */}
-                  <Btn startIcon={<HandshakeTwoToneIcon />}>Submit Request</Btn>
+                  <Btn
+                    onClick={handleSubmitRequest}
+                    startIcon={<HandshakeTwoToneIcon />}
+                  >
+                    Submit Request
+                  </Btn>
 
                   {/* add conditional rendering for owner */}
                   <Btn

@@ -123,6 +123,7 @@ const createTransaction = async (req, res) => {
       owner_id: req.body.owner_id,
       requester_id: req.body.requester_id,
       listing_id: req.body.listing_id,
+      status: req.body.status,
     });
     await createdTransaction.save();
     res.json({

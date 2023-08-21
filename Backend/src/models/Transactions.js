@@ -23,8 +23,8 @@ const TransactionSchema = new mongoose.Schema(
       required: true,
       enums: [
         "pending_owner_response",
-        "owner_accepted",
-        "owner_declined",
+        "accepted",
+        "declined",
         "completed",
         "expired",
       ],
