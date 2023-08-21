@@ -100,6 +100,7 @@ const Transactions = (props) => {
                     id={item._id}
                     listingTitle={item.listing_id.title}
                     listingImage={item.listing_id.image_url}
+                    status={item.status}
                     requesterName={item.requester_id.display_name}
                     requesterImage={item.requester_id.image_url}
                     setSelectedTxn={setSelectedTxn}

@@ -6,10 +6,29 @@ import {
   Typography,
   CardActionArea,
   Box,
+  Chip,
 } from "@mui/material";
 import Avt from "./Avt";
 
-const Listings = (props) => {
+const Transactions = (props) => {
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case "pending_owner_response":
+        return "Awaiting Response";
+      case "accepted":
+        return "Accepted";
+      case "declined":
+        return "Declined";
+      case "completed":
+        return "Completed";
+      case "expired":
+        return "Expired";
+      default:
+        return "Unknown";
+    }
+  };
+  const statusLabel = getStatusLabel(props.status);
+
   return (
     <>
       <Card
@@ -43,6 +62,11 @@ const Listings = (props) => {
               >
                 {props.requesterName}
               </Typography>
+              <Chip
+                label={statusLabel}
+                variant="outlined"
+                sx={{ mb: "1rem", margin: "0.2rem" }}
+              />
             </CardContent>
           </Box>
           <CardMedia
@@ -57,4 +81,4 @@ const Listings = (props) => {
   );
 };
 
-export default Listings;
+export default Transactions;
