@@ -10,7 +10,6 @@ import {
   Grid,
 } from "@mui/material";
 import Avt from "./Avt";
-import AspectRatio from "@mui/joy/AspectRatio";
 
 const Transactions = (props) => {
   const getStatusLabel = (status) => {
@@ -61,6 +60,7 @@ const Transactions = (props) => {
             >
               <CardContent sx={{ flex: "0 auto" }}>
                 <Avt size={3}></Avt>
+                {/* //TODO: add requester or owner image */}
               </CardContent>
             </Grid>
             <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
@@ -73,7 +73,9 @@ const Transactions = (props) => {
                   color="text.secondary"
                   component="div"
                 >
-                  {props.requesterName}
+                  {props.txnToggle === "listings"
+                    ? props.requesterName
+                    : props.ownerName}
                 </Typography>
                 <Chip
                   label={statusLabel}

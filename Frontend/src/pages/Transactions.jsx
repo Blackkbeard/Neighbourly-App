@@ -22,7 +22,12 @@ const Transactions = (props) => {
   const [selectedTxn, setSelectedTxn] = useState({});
   const [selectedTxnId, setSelectedTxnId] = useState("");
 
-  //fetch all transactions by owner
+  //Toggle to re-render page with either listings or requests
+  const handleToggle = (event, newSelection) => {
+    setTxnToggle(newSelection);
+  };
+
+  //For Listings view - fetch all transactions by owner
   const getTransactionsByOwner = async () => {
     const res = await fetchData("/api/transactions", "POST", {
       owner_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
@@ -35,7 +40,7 @@ const Transactions = (props) => {
     }
   };
 
-  //fetch all transactions by owner
+  //For requests view - fetch all requests by owner
   const getTransactionsByRequester = async () => {
     const res = await fetchData("/api/transactions", "POST", {
       requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
@@ -48,7 +53,7 @@ const Transactions = (props) => {
     }
   };
 
-  //get selected transaction
+  //Get selected transaction
   const getSelectedTxn = async (id) => {
     const res = await fetchData("/api/transactions/" + id);
     if (!id) {
@@ -82,10 +87,6 @@ const Transactions = (props) => {
   useEffect(() => {
     getSelectedTxn(selectedTxnId);
   }, [selectedTxnId]);
-
-  const handleToggle = (event, newSelection) => {
-    setTxnToggle(newSelection);
-  };
 
   return (
     <>
@@ -138,9 +139,12 @@ const Transactions = (props) => {
                     listingTitle={item.listing_id.title}
                     listingImage={item.listing_id.image_url}
                     status={item.status}
+                    ownerName={item.owner_id.display_name}
+                    ownerImage={item.owner_id.image_url}
                     requesterName={item.requester_id.display_name}
                     requesterImage={item.requester_id.image_url}
                     setSelectedTxnId={setSelectedTxnId}
+                    txnToggle={txnToggle}
                   />
                 );
               })}
