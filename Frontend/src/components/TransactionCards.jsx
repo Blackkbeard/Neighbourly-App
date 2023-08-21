@@ -50,6 +50,7 @@ const Transactions = (props) => {
         >
           <Grid container>
             <Grid
+              item
               xs={2}
               sx={{
                 display: "flex",
@@ -61,7 +62,7 @@ const Transactions = (props) => {
                 <Avt size={3}></Avt>
               </CardContent>
             </Grid>
-            <Grid xs={6} sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent sx={{ flex: "0 auto" }}>
                 <Typography component="div" variant="subtitle">
                   {props.listingTitle}
@@ -80,7 +81,7 @@ const Transactions = (props) => {
                 />
               </CardContent>
             </Grid>
-            <Grid xs={4}>
+            <Grid item xs={4}>
               <CardMedia
                 component="img"
                 sx={{ height: 60 }}

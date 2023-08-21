@@ -115,7 +115,7 @@ const Transactions = (props) => {
               />
             </Grid>
 
-            <Grid xs={4}>
+            <Grid xs={4.5}>
               {transactions.map((item, idx) => {
                 return (
                   <TransactionCard
