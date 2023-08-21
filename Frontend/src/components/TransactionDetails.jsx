@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import { Box, Typography, Divider, Snackbar, Alert } from "@mui/material";
+import { React } from "react";
+import { Box, Typography, Divider } from "@mui/material";
 import Btn from "./Btn";
 import Avt from "./Avt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";

@@ -18,7 +18,7 @@ const Transactions = (props) => {
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
   const [transactions, setTransactions] = useState([]);
-  const [txnToggle, setTxnToggle] = useState("listings");
+  const [txnToggle, setTxnToggle] = useState("requests");
   const [selectedTxn, setSelectedTxn] = useState({});
   const [selectedTxnId, setSelectedTxnId] = useState("");
   const [transactionState, setTransactionState] = useState("");
@@ -77,12 +77,13 @@ const Transactions = (props) => {
     else if (txnToggle === "requests") getTransactionsByRequester();
   }, [txnToggle]);
 
-  //On first render, select first transaction
+  // On first render, select first transaction
   useEffect(() => {
     if (Object.keys(selectedTxn).length === 0 && transactions.length > 0) {
-      setSelectedTxn(transactions[0]); //
+      setSelectedTxn(transactions[0]);
+      setTransactionState(transactions[0].status);
     }
-  }, [transactions]);
+  }, [transactions, selectedTxn]);
 
   //Update selected transaction when selected transaction changes
   useEffect(() => {
@@ -109,18 +110,18 @@ const Transactions = (props) => {
                 aria-label="transaction selection"
               >
                 <ToggleButton
-                  value="listings"
-                  aria-label="listings"
-                  sx={{ borderRadius: "5rem" }}
-                >
-                  My Listings
-                </ToggleButton>
-                <ToggleButton
                   value="requests"
                   aria-label="requests"
                   sx={{ borderRadius: "5rem" }}
                 >
                   My Requests
+                </ToggleButton>
+                <ToggleButton
+                  value="listings"
+                  aria-label="listings"
+                  sx={{ borderRadius: "5rem" }}
+                >
+                  My Listings
                 </ToggleButton>
               </ToggleButtonGroup>
 

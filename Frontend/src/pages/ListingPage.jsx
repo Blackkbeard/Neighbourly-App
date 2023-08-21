@@ -67,6 +67,7 @@ const ListingPage = () => {
 
     if (res.ok) {
       setOpen(true);
+      navigate("/transactions");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
