@@ -13,21 +13,21 @@ const seedTransactions = async (req, res) => {
         listing_id: "64d0f3f75676c304033d8c89",
         owner_id: "64e2c2fcdce21246ef81b8ed",
         requester_id: "64e2c2ffdce21246ef81b8f4",
-        type: "pending_response",
+        status: "pending_owner_response",
       },
       {
         _id: "64e2c98f2097aba61989d93d",
         listing_id: "64d0f3f75676c304033d8c89",
         owner_id: "64e2c2fcdce21246ef81b8ed",
         requester_id: "64e2c2ffdce21246ef81b8f4",
-        type: "pending_response",
+        status: "pending_owner_response",
       },
       {
         _id: "64e2c98f2097aba61989d93e",
         listing_id: "64d0f3f75676c304033d8c89",
         owner_id: "64e2c2fcdce21246ef81b8ed",
         requester_id: "64e2c2fcdce21246ef81b8ee",
-        type: "accepted",
+        status: "accepted",
       },
     ]);
     res.json({ status: "ok", msg: "Seeding transactions successful" });
@@ -54,7 +54,7 @@ const getAllTransactions = async (req, res) => {
 const getTransactionById = async (req, res) => {
   try {
     const transaction = await TransactionModel.findById(req.params.id);
-    console.log(transaction);
+
     if (!transaction) {
       return res
         .status(400)
@@ -156,7 +156,6 @@ module.exports = {
   seedTransactions,
   getAllTransactions,
   getTransactionById,
-  // getTransactionsByOwnerId,
   createTransaction,
   updateTransaction,
   deleteTransaction,

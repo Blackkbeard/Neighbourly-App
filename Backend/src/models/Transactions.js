@@ -3,9 +3,21 @@ const mongoose = require("mongoose");
 const TransactionSchema = new mongoose.Schema(
   {
     created_at: { type: Date, default: Date.now },
-    owner_id: { type: String, required: true }, //user's _id
-    requester_id: { type: String, required: true }, //user's _id
-    listing_id: { type: String, required: true }, //listing's _id
+    owner_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Auth",
+      required: true,
+    },
+    requester_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Auth",
+      required: true,
+    },
+    listing_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "listings",
+      required: true,
+    },
     status: {
       type: String,
       required: true,
