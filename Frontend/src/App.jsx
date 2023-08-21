@@ -15,6 +15,7 @@ import Transactions from "./pages/Transactions";
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [userInfo, setUserInfo] = useState("");
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <div className="margin-padding-0">

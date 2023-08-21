@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
-
+import { useNavigate } from "react-router-dom";
 const SignIn = (props) => {
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const SignIn = (props) => {
     const res = await fetchData("/auth/login", "POST", { email, password });
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
-      const decoded = jwtDecode(res.data.access);
+      navigate("/Profile");
     } else {
       alert(JSON.stringify(res.data));
     }
@@ -50,7 +50,7 @@ const SignIn = (props) => {
                 src="https://seeklogo.com/images/G/general-assembly-logo-D5C634F07A-seeklogo.com.png"
                 sx={{ width: 600, height: 600 }}
                 display="flex"
-                justifyContent="center"
+                justifycontent="center"
               />
             </Grid>
             <Grid
@@ -58,7 +58,7 @@ const SignIn = (props) => {
               style={{ borderStyle: "solid" }}
               container
               direction="column"
-              justifyContent="center"
+              justifycontent="center"
               alignItems="center"
             >
               <Typography textAlign="center">Sign-in</Typography>
@@ -66,14 +66,14 @@ const SignIn = (props) => {
                 id="outlined-basic"
                 label="Required"
                 variant="outlined"
-                defaultValue="Email"
+                defaultValue="test@test.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
                 label="Required"
                 variant="outlined"
-                defaultValue="Password"
+                defaultValue="test1234"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Link>No Account? Create Account</Link>

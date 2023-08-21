@@ -4,22 +4,30 @@ import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Container, Typography, Box, TextField } from "@mui/material";
 import Btn from "../components/Btn";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const fetchData = useFetch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [zip, setZip] = useState("");
+  const [district, setDistrict] = useState("");
+  const navigate = useNavigate();
 
   const registerUser = async () => {
     const res = await fetchData("/auth/register", "PUT", {
       email,
       password,
+      zip,
+      district,
     });
 
     if (res.ok) {
       setEmail("");
       setPassword("");
-      props.setShowLogin(true);
+      setZip("");
+      setDistrict("");
+      navigate("/profile-setup");
     } else {
       console.log(res.data);
     }
@@ -54,7 +62,8 @@ const Registration = () => {
                 <TextField
                   label="Required"
                   variant="outlined"
-                  defaultValue="Email"
+                  defaultValue="test@test.com"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -62,24 +71,26 @@ const Registration = () => {
                   id="outlined-basic"
                   label="Required"
                   variant="outlined"
-                  defaultValue="Password"
-                  multiline
+                  defaultValue="test12345"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div>
+              {/* <div>
                 <TextField
                   id="outlined-basic"
                   label="Required"
                   variant="outlined"
                   defaultValue="Confirm Password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-              </div>
+              </div> */}
               <div>
                 <TextField
                   id="outlined-basic"
                   label="Zip Code"
                   variant="outlined"
-                  defaultValue="Enter Your Location"
+                  defaultValue="760758"
+                  onChange={(e) => setZip(e.target.value)}
                 />
               </div>
               <div>
@@ -87,7 +98,8 @@ const Registration = () => {
                   id="outlined-basic"
                   label="Required"
                   variant="outlined"
-                  defaultValue="District"
+                  defaultValue="Yishun"
+                  onChange={(e) => setDistrict(e.target.value)}
                 />
               </div>
               <Btn onClick={registerUser}>Register</Btn>

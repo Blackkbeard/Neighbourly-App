@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+// import useFetch from "../hooks/useFetch";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import Btn from "../components/Btn";
@@ -10,31 +11,40 @@ import {
   Link,
   TextField,
 } from "@mui/material";
+// import { useNavigate } from "react-router-dom";
 
-const ProfileSetup = () => {
+const ProfileSetup = (props) => {
+  // const navigate = useNavigate();
   // const fetchData = useFetch();
   // const userCtx = useContext(UserContext);
-  // const [dispName, setDispName] = useRef("");
-  // const [bio, setBio] = useRef("");
-  // const [number, setNumber] = useRef("");
+  // // const [dispName, setDispName] = useState("");
+  // // const [bio, setBio] = useState("");
+  // // const [number, setNumber] = useState("");
+
+  // const dispNameRef = useRef("");
+  // const bioRef = useRef("");
+  // const numberRef = useRef("");
 
   // const updateUser = async (id) => {
   //   const res = await fetchData("/auth/update" + id, "patch", {
-  //     dispName: dispName.current.value,
-  //     bio: bio.current.value,
-  //     number: number.current.value,
-
+  //     dispName: dispNameRef.current.value,
+  //     bio: bioRef.current.value,
+  //     number: numberRef.current.value,
   //   });
 
   //   if (res.ok) {
-  //     setEmail("");
-  //     setPassword("");
-  //     props.setShowLogin(true);
+  //     // setDispName("");
+  //     // setBio("");
+  //     // setNumber("");
+  //     navigate("/profile");
+  //     props.getProfile;
   //   } else {
   //     console.log(res.data);
   //   }
   // };
-
+  // useEffect(() => { dispName: dispNameRef.current.value,
+  //     bio: bioRef.current.value,
+  //     number: numberRef.current.value, } , []);
   return (
     <>
       <TopBar></TopBar>
@@ -69,24 +79,24 @@ const ProfileSetup = () => {
                 id="outlined-basic"
                 label="Required"
                 variant="outlined"
-                defaultValue="Display Name"
+                defaultValue="vinesh"
                 // onChange={(e) => setDispName(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
                 label="Biography"
                 variant="outlined"
-                defaultValue="Intrests & Hobbies"
+                defaultValue="run"
                 // onChange={(e) => setBio(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
                 label="Phone Number"
                 variant="outlined"
-                defaultValue="Mobile Number"
-                onChange={(e) => setEmail(e.target.value)}
+                defaultValue="98879870"
+                // onChange={(e) => setEmail(e.target.value)}
               />
-              <Btn>Update</Btn>
+              <Btn onClick={updateUser}>Update</Btn>
               <Link underline="always">Skip for Now</Link>
             </Grid>
           </Grid>
