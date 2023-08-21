@@ -13,13 +13,13 @@ const validateCreateTransaction = [
   check("listing_id", "invalid listing_id").isLength({ min: 24, max: 24 }),
   check(
     "status",
-    `type should be either "pending_owner_response", "owner_accepted", "owner_declined", "completed", or "expired"`
+    `type should be either "pending_owner_response", "accepted", "declined", "completed", or "expired"`
   )
     .optional()
     .isIn([
       "pending_owner_response",
-      "owner_accepted",
-      "owner_declined",
+      "accepted",
+      "declined",
       "completed",
       "expired",
     ]),
@@ -46,13 +46,13 @@ const validateUpdateTransaction = [
     .isLength({ min: 24, max: 24 }),
   check(
     "status",
-    `type should be either "pending_owner_response", "owner_accepted", "owner_declined", "completed", or "expired"`
+    `type should be either "pending_owner_response", "accepted", "declined", "completed", or "expired"`
   )
     .optional()
     .isIn([
       "pending_owner_response",
-      "owner_accepted",
-      "owner_declined",
+      "accepted",
+      "declined",
       "completed",
       "expired",
     ]),
