@@ -21,7 +21,6 @@ const TransactionDetails = (props) => {
       }
     );
     if (res.ok) {
-      snackbarContent = `Transaction successfully ${newStatus}`;
       props.setTransactionState(newStatus);
     } else {
       alert(JSON.stringify(res.data));
@@ -316,7 +315,7 @@ const TransactionDetails = (props) => {
         </Box>
       </Box>
       <Divider variant="middle" sx={{ marginLeft: "5%", marginRight: "5%" }} />
-      {/* display this if props.selectedTxn.status is "pending" */}
+
       {content}
     </>
   );
