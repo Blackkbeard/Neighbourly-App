@@ -26,6 +26,7 @@ app.use(helmet());
 app.use(limit);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use("/api", listings);
 app.use("/api", transactions);
 app.use("/auth", auth);

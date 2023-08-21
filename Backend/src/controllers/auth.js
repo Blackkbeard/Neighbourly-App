@@ -139,6 +139,7 @@ const updateProfile = async (req, res) => {
     if ("postal_code" in req.body)
       updatedProfile.postal_code = req.body.postal_code;
     if ("biography" in req.body) updatedProfile.biography = req.body.biography;
+
     await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
     res.json({ status: "ok", msg: "Account updated" });
   } catch (error) {
@@ -146,6 +147,7 @@ const updateProfile = async (req, res) => {
     res.json({ status: "error", msg: error.message });
   }
 };
+
 module.exports = {
   seedAuth,
   register,
