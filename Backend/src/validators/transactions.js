@@ -11,6 +11,18 @@ const validateCreateTransaction = [
   check("requester_id", "invalid requester_id").isLength({ min: 24, max: 24 }),
   check("listing_id", "listing_id is required").not().isEmpty(),
   check("listing_id", "invalid listing_id").isLength({ min: 24, max: 24 }),
+  check(
+    "status",
+    `type should be either "pending_owner_response", "owner_accepted", "owner_declined", "completed", or "expired"`
+  )
+    .optional()
+    .isIn([
+      "pending_owner_response",
+      "owner_accepted",
+      "owner_declined",
+      "completed",
+      "expired",
+    ]),
 ];
 
 const validateUpdateTransaction = [
@@ -23,6 +35,18 @@ const validateUpdateTransaction = [
   check("listing_id", "invalid listing_id")
     .optional()
     .isLength({ min: 24, max: 24 }),
+  check(
+    "status",
+    `type should be either "pending_owner_response", "owner_accepted", "owner_declined", "completed", or "expired"`
+  )
+    .optional()
+    .isIn([
+      "pending_owner_response",
+      "owner_accepted",
+      "owner_declined",
+      "completed",
+      "expired",
+    ]),
 ];
 
 module.exports = {
