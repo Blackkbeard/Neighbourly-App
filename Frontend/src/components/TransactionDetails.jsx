@@ -7,13 +7,16 @@ import useFetch from "../hooks/useFetch";
 const TransactionDetails = (props) => {
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", m: "1rem" }}>
         <Box
           xs={2}
           sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}
         >
-          <Avt sx={{ width: "3rem", height: "3rem" }}></Avt>
-          {/* //TODO: update avatar */}
+          <Avt
+            sx={{ width: "3rem", height: "3rem" }}
+            alt="Requester's avatar"
+            src={props.selectedTxn.requester_id.image_url}
+          ></Avt>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
           <Typography component="div" variant="body">
@@ -27,39 +30,23 @@ const TransactionDetails = (props) => {
 
       <Divider variant="middle" sx={{ marginLeft: "5%", marginRight: "5%" }} />
 
-      <Box>
-        <Box>
-          <Typography
-            variant="body"
-            color="text.secondary"
-            component="div"
-            display="block"
-            margin="1rem"
-          >
-            {props.selectedTxn.requester_id.display_name} is interested in{" "}
-            {props.selectedTxn.listing_id.title}.
-          </Typography>
-          <Typography
-            variant="body"
-            color="text.secondary"
-            component="div"
-            display="block"
-            margin="1rem"
-          >
-            Accept this request?
-          </Typography>
-          <Typography
-            variant="body"
-            color="text.secondary"
-            component="div"
-            display="block"
-            margin="1rem"
-          >
-            Once accepted, you will exchange mobile numbers to arrange a
-            meet-up. Your mobile number:{" "}
-            {props.selectedTxn.requester_id.mobile_number}
-          </Typography>
-        </Box>
+      <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
+        <Typography
+          variant="body"
+          color="text.secondary"
+          component="div"
+          display="block"
+          margin="1rem"
+        >
+          {props.selectedTxn.requester_id.display_name} is interested in{" "}
+          {props.selectedTxn.listing_id.title}. Accept this request? <br />
+          <br />
+          Once accepted, you will exchange mobile numbers to arrange a meet-up.
+          <br />
+          <br />
+          Your mobile number: {props.selectedTxn.requester_id.mobile_number}
+        </Typography>
+
         <Box display="flex" margin="1rem">
           <Btn width={10}>Accept</Btn>
           <Btn isBrown={true} width={10}>

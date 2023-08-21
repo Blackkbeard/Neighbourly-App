@@ -7,8 +7,10 @@ import {
   CardActionArea,
   Box,
   Chip,
+  Grid,
 } from "@mui/material";
 import Avt from "./Avt";
+import AspectRatio from "@mui/joy/AspectRatio";
 
 const Transactions = (props) => {
   const getStatusLabel = (status) => {
@@ -37,7 +39,7 @@ const Transactions = (props) => {
         variant="outlined"
         style={{
           borderRadius: "1rem",
-          margin: "0.6rem",
+          margin: "1rem",
         }}
         onClick={(e) => {
           props.setSelectedTxnId(props.id);
@@ -46,36 +48,48 @@ const Transactions = (props) => {
         <CardActionArea
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
-          <Box sx={{ display: "flex", flexShrink: 1, flexDirection: "column" }}>
-            <CardContent sx={{ flex: "0 auto" }}>
-              <Avt size={3}></Avt>
-            </CardContent>
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent sx={{ flex: "0 auto" }}>
-              <Typography component="div" variant="subtitle">
-                {props.listingTitle}
-              </Typography>
-              <Typography
-                variant="subtitle"
-                color="text.secondary"
-                component="div"
-              >
-                {props.requesterName}
-              </Typography>
-              <Chip
-                label={statusLabel}
-                variant="outlined"
-                sx={{ mb: "1rem", margin: "0.2rem" }}
+          <Grid container>
+            <Grid
+              xs={2}
+              sx={{
+                display: "flex",
+                flexShrink: 1,
+                flexDirection: "column",
+              }}
+            >
+              <CardContent sx={{ flex: "0 auto" }}>
+                <Avt size={3}></Avt>
+              </CardContent>
+            </Grid>
+            <Grid xs={6} sx={{ display: "flex", flexDirection: "column" }}>
+              <CardContent sx={{ flex: "0 auto" }}>
+                <Typography component="div" variant="subtitle">
+                  {props.listingTitle}
+                </Typography>
+                <Typography
+                  variant="subtitle"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {props.requesterName}
+                </Typography>
+                <Chip
+                  label={statusLabel}
+                  variant="outlined"
+                  sx={{ mb: "1rem", my: "0.5rem" }}
+                />
+              </CardContent>
+            </Grid>
+            <Grid xs={4}>
+              <CardMedia
+                component="img"
+                sx={{ height: 60 }}
+                image={props.listingImage}
+                alt="Listing img"
+                style={{ height: "9rem" }}
               />
-            </CardContent>
-          </Box>
-          <CardMedia
-            component="img"
-            sx={{ width: 100 }}
-            image={props.listingImage}
-            alt="Listing img"
-          />
+            </Grid>
+          </Grid>
         </CardActionArea>
       </Card>
     </>

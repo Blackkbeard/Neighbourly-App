@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
-
 import Grid from "@mui/material/Unstable_Grid2";
 import {
   Container,
@@ -116,7 +115,7 @@ const Transactions = (props) => {
               />
             </Grid>
 
-            <Grid xs={5}>
+            <Grid xs={4}>
               {transactions.map((item, idx) => {
                 return (
                   <TransactionCard
@@ -133,13 +132,24 @@ const Transactions = (props) => {
               })}
             </Grid>
             <Divider orientation="vertical" flexItem />
-            <Grid xs={6}>
+            <Grid xs={7}>
               {Object.keys(selectedTxn).length > 0 ? (
                 <TransactionDetails
                   selectedTxn={selectedTxn}
                 ></TransactionDetails>
               ) : (
-                <Box>Loading..</Box>
+                <Box>
+                  {" "}
+                  <Typography
+                    variant="body"
+                    color="text.secondary"
+                    component="div"
+                    display="block"
+                    margin="1rem"
+                  >
+                    Loading...
+                  </Typography>
+                </Box>
               )}
             </Grid>
           </Grid>
