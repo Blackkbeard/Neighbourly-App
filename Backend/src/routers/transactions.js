@@ -39,7 +39,7 @@ router.put(
 );
 router.patch(
   "/transactions/:id",
-  validateIdInParam,g
+  validateIdInParam,
   validateUpdateTransaction,
   checkValid,
   updateTransaction
