@@ -11,49 +11,44 @@ import {
   Box,
 } from "@mui/material";
 
-const Listings = () => {
+const Listings = (props) => {
   return (
     <>
-      {[1, 2, 3, 4].map((item, id) => {
-        return (
-          <Grid xs={12} key={id}>
-            <Card
-              sx={{ display: "flex", justifyContent: "space-between" }}
-              variant="outlined"
-              style={{
-                borderRadius: "1rem",
-                margin: "1rem",
-              }}
+      <Card
+        key={props.id}
+        sx={{ display: "flex", justifyContent: "space-between" }}
+        variant="outlined"
+        style={{
+          borderRadius: "1rem",
+          margin: "1rem",
+        }}
+      >
+        <Box sx={{ display: "flex", flexShrink: 1, flexDirection: "column" }}>
+          <CardContent sx={{ flex: "0 auto" }}>
+            <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
+          </CardContent>
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <CardContent sx={{ flex: "0 auto" }}>
+            <Typography component="div" variant="subtitle">
+              {props.listingTitle}
+            </Typography>
+            <Typography
+              variant="subtitle"
+              color="text.secondary"
+              component="div"
             >
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <CardContent sx={{ flex: "1 0 auto" }}>
-                  <Avatar sx={{ width: "3rem", height: "3rem" }}></Avatar>
-                </CardContent>
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <CardContent sx={{ flex: "1 0 auto" }}>
-                  <Typography component="div" variant="h6">
-                    ListingTitle
-                  </Typography>
-                  <Typography
-                    variant="subtitle"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    RequesterName
-                  </Typography>
-                </CardContent>
-              </Box>
-              <CardMedia
-                component="img"
-                sx={{ width: 100 }}
-                image="/sample-image.webp"
-                alt="Listing img"
-              />
-            </Card>
-          </Grid>
-        );
-      })}
+              {props.requesterName}
+            </Typography>
+          </CardContent>
+        </Box>
+        <CardMedia
+          component="img"
+          sx={{ width: 100 }}
+          image={props.listingImage}
+          alt="Listing img"
+        />
+      </Card>
     </>
   );
 };

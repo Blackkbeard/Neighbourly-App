@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Container, Typography, Box, Avatar } from "@mui/material";
@@ -6,9 +6,35 @@ import Divider from "@mui/material/Divider";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
 import TransactionCard from "../components/TransactionCards";
+import useFetch from "../hooks/useFetch";
 
-const Transactions = () => {
+const Transactions = (props) => {
   const userCtx = useContext(UserContext);
+  const [transactions, setTransactions] = useState([]);
+  const fetchData = useFetch();
+
+  const getTransactionsByOwner = async () => {
+    const res = await fetchData(
+      "/api/transactions",
+      "POST",
+      {
+        owner_id: "64e2c2fcdce21246ef81b8ed",
+      },
+      userCtx.accessToken
+    );
+
+    if (res.ok) {
+      setTransactions(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getTransactionsByOwner();
+  }, []);
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>
@@ -22,7 +48,18 @@ const Transactions = () => {
               </Typography>
             </Grid>
             <Grid xs={4}>
-              <TransactionCard></TransactionCard>
+              {transactions.map((item, idx) => {
+                return (
+                  <TransactionCard
+                    key={idx}
+                    id={item._id}
+                    listingTitle={item.listing_id.title}
+                    listingImage={item.listing_id.image_url}
+                    requesterName={item.requester_id.display_name}
+                    requesterImage={item.requester_id.image_url}
+                  />
+                );
+              })}
             </Grid>
             <Divider orientation="vertical" flexItem />
             <Grid xs={7}>
