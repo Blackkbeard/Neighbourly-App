@@ -14,7 +14,7 @@ const auth = require("./src/routers/auth");
 
 //allows api to be called 100 times within 15min interval
 const limit = rateLimit({
-  windowMs: 15 * 60 * 1000, //15min
+  windowMs: 1 * 60 * 1000, //1min
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,

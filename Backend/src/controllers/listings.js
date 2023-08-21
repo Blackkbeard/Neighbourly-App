@@ -53,7 +53,9 @@ const getAllListings = async (req, res) => {
 // Get listing by _id
 const getListingById = async (req, res) => {
   try {
-    const listing = await ListingModel.findById(req.params.id);
+    const listing = await ListingModel.findById(req.params.id).populate(
+      "owner_id"
+    );
 
     if (!listing) {
       return res
