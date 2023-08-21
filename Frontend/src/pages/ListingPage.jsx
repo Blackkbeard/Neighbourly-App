@@ -17,6 +17,11 @@ import {
   CardContent,
   Chip,
   CardActions,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import Btn from "../components/Btn";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
@@ -27,12 +32,32 @@ const ListingPage = () => {
   const params = useParams();
   const fetchData = useFetch();
   const [listing, setListing] = useState({});
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpenDelete(true);
+  };
+
+  const handleClose = () => {
+    setOpenDelete(false);
+  };
 
   const getListingById = async () => {
     const res = await fetchData("/api/listings/" + params.item);
 
     if (res.ok) {
       setListing(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const deleteListing = async () => {
+    const res = await fetchData("/api/listings/" + params.item, "DELETE");
+
+    if (res.ok) {
+      //GO TO SUCCESS DELETE PAGE
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -90,16 +115,46 @@ const ListingPage = () => {
                 <CardActions>
                   {/* add conditional rendering for neighbour */}
                   <Btn startIcon={<HandshakeTwoToneIcon />}>Submit Request</Btn>
-                  
+
                   {/* add conditional rendering for owner */}
                   <Btn startIcon={<ModeEditOutlineOutlinedIcon />}>Edit</Btn>
-                  <Btn startIcon={<DeleteForeverOutlinedIcon />}>Delete</Btn>
+                  <Btn
+                    startIcon={<DeleteForeverOutlinedIcon />}
+                    onClick={handleClickOpen}
+                  >
+                    Delete
+                  </Btn>
                 </CardActions>
               </Card>
             </Grid>
           </Grid>
         </Box>
       </Container>
+
+      {/* dialog for delete listing */}
+      <Dialog
+        open={openDelete}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <Typography variant="h5">Confirm delete item?</Typography>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Once the listing is deleted,
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Btn onClick={handleClose} isBrown={true}>
+            Cancel
+          </Btn>
+          <Btn onClick={handleClose} autoFocus>
+            Confirm
+          </Btn>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
