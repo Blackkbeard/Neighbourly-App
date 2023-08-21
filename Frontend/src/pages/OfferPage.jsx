@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../context/user";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -22,9 +23,13 @@ import useFetch from "../hooks/useFetch";
 
 const OfferPage = () => {
   const userCtx = useContext(UserContext);
-  const [listings, setListings] = useState([]);
+  const navigate = useNavigate();
   const fetchData = useFetch();
 
+  // states
+  const [listings, setListings] = useState([]);
+
+  // endpoints
   const getListings = async () => {
     const res = await fetchData("/api/listings");
 
@@ -86,7 +91,7 @@ const OfferPage = () => {
                 </FormControl>
               </Grid>
               <Grid xs={2}>
-                <Btn>+ Add Offer</Btn>
+                <Btn onClick={() => navigate("/add-offer")}>+ Add Offer</Btn>
               </Grid>
 
               {/* listings card */}
