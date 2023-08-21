@@ -25,9 +25,13 @@ const validateCreateTransaction = [
     ]),
 ];
 
-const validateGetByOwnerId = [
-  check("owner_id", "owner_id is required").not().isEmpty(),
-  check("owner_id", "invalid owner_id").isLength({ min: 24, max: 24 }),
+const validateGetByUserId = [
+  check("owner_id", "invalid owner_id")
+    .optional()
+    .isLength({ min: 24, max: 24 }),
+  check("requester_id", "invalid requester_id")
+    .optional()
+    .isLength({ min: 24, max: 24 }),
 ];
 
 const validateUpdateTransaction = [
@@ -57,6 +61,6 @@ const validateUpdateTransaction = [
 module.exports = {
   validateCreateTransaction,
   validateUpdateTransaction,
-  validateGetByOwnerId,
+  validateGetByUserId,
   validateIdInParam,
 };
