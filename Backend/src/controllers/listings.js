@@ -14,10 +14,11 @@ const seedListings = async (req, res) => {
         description: `I’m too busy with my coding bootcamp to ride it. Feel free to borrow it on weekends`,
         type: "loan",
         owner_id: "64e2c2fcdce21246ef81b8ed",
-        date_available_from: `${new Date()}`,
-        date_available_to: "2022-09-30",
+        date_available_from: "2023-07-29",
+        date_available_to: "2023-09-30",
         image_url:
           "https://images.immediate.co.uk/production/volatile/sites/21/2021/03/20210317_SB_5DSR_MG_4042-4cbecec.jpg?quality=90&resize=768%2C574",
+        created_at: "2023-07-29",
       },
       {
         _id: "64d0f3f75676c304033d8c90",
@@ -25,8 +26,8 @@ const seedListings = async (req, res) => {
         description: `Onions are a rich source of fiber and prebiotics, which are necessary for optimal gut health. I bought way too many onions. Giving away for free`,
         type: "free",
         owner_id: "64e2c2fcdce21246ef81b8ee",
-        date_available_from: `${new Date()}`,
-        date_available_to: "2022-08-30",
+        date_available_from: new Date(),
+        date_available_to: "2023-09-30",
         image_url:
           "https://www.almanac.com/sites/default/files/styles/or/public/image_nodes/onions.jpg?itok=NqLGNDHS",
       },
