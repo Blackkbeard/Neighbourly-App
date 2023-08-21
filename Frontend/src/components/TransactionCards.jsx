@@ -39,7 +39,7 @@ const Transactions = (props) => {
           margin: "0.6rem",
         }}
         onClick={() => {
-          props.setSelectedTxn(props.id);
+          props.setSelectedTxnId(props.id);
         }}
       >
         <CardActionArea

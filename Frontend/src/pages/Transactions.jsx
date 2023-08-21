@@ -13,29 +13,40 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import TopBar from "../components/TopBar";
-import Btn from "../components/Btn";
 import TransactionCard from "../components/TransactionCards";
+import TransactionDetails from "../components/TransactionDetails";
 
 const Transactions = (props) => {
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("listings");
-  const [selectedTxn, setSelectedTxn] = useState();
+  const [selectedTxnId, setSelectedTxnId] = useState();
+  const [selectedTxn, setSelectedTxn] = useState({});
 
-  //fetch transactions by owner
+  //fetch all transactions by owner
   const getTransactionsByOwner = async () => {
-    const res = await fetchData(
-      "/api/transactions",
-      "POST",
-      {
-        owner_id: "64e2c2fcdce21246ef81b8ed",
-      },
-      userCtx.accessToken
-    );
+    const res = await fetchData("/api/transactions", "POST", {
+      owner_id: "64e2c2fcdce21246ef81b8ed",
+    });
 
     if (res.ok) {
-      setTransactions(res.data);
+      console.log(res.data);
+      setTransactions(res.data); //store in state
+      setSelectedTxnId(res.data[0]._id);
+      console.log(selectedTxnId);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  //fetch selected txn details
+  const getSelectedTxn = async () => {
+    const res = await fetchData("/api/transactions/" + selectedTxnId);
+
+    if (res.ok) {
+      setSelectedTxn(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -45,6 +56,10 @@ const Transactions = (props) => {
   useEffect(() => {
     getTransactionsByOwner();
   }, []);
+
+  useEffect(() => {
+    getSelectedTxn();
+  }, selectedTxnId);
 
   const handleToggle = (event, newSelection) => {
     setTxnToggle(newSelection);
@@ -103,7 +118,7 @@ const Transactions = (props) => {
                     status={item.status}
                     requesterName={item.requester_id.display_name}
                     requesterImage={item.requester_id.image_url}
-                    setSelectedTxn={setSelectedTxn}
+                    setSelectedTxnId={setSelectedTxnId}
                   />
                 );
               })}
@@ -123,69 +138,26 @@ const Transactions = (props) => {
                   margin="1rem"
                 >
                   <Typography component="div" variant="h6">
-                    RequesterName
+                    {selectedTxn.requester_id.display_name}
                   </Typography>
                   <Typography
                     variant="subtitle"
                     color="text.secondary"
                     component="div"
                   >
-                    Neighbour in NEIGHBOURHOOD
+                    Neighbour in {selectedTxn.requester_id.location[0].district}
                   </Typography>
                 </Box>
               </Box>
+
               <Divider
                 variant="middle"
                 sx={{ marginLeft: "5%", marginRight: "5%" }}
               />
-              <Box>
-                <Box>
-                  <Typography
-                    variant="body"
-                    color="text.secondary"
-                    component="div"
-                    display="block"
-                    margin="1rem"
-                  >
-                    RequesterName is interested in ListingTitle.
-                  </Typography>
-                  <Typography
-                    variant="body"
-                    color="text.secondary"
-                    component="div"
-                    display="block"
-                    margin="1rem"
-                  >
-                    Accept this request?
-                  </Typography>
-                  <Typography
-                    variant="body"
-                    color="text.secondary"
-                    component="div"
-                    display="block"
-                    margin="1rem"
-                  >
-                    Once accepted, you will exchange mobile numbers to arrange a
-                    meet-up.
-                  </Typography>
 
-                  <Typography
-                    variant="body"
-                    color="text.secondary"
-                    component="div"
-                    display="block"
-                    margin="1rem"
-                  >
-                    Your mobile number: +65 91234567
-                  </Typography>
-                </Box>
-                <Box display="flex" margin="1rem">
-                  <Btn width={10}>Accept</Btn>
-                  <Btn isBrown={true} width={10}>
-                    Decline
-                  </Btn>
-                </Box>
-              </Box>
+              <TransactionDetails
+                selectedTxn={selectedTxn}
+              ></TransactionDetails>
             </Grid>
           </Grid>
         </Box>
