@@ -21,6 +21,7 @@ const Transactions = (props) => {
   const [txnToggle, setTxnToggle] = useState("listings");
   const [selectedTxn, setSelectedTxn] = useState({});
   const [selectedTxnId, setSelectedTxnId] = useState("");
+  const [transactionState, setTransactionState] = useState("");
 
   //Toggle to re-render page with either listings or requests
   const handleToggle = (event, newSelection) => {
@@ -47,7 +48,7 @@ const Transactions = (props) => {
     });
 
     if (res.ok) {
-      setTransactions(res.data); //store in state
+      setTransactions(res.data);
     } else {
       alert(JSON.stringify(res.data));
     }
@@ -62,8 +63,8 @@ const Transactions = (props) => {
     }
 
     if (res.ok) {
-      console.log(res.data);
-      setSelectedTxn(res.data); //store in state
+      setSelectedTxn(res.data);
+      setTransactionState(res.data.status);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -158,6 +159,8 @@ const Transactions = (props) => {
                 <TransactionDetails
                   selectedTxn={selectedTxn}
                   txnToggle={txnToggle}
+                  transactionState={transactionState}
+                  setTransactionState={setTransactionState}
                 ></TransactionDetails>
               ) : (
                 <Box>

@@ -1,17 +1,43 @@
-import { React, useState, useEffect } from "react";
-import { Box, Typography, Divider } from "@mui/material";
+import { React, useState } from "react";
+import { Box, Typography, Divider, Snackbar, Alert } from "@mui/material";
 import Btn from "./Btn";
 import Avt from "./Avt";
-import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import useFetch from "../hooks/useFetch";
 
 const TransactionDetails = (props) => {
-  const transactionState = props.selectedTxn.status;
+  const fetchData = useFetch();
+  const [open, setOpen] = useState(false);
+
   let content = "";
+
+  const handleAcceptTxn = async (id) => {
+    const res = await fetchData(
+      "/api/transactions/" + props.selectedTxn._id,
+      "PATCH",
+      {
+        status: "accepted",
+      }
+    );
+    if (res.ok) {
+      setOpen(true);
+      props.setTransactionState("accepted");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   if (props.txnToggle === "listings") {
     //content for user's listings
-    if (transactionState === "pending_owner_response") {
+    if (props.transactionState === "pending_owner_response") {
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
           <Typography
@@ -31,14 +57,16 @@ const TransactionDetails = (props) => {
           </Typography>
 
           <Box sx={{ display: "flex", m: "0.5rem" }}>
-            <Btn width={10}>Accept</Btn>
+            <Btn width={10} onClick={handleAcceptTxn}>
+              Accept
+            </Btn>
             <Btn isBrown={true} width={10}>
               Decline
             </Btn>
           </Box>
         </Box>
       );
-    } else if (transactionState === "accepted") {
+    } else if (props.transactionState === "accepted") {
       // Render content for the "accepted" state
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
@@ -77,7 +105,7 @@ const TransactionDetails = (props) => {
           </Typography>
         </Box>
       );
-    } else if (transactionState === "declined") {
+    } else if (props.transactionState === "declined") {
       // Add content for the "declined" state
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
@@ -95,7 +123,7 @@ const TransactionDetails = (props) => {
           </Box>
         </Box>
       );
-    } else if (transactionState === "completed") {
+    } else if (props.transactionState === "completed") {
       // Render content for the "completed" state
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
@@ -131,7 +159,7 @@ const TransactionDetails = (props) => {
     }
   } else {
     //content for user's requests
-    if (transactionState === "pending_owner_response") {
+    if (props.transactionState === "pending_owner_response") {
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
           <Typography
@@ -152,7 +180,7 @@ const TransactionDetails = (props) => {
           </Box>
         </Box>
       );
-    } else if (transactionState === "accepted") {
+    } else if (props.transactionState === "accepted") {
       // Render content for the "accepted" state
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
@@ -191,7 +219,7 @@ const TransactionDetails = (props) => {
           </Typography>
         </Box>
       );
-    } else if (transactionState === "declined") {
+    } else if (props.transactionState === "declined") {
       // Add content for the "declined" state
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
@@ -210,7 +238,7 @@ const TransactionDetails = (props) => {
           </Box>
         </Box>
       );
-    } else if (transactionState === "completed") {
+    } else if (props.transactionState === "completed") {
       // Render content for the "completed" state
       content = (
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
@@ -247,8 +275,6 @@ const TransactionDetails = (props) => {
     }
   }
 
-  //content for requests
-
   return (
     <>
       <Box sx={{ display: "flex", m: "1rem" }}>
@@ -274,6 +300,12 @@ const TransactionDetails = (props) => {
       <Divider variant="middle" sx={{ marginLeft: "5%", marginRight: "5%" }} />
       {/* display this if props.selectedTxn.status is "pending" */}
       {content}
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Transaction Accepted!
+        </Alert>
+      </Snackbar>
     </>
   );
 };
