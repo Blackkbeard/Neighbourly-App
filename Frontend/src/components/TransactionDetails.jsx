@@ -1,11 +1,13 @@
 import { React } from "react";
 import { Box, Typography, Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Btn from "./Btn";
 import Avt from "./Avt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import useFetch from "../hooks/useFetch";
 
 const TransactionDetails = (props) => {
+  const navigate = useNavigate();
   const fetchData = useFetch();
   let content = "";
 
@@ -130,7 +132,14 @@ const TransactionDetails = (props) => {
             request for {props.selectedTxn.listing_id.title}.
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
-            <Btn width={15}>View listing</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View listing
+            </Btn>
           </Box>
         </Box>
       );
@@ -187,7 +196,14 @@ const TransactionDetails = (props) => {
           </Typography>
 
           <Box sx={{ display: "flex", m: "0.5rem" }}>
-            <Btn width={10}>View Listing</Btn>
+            <Btn
+              width={10}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View Listing
+            </Btn>
           </Box>
         </Box>
       );
@@ -252,7 +268,14 @@ const TransactionDetails = (props) => {
             Better luck next time...
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
-            <Btn width={15}>View listing</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View listing
+            </Btn>
           </Box>
         </Box>
       );
