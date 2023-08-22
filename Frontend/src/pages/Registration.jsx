@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, TextField } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Autocomplete,
+} from "@mui/material";
 import Btn from "../components/Btn";
 import { useNavigate } from "react-router-dom";
+import DistrictEnums from "../enums/districtEnums";
 
 const Registration = (props) => {
   const fetchData = useFetch();
@@ -16,6 +23,12 @@ const Registration = (props) => {
   const navigate = useNavigate();
 
   const registerUser = async () => {
+    console.log({
+      email: email,
+      password: password,
+      postal_code: zip,
+      district: district,
+    });
     const res = await fetchData("/auth/register", "PUT", {
       email: email,
       password: password,
@@ -96,14 +109,20 @@ const Registration = (props) => {
                 />
               </div>
               <div>
-                <TextField
+                <Autocomplete
+                  disablePortal
                   id="outlined-basic"
-                  label="Required"
-                  variant="outlined"
-                  defaultValue="Yishun"
-                  onChange={(e) => setDistrict(e.target.value)}
+                  options={DistrictEnums}
+                  inputValue={district}
+                  onInputChange={(event, newInputValue) => {
+                    setDistrict(newInputValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="District" />
+                  )}
                 />
               </div>
+
               <Btn onClick={registerUser}>Register</Btn>
             </Grid>
           </Grid>
