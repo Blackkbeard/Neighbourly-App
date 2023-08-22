@@ -12,19 +12,44 @@ import {
   Chip,
   Divider,
   CircularProgress,
+  Snackbar,
+  IconButton,
 } from "@mui/material";
 import Avt from "../components/Avt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import CloseIcon from "@mui/icons-material/Close";
 import Btn from "../components/Btn";
 import Listings from "../components/Listings";
 
-const Profile = () => {
+const Profile = (props) => {
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
   const navigate = useNavigate();
 
   // states
   const [listings, setListings] = useState([]);
+
+  // snackbar functions
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    props.setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   // Endpoint
   const getListingsByUserId = async () => {
@@ -116,6 +141,17 @@ const Profile = () => {
           </Grid>
         </Box>
       </Container>
+
+      {/* snackbar */}
+      <div>
+        <Snackbar
+          open={props.open}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          message="Listing deleted!"
+          action={action}
+        />
+      </div>
     </>
   );
 };

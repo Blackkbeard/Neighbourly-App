@@ -43,7 +43,7 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
 
-const ListingPage = () => {
+const ListingPage = (props) => {
   const params = useParams();
   const navigate = useNavigate();
   const fetchData = useFetch();
@@ -89,9 +89,6 @@ const ListingPage = () => {
     switch (btnName) {
       case "edit":
         return "Listing updated!";
-        break;
-      case "delete":
-        return "Listing deleted!";
         break;
       case "submit":
         return "Request submitted!";
@@ -177,9 +174,7 @@ const ListingPage = () => {
     const res = await fetchData("/api/listings/" + params.item, "DELETE");
 
     if (res.ok) {
-      // to display snackbar at profile page instead!!!
-      // setBtnName(e.target.id);
-      // setOpen(true);
+      props.setOpen(true);
 
       setOpenDelete(false);
       navigate(`/profile/${userCtx.userInfo._id}`);

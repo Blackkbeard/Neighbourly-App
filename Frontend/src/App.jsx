@@ -15,6 +15,8 @@ import Transactions from "./pages/Transactions";
 
 function App() {
   const fetchData = useFetch();
+
+  // states
   const [accessToken, setAccessToken] = useState("");
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState({
@@ -39,7 +41,9 @@ function App() {
     created_at: "2023-08-22T12:17:12.106Z",
     __v: 0,
   });
+  const [open, setOpen] = useState(false); //snackbar
 
+  //endpoints
   const getUserInfo = async () => {
     const res = await fetchData("/auth/accounts/" + userId);
     setUserInfo(res.data);
@@ -76,9 +80,15 @@ function App() {
 
           <Route path="/" element={<OfferPage />}></Route>
           <Route path="/add-offer" element={<AddOffer />}></Route>
-          <Route path="/listing/:item" element={<ListingPage />}></Route>
+          <Route
+            path="/listing/:item"
+            element={<ListingPage setOpen={setOpen} />}
+          ></Route>
 
-          <Route path="/profile/:item" element={<Profile />}></Route>
+          <Route
+            path="/profile/:item"
+            element={<Profile open={open} setOpen={setOpen} />}
+          ></Route>
           <Route path="/settings" element={<Settings />}></Route>
 
           <Route path="/transactions" element={<Transactions />}></Route>

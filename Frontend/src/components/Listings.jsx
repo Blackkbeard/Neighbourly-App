@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -16,6 +16,7 @@ import {
 import Avt from "./Avt";
 
 const Listings = (props) => {
+  const navigate = useNavigate();
   return (
     <>
       {props.listings.map((item, id) => {
@@ -27,10 +28,11 @@ const Listings = (props) => {
               style={{ borderRadius: "1rem", marginTop: "2rem" }}
             >
               <CardHeader
-                // onClick to listing owner profile
                 avatar={
                   <Tooltip title="View Profile" placement="top">
-                    <IconButton onClick={() => console.log("to profile")}>
+                    <IconButton
+                      onClick={() => navigate(`/profile/${item.owner_id._id}`)}
+                    >
                       <Avt size={3} src={item.owner_id.image_url}></Avt>
                     </IconButton>
                   </Tooltip>
