@@ -30,6 +30,7 @@ const ProfileSetup = (props) => {
 
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("user_id", props.userInfo._id);
 
     const res = await fetch(import.meta.env.VITE_SERVER + "/api/images", {
       method: "POST",

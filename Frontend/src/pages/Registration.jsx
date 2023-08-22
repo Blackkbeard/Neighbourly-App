@@ -37,7 +37,7 @@ const Registration = (props) => {
     if (res.ok) {
       console.log(res.data);
       props.setUserInfo(res.data.createdUser);
-      navigate("/");
+      navigate("/profile-setup");
     } else {
       console.log(res.data);
     }
