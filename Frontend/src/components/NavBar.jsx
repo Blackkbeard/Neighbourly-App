@@ -1,5 +1,6 @@
-import React from "react";
+import { React, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "../context/user";
 
 import {
   ListItemIcon,
@@ -44,6 +45,8 @@ const navBar2 = [
 ];
 
 const NavBar = (props) => {
+  const userCtx = useContext(UserContext);
+
   return (
     <StyledEngineProvider>
       <Menu
@@ -65,7 +68,9 @@ const NavBar = (props) => {
       >
         <MenuList>
           <MenuItem className="menu-item" disabled>
-            <Typography textAlign="center">Howdy, USER-NAME</Typography>
+            <Typography textAlign="center">
+              Howdy, {userCtx.userInfo.display_name}
+            </Typography>
           </MenuItem>
           {navBar1.map((item, id) => (
             <MenuItem

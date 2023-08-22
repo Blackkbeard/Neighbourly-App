@@ -6,6 +6,7 @@ const Avt = (props) => {
     <>
       <Avatar
         sx={{ width: `${props.size}rem`, height: `${props.size}rem` }}
+        src={`${props.src}`}
       ></Avatar>
     </>
   );

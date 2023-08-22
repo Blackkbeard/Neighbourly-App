@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,8 +10,10 @@ import NavBar from "./NavBar";
 import { NavLink } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
 import Avt from "./Avt";
+import UserContext from "../context/user";
 
 const TopBar = (props) => {
+  const userCtx = useContext(UserContext);
   const [anchorElUser, setAnchorElUser] = useState(false);
 
   const handleOpenUserMenu = (event) => {
@@ -56,7 +58,7 @@ const TopBar = (props) => {
             {props.showBurger && (
               <>
                 <IconButton sx={{ p: 1 }} component={NavLink} to="/profile">
-                  <Avt />
+                  <Avt src={userCtx.userInfo.image_url} />
                 </IconButton>
 
                 <IconButton
