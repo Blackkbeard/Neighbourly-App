@@ -23,25 +23,20 @@ const Registration = (props) => {
   const navigate = useNavigate();
 
   const registerUser = async () => {
-    console.log({
-      email: email,
-      password: password,
-      postal_code: zip,
-      district: district,
-    });
     const res = await fetchData("/auth/register", "PUT", {
       email: email,
       password: password,
-      postal_code: zip,
-      district: district,
+      location: [
+        {
+          district,
+          postal_code: zip,
+        },
+      ],
     });
 
     if (res.ok) {
+      console.log(res.data);
       props.setUserInfo(res.data.createdUser);
-      setEmail("");
-      setPassword("");
-      setZip("");
-      setDistrict("");
       navigate("/profile-setup");
     } else {
       console.log(res.data);
