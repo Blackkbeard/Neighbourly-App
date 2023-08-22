@@ -191,7 +191,7 @@ const updateProfile = async (req, res) => {
     // if ("rating" in req.body) updatedProfile.rating = req.body.rating;
     // await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
 
-    res.json({ status: "ok", msg: "Account updated" });
+    res.json({ status: "ok", msg: "Account updated", updatedUser: authDB });
   } catch (error) {
     console.log(error.message);
     res.json({ status: "error", msg: error.message });
