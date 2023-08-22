@@ -3,6 +3,7 @@ const {
   seedListings,
   getAllListings,
   getAllListingsByDistrict,
+  getAllListingsByUserId,
   getListingById,
   createListing,
   patchListing,
@@ -19,6 +20,7 @@ const router = express.Router();
 router.get("/listings/seed", seedListings);
 router.get("/listings", getAllListings);
 router.get("/listings/district", getAllListingsByDistrict);
+router.get("/listings/userId", getAllListingsByUserId);
 router.get("/listings/:id", validateIdInParam, checkValid, getListingById);
 router.put("/listings", validateCreateListing, checkValid, createListing);
 router.patch(
