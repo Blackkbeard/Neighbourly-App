@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, Avatar } from "@mui/material";
+import { Container, Typography, Box, Avatar, Dialog } from "@mui/material";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 
@@ -92,6 +92,7 @@ const Settings = (props) => {
           </Grid>
         </Box>
       </Container>
+      <Dialog></Dialog>
     </>
   );
 };
