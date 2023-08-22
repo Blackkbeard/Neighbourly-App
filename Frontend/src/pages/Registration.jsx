@@ -6,12 +6,13 @@ import { Container, Typography, Box, TextField } from "@mui/material";
 import Btn from "../components/Btn";
 import { useNavigate } from "react-router-dom";
 
-const Registration = () => {
+const Registration = (props) => {
   const fetchData = useFetch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [zip, setZip] = useState("");
   const [district, setDistrict] = useState("");
+
   const navigate = useNavigate();
 
   const registerUser = async () => {
@@ -23,6 +24,7 @@ const Registration = () => {
     });
 
     if (res.ok) {
+      props.setUserInfo(res.data.createdUser);
       setEmail("");
       setPassword("");
       setZip("");

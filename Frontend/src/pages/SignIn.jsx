@@ -14,7 +14,9 @@ import {
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
 import { useNavigate } from "react-router-dom";
+
 const SignIn = (props) => {
+  const navigate = useNavigate();
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

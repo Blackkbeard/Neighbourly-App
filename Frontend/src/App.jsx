@@ -43,8 +43,16 @@ function App() {
       >
         <Routes>
           <Route path="/sign-in" element={<SignIn />}></Route>
-          <Route path="/registration" element={<Registration />}></Route>
-          <Route path="/profile-setup" element={<ProfileSetup />}></Route>
+          <Route
+            path="/registration"
+            element={<Registration setUserInfo={setUserInfo} />}
+          ></Route>
+          <Route
+            path="/profile-setup"
+            element={
+              <ProfileSetup userInfo={userInfo} setUserInfo={setUserInfo} />
+            }
+          ></Route>
 
           <Route path="/" element={<OfferPage />}></Route>
           <Route path="/add-offer" element={<AddOffer />}></Route>
