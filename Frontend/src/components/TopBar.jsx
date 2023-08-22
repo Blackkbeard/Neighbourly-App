@@ -41,7 +41,7 @@ const TopBar = (props) => {
               }}
               className="burgundy"
               component={NavLink}
-              to={props.showBurger && "/"}
+              to={props.showBurger ? "/" : "/sign-in"}
             >
               <GiteIcon />
             </IconButton>
