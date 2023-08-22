@@ -21,7 +21,7 @@ const seedAuth = async (req, res) => {
         mobile_number: 12345678,
         location: [
           {
-            district: "Yishun",
+            district: "Queenstown",
             postal_code: 760758,
             latitude: 1.42602952702202,
             longitude: 103.834266086838,

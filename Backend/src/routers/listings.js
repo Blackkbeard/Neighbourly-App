@@ -2,6 +2,7 @@ const express = require("express");
 const {
   seedListings,
   getAllListings,
+  getAllListingsByDistrict,
   getListingById,
   createListing,
   patchListing,
@@ -17,6 +18,7 @@ const router = express.Router();
 
 router.get("/listings/seed", seedListings);
 router.get("/listings", getAllListings);
+router.get("/listings/district", getAllListingsByDistrict);
 router.get("/listings/:id", validateIdInParam, checkValid, getListingById);
 router.put("/listings", validateCreateListing, checkValid, createListing);
 router.patch(
