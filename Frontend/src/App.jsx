@@ -40,10 +40,16 @@ function App() {
   });
 
   const getUserInfo = async () => {
-    const res = await fetchData("/auth/accounts/" + id);
+    console.log(userId);
+    const res = await fetchData("/auth/accounts/" + userId);
+    setUserInfo(res.data);
+    console.log(res.data);
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    // console.log(userId);
+    getUserInfo();
+  }, [userId]);
 
   return (
     <div className="margin-padding-0">
