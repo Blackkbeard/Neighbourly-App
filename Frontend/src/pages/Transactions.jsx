@@ -134,21 +134,23 @@ const Transactions = (props) => {
             {/* transaction list */}
             <Grid xs={4.5}>
               {transactions.map((item, idx) => {
-                return (
-                  <TransactionCard
-                    key={idx}
-                    id={item._id}
-                    listingTitle={item.listing_id.title}
-                    listingImage={item.listing_id.image_url}
-                    status={item.status}
-                    ownerName={item.owner_id.display_name}
-                    ownerImage={item.owner_id.image_url}
-                    requesterName={item.requester_id.display_name}
-                    requesterImage={item.requester_id.image_url}
-                    setSelectedTxnId={setSelectedTxnId}
-                    txnToggle={txnToggle}
-                  />
-                );
+                if (item.listing_id) {
+                  return (
+                    <TransactionCard
+                      key={idx}
+                      id={item?._id}
+                      listingTitle={item.listing_id.title}
+                      listingImage={item.listing_id.image_url}
+                      status={item.status}
+                      ownerName={item.owner_id.display_name}
+                      ownerImage={item.owner_id.image_url}
+                      requesterName={item.requester_id.display_name}
+                      requesterImage={item.requester_id.image_url}
+                      setSelectedTxnId={setSelectedTxnId}
+                      txnToggle={txnToggle}
+                    />
+                  );
+                }
               })}
             </Grid>
 
