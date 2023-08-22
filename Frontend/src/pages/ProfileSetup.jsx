@@ -67,7 +67,7 @@ const ProfileSetup = (props) => {
       <TopBar></TopBar>
 
       <Container maxWidth="lg">
-        {JSON.stringify(props.userInfo)}
+        {/* {JSON.stringify(props.userInfo)} */}
         <Box
           component="form"
           sx={{
@@ -95,7 +95,7 @@ const ProfileSetup = (props) => {
               />
               <TextField
                 id="outlined-basic"
-                label="Required"
+                label="Display Name"
                 variant="outlined"
                 defaultValue="vinesh"
                 onChange={(e) => setDispName(e.target.value)}

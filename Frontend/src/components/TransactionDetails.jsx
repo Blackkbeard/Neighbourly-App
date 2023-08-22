@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, Tooltip, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Btn from "./Btn";
 import Avt from "./Avt";
@@ -374,15 +374,23 @@ const TransactionDetails = (props) => {
           xs={2}
           sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}
         >
-          <Avt
-            sx={{ width: "3rem", height: "3rem" }}
-            alt="Avatar"
-            src={
-              props.txnToggle === "listings"
-                ? props.selectedTxn.requester_id.image_url
-                : props.selectedTxn.owner_id.image_url
-            }
-          ></Avt>
+          <Tooltip title="View Profile" placement="top">
+            <IconButton
+              onClick={() => {
+                navigate("/profile");
+              }}
+            >
+              <Avt
+                sx={{ width: "3rem", height: "3rem" }}
+                alt="Avatar"
+                src={
+                  props.txnToggle === "listings"
+                    ? props.selectedTxn.requester_id.image_url
+                    : props.selectedTxn.owner_id.image_url
+                }
+              ></Avt>
+            </IconButton>
+          </Tooltip>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
           <Typography component="div" variant="body">
