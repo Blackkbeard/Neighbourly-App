@@ -45,7 +45,7 @@ const Profile = () => {
                 label={`${userCtx.userInfo?.help_count} Neighbours helped`}
                 variant="outlined"
                 sx={{ ml: "3rem", mt: "1rem" }}
-                style={{ height: "3rem", width: "20%" }}
+                style={{ height: "3rem", width: "25%" }}
               />
             </Grid>
           </Grid>
