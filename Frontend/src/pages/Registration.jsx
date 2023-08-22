@@ -70,7 +70,7 @@ const Registration = (props) => {
               </Typography>
               <div>
                 <TextField
-                  label="Required"
+                  label="Email"
                   variant="outlined"
                   defaultValue="test@test.com"
                   onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +79,7 @@ const Registration = (props) => {
               <div>
                 <TextField
                   id="outlined-basic"
-                  label="Required"
+                  label="Password"
                   variant="outlined"
                   defaultValue="test12345"
                   onChange={(e) => setPassword(e.target.value)}

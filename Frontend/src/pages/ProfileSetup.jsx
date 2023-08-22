@@ -95,7 +95,7 @@ const ProfileSetup = (props) => {
               />
               <TextField
                 id="outlined-basic"
-                label="Required"
+                label="Display Name"
                 variant="outlined"
                 defaultValue="vinesh"
                 onChange={(e) => setDispName(e.target.value)}
