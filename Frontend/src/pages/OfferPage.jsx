@@ -28,6 +28,7 @@ const OfferPage = () => {
 
   // states
   const [listings, setListings] = useState([]);
+  const [dispListings, setDispListings] = useState([]);
 
   // endpoints
   const getListings = async () => {
@@ -37,10 +38,20 @@ const OfferPage = () => {
 
     if (res.ok) {
       setListings(res.data);
+      setDispListings(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
+  };
+
+  // function
+  const handleSearch = (e) => {
+    const filtered = listings.filter((item) => {
+      return item.title.includes(e.target.value);
+    });
+
+    setDispListings(filtered);
   };
 
   useEffect(() => {
@@ -69,6 +80,7 @@ const OfferPage = () => {
                   variant="outlined"
                   className="search-bar"
                   color="secondary"
+                  onChange={handleSearch}
                 >
                   <InputLabel
                     htmlFor="outlined-adornment"
@@ -97,7 +109,7 @@ const OfferPage = () => {
 
               {/* listings card */}
               {listings ? (
-                <Listings listings={listings}></Listings>
+                <Listings listings={dispListings}></Listings>
               ) : (
                 <Box sx={{ display: "flex" }}>
                   <CircularProgress />
