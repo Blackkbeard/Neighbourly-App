@@ -20,7 +20,7 @@ const validateCreateListing = [
     "free",
     "loan",
   ]),
-  check("image_url", "image_url should be a string").isString(),
+  check("image_url", "image_url should be a string").optional().isString(),
 ];
 
 const validatePatchListing = [
