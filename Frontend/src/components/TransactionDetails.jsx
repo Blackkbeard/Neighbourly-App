@@ -390,7 +390,13 @@ const TransactionDetails = (props) => {
           <Tooltip title="View Profile" placement="top">
             <IconButton
               onClick={() => {
-                navigate("/profile");
+                navigate(
+                  `/profile/${
+                    props.txnToggle === "listings"
+                      ? props.selectedTxn.requester_id._id
+                      : props.selectedTxn.owner_id._id
+                  }`
+                ); 
               }}
             >
               <Avt

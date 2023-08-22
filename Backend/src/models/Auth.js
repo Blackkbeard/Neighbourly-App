@@ -5,7 +5,6 @@ const LocationSchema = new mongoose.Schema(
     district: {
       type: String,
       required: true,
-      enum: ["Yishun", "Queenstown", "Outram Park", "Jurong East"],
     },
     postal_code: {
       type: Number,
