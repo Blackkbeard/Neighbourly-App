@@ -4,6 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { Container, Typography, Box, Avatar, Dialog } from "@mui/material";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
+import Btn from "../components/Btn";
 
 const Settings = (props) => {
   const userCtx = useContext(UserContext);
@@ -35,22 +36,78 @@ const Settings = (props) => {
       console.log(res.data);
     }
   };
+
+  //for image upload
+  const [file, setFile] = useState();
+
+  const submit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("user_id", userFullInfo._id);
+
+    const res = await fetch(import.meta.env.VITE_SERVER + "/api/images", {
+      method: "POST",
+      headers: {},
+      body: formData,
+    });
+    const data = await res.json();
+
+    let returnValue = {};
+    if (res.ok) {
+      if (data.status === "error") {
+        returnValue = { ok: false, data: data.msg };
+      } else {
+        returnValue = { ok: true, data };
+      }
+    } else {
+      if (data?.errors && Array.isArray(data.errors)) {
+        const messages = data.errors.map((item) => item.msg);
+        returnValue = { ok: false, data: messages };
+      } else if (data?.status === "error") {
+        returnValue = { ok: false, data: data.message || data.msg };
+      } else {
+        console.log(data);
+        returnValue = { ok: false, data: "An error has occurred" };
+      }
+    }
+
+    return returnValue;
+  };
+
+  const fileSelected = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+  };
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>
 
       <Container maxWidth="lg">
         <Box>
+          <Typography variant="h5" textAlign="start" margin="2rem 0">
+            Your Profile
+          </Typography>
           <Grid container>
             <Grid xs={3}>
-              <Typography textAlign="center">Account Settings</Typography>
               <Avatar
                 alt=""
-                src="https://seeklogo.com/images/G/general-assembly-logo-D5C634F07A-seeklogo.com.png"
+                src={userCtx.userInfo.image_url}
                 sx={{ width: 150, height: 150 }}
                 display="flex"
                 justifycontent="center"
               ></Avatar>
+              <form onSubmit={submit} className="flex">
+                <input
+                  onChange={fileSelected}
+                  type="file"
+                  accept="image/*"
+                ></input>
+
+                <Btn type="submit">Update</Btn>
+              </form>
             </Grid>
             <Grid xs={9}>
               <Typography textAlign="center"></Typography>
