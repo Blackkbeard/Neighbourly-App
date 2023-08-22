@@ -16,6 +16,7 @@ import UserContext from "../context/user";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
 import CarouselItem from "../components/CarouselItem";
+import jwtDecode from "jwt-decode";
 
 const SignIn = (props) => {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ const SignIn = (props) => {
     const res = await fetchData("/auth/login", "POST", { email, password });
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
+      const decoded = jwtDecode(res.data.access);
+      userCtx.setUserId(decoded);
       navigate("/profile");
     } else {
       alert(JSON.stringify(res.data));

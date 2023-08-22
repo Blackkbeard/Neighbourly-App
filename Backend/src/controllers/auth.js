@@ -141,6 +141,7 @@ const login = async (req, res) => {
     }
     const claims = {
       email: auth.email,
+      id: auth._id,
     };
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "20m",
@@ -162,6 +163,7 @@ const refresh = (req, res) => {
     const decoded = jwt.verify(req.body.refresh, process.env.REFRESH_SECRET);
     const claims = {
       email: decoded.email,
+      id: decoded._id,
     };
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "30d",
