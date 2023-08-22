@@ -66,6 +66,8 @@ const ListingPage = () => {
   const descriptionRef = useRef("");
   const typeRef = useRef("");
 
+  const listing_owner_id = listing.owner_id?._id;
+
   // functions
   const handleOpenDelete = () => {
     setOpenDelete(true);
@@ -283,29 +285,33 @@ const ListingPage = () => {
                       </Typography>
                     </Box>
                   </CardContent>
-                  <CardActions>
-                    {/* add conditional rendering for neighbour */}
-                    <Btn
-                      onClick={handleSubmitRequest}
-                      startIcon={<HandshakeTwoToneIcon />}
-                      id="submit"
-                    >
-                      Submit Request
-                    </Btn>
 
-                    {/* add conditional rendering for owner */}
-                    <Btn
-                      startIcon={<ModeEditOutlineOutlinedIcon />}
-                      onClick={handleOpenEdit}
-                    >
-                      Edit
-                    </Btn>
-                    <Btn
-                      startIcon={<DeleteForeverOutlinedIcon />}
-                      onClick={handleOpenDelete}
-                    >
-                      Delete
-                    </Btn>
+                  {/* conditional rendering of buttons depending on owner or neighbour */}
+                  <CardActions>
+                    {user_id !== listing_owner_id ? (
+                      <Btn
+                        onClick={handleSubmitRequest}
+                        startIcon={<HandshakeTwoToneIcon />}
+                        id="submit"
+                      >
+                        Submit Request
+                      </Btn>
+                    ) : (
+                      <>
+                        <Btn
+                          startIcon={<ModeEditOutlineOutlinedIcon />}
+                          onClick={handleOpenEdit}
+                        >
+                          Edit
+                        </Btn>
+                        <Btn
+                          startIcon={<DeleteForeverOutlinedIcon />}
+                          onClick={handleOpenDelete}
+                        >
+                          Delete
+                        </Btn>
+                      </>
+                    )}
                   </CardActions>
                 </Card>
               </Grid>
