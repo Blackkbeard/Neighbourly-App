@@ -7,6 +7,9 @@ const bucketRegion = process.env.BUCKET_REGION;
 const accessKey = process.env.ACCESS_KEY;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
+const sharp = require("sharp"); //for image resizing
+const AuthModel = require("../models/Auth");
+
 //set up new s3 object
 const s3 = new S3Client({
   credentials: {
@@ -16,25 +19,44 @@ const s3 = new S3Client({
   region: bucketRegion,
 });
 
-// get all images
-const getImages = async (req, res) => {};
-
 //upload new image
 const uploadImage = async (req, res) => {
-  console.log("req.body", req.body);
+  try {
+    const user_id = req.body.user_id;
 
-  //send req.file.buffer to s3
-  const params = {
-    Bucket: bucketName,
-    Key: req.file.originalname,
-    Body: req.file.buffer,
-    ContentType: req.file.mimetype,
-  };
-  const command = new PutObjectCommand(params);
-  await s3.send(command);
+    //resize image
+    const buffer = await sharp(req.file.buffer)
+      .resize(300, 300, {
+        fit: "contain",
+      })
+      .toBuffer();
 
-  res.send({});
+    //send image to s3
+    const params = {
+      Bucket: bucketName,
+      Key: `image-${Date.now()}.jpeg`, //create unique file name to prevent overrides due to same name
+      Body: buffer,
+      ContentType: req.file.mimetype,
+      ACL: "public-read", // Make the object publicly accessible
+    };
+    const command = new PutObjectCommand(params);
+    await s3.send(command);
+
+    //store s3 URL in mongodb database:
+    //retrieve user and update image_url field with the S3 URL
+    const user = await AuthModel.findById(user_id);
+    user.image_url = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com/${params.Key}`;
+    await user.save();
+    console.log("Image uploaded successfully");
+    res.send({ message: "Image uploaded successfully" });
+  } catch (error) {
+    console.error("Error uploading and updating user:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 };
+
+// get all images
+const getImages = async (req, res) => {};
 
 // delete image
 const deleteImage = async (req, res) => {};
