@@ -9,10 +9,8 @@ const LocationSchema = new mongoose.Schema(
     },
     postal_code: {
       type: Number,
-      default: 0,
       required: true,
-      minLength: 1,
-      maxLength: 6,
+      minLength: 6,
     },
     latitude: { type: Number, required: false, default: 0 },
 

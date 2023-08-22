@@ -20,6 +20,8 @@ const Registration = (props) => {
   const [zip, setZip] = useState("");
   const [district, setDistrict] = useState("");
 
+  const [isInvalid, setIsInvalid] = useState(false);
+
   const navigate = useNavigate();
 
   const registerUser = async () => {
@@ -40,6 +42,33 @@ const Registration = (props) => {
       navigate("/");
     } else {
       console.log(res.data);
+    }
+  };
+
+  const validateZipCode = async (e) => {
+    setZip(e.target.value);
+
+    if (e.target.value >= 100000) {
+      console.log("fetching api");
+      console.log(e.target.value);
+      const res = await fetchData(
+        `https://www.onemap.gov.sg/api/common/elastic/search?searchVal=${e.target.value}&returnGeom=y&getAddrDetails=y&pageNum=1`,
+        "GET",
+        undefined,
+        undefined,
+        true
+      );
+
+      if (res.ok) {
+        if (res.data.found != 0) {
+          setIsInvalid(false);
+        } else {
+          setIsInvalid(true);
+        }
+      } else {
+        alert(JSON.stringify(res.data));
+        console.log(res.data);
+      }
     }
   };
 
@@ -87,11 +116,13 @@ const Registration = (props) => {
 
               <div>
                 <TextField
+                  error={isInvalid}
                   id="outlined-basic"
                   label="Zip Code"
                   variant="outlined"
                   defaultValue="760758"
-                  onChange={(e) => setZip(e.target.value)}
+                  onChange={(e) => validateZipCode(e)}
+                  helperText={isInvalid && "Invalid zip code"}
                 />
               </div>
               <div>
