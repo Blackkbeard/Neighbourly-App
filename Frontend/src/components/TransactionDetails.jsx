@@ -5,8 +5,13 @@ import Btn from "./Btn";
 import Avt from "./Avt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import useFetch from "../hooks/useFetch";
+import { useContext } from "react";
+import UserContext from "../context/user";
 
 const TransactionDetails = (props) => {
+  const userCtx = useContext(UserContext);
+  const user_score = userCtx.userInfo.help_count;
+  console.log(user_score);
   const navigate = useNavigate();
   const fetchData = useFetch();
   let content = "";
@@ -24,6 +29,9 @@ const TransactionDetails = (props) => {
     );
     if (res.ok) {
       props.setTransactionState(newStatus);
+      if (newStatus === "completed") {
+        props.incrementUserScore();
+      }
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -160,7 +168,19 @@ const TransactionDetails = (props) => {
               sx={{ fontSize: "60px", color: "pink" }}
             ></FavoriteBorderIcon>
           </Typography>
-
+          <Typography
+            variant="body"
+            component="div"
+            display="block"
+            align="center"
+          >
+            You have helped
+            <span style={{ color: "pink", fontSize: "2rem" }}>
+              {" "}
+              {user_score}{" "}
+            </span>
+            neighbours.<br></br>
+          </Typography>
           <Typography
             variant="body"
             component="div"
@@ -168,7 +188,9 @@ const TransactionDetails = (props) => {
             margin="1rem"
             align="center"
           >
-            This transaction is complete.
+            This transaction is complete. Leave{" "}
+            {props.selectedTxn.requester_id.display_name} a review to say
+            thanks!.
           </Typography>
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
             {/* add review button after functionality added  */}
@@ -306,7 +328,19 @@ const TransactionDetails = (props) => {
               sx={{ fontSize: "60px", color: "pink" }}
             ></FavoriteBorderIcon>
           </Typography>
-
+          <Typography
+            variant="body"
+            component="div"
+            display="block"
+            align="center"
+          >
+            {props.selectedTxn.owner_id.display_name} has helped
+            <span style={{ color: "pink", fontSize: "2rem" }}>
+              {" "}
+              {user_score}{" "}
+            </span>
+            neighbours.<br></br>
+          </Typography>
           <Typography
             variant="body"
             component="div"
