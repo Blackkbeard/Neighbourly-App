@@ -35,7 +35,7 @@ const seedAuth = async (req, res) => {
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         display_name: "Hwee",
         biography: "A then-laywer. So don't mess with me :)",
-        help_count: 0,
+        help_count: 12,
         rating: 0,
         mobile_number: 12345678,
         location: [
