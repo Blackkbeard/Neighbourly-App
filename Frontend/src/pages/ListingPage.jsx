@@ -11,6 +11,7 @@ import {
   Card,
   CardHeader,
   Tooltip,
+  Button,
   IconButton,
   Avatar,
   CardMedia,
@@ -28,6 +29,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Btn from "../components/Btn";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
@@ -42,6 +44,7 @@ const ListingPage = () => {
   const [listing, setListing] = useState({});
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [open, setOpen] = useState(false); //snackbar
 
   const titleRef = useRef("");
   const descriptionRef = useRef("");
@@ -64,13 +67,36 @@ const ListingPage = () => {
     setOpenEdit(false);
   };
 
-  const handleSnackbarClose = (event, reason) => {
+  // snackbar functions
+  const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
+
+  const action = (
+    <React.Fragment>
+      <Button
+        style={{ color: "var(--dustypink)" }}
+        size="small"
+        onClick={() => {
+          navigate("/transactions");
+        }}
+      >
+        VIEW REQUEST
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   const handleSubmitRequest = async () => {
     const res = await fetchData("/api/transactions/", "PUT", {
@@ -81,7 +107,6 @@ const ListingPage = () => {
 
     if (res.ok) {
       setOpen(true);
-      navigate("/transactions");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -290,6 +315,17 @@ const ListingPage = () => {
           <Btn onClick={updateListing}>Confirm</Btn>
         </DialogActions>
       </Dialog>
+
+      {/* snackbar */}
+      <div>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          message="Request submitted!"
+          action={action}
+        />
+      </div>
     </>
   );
 };
