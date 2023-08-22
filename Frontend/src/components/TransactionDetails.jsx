@@ -208,7 +208,7 @@ const TransactionDetails = (props) => {
         </Box>
       );
     }
-  } else {
+  } else if (props.txnToggle === "requests") {
     //content for user's requests
     if (props.transactionState === "pending_owner_response") {
       content = (

@@ -96,11 +96,12 @@ const Transactions = (props) => {
   //On first render, get all transactions
   useEffect(() => {
     if (txnToggle === "listings") getTransactionsByOwner();
-    else if (txnToggle === "requests") getTransactionsByRequester();
+    else getTransactionsByRequester();
   }, [txnToggle]);
 
   // On first render, select first transaction
   useEffect(() => {
+    // if selectedTxn is not yet set, select first retrieved transaction
     if (Object.keys(selectedTxn).length === 0 && transactions.length > 0) {
       setSelectedTxn(transactions[0]);
       setTransactionState(transactions[0].status);
@@ -182,8 +183,8 @@ const Transactions = (props) => {
             <Grid xs={7}>
               {Object.keys(selectedTxn).length > 0 ? (
                 <TransactionDetails
-                  selectedTxn={selectedTxn}
                   txnToggle={txnToggle}
+                  selectedTxn={selectedTxn}
                   transactionState={transactionState}
                   setTransactionState={setTransactionState}
                   incrementUserScore={incrementUserScore}
