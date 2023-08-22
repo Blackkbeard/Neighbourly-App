@@ -30,7 +30,7 @@ const SignIn = (props) => {
       userCtx.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
       userCtx.setUserId(decoded.id);
-      navigate("/profile");
+      navigate(`/profile/${decoded.id}`);
     } else {
       alert(JSON.stringify(res.data));
     }

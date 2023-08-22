@@ -57,7 +57,11 @@ const TopBar = (props) => {
             {/* conditional rendering of avatar & burger menu */}
             {props.showBurger && (
               <>
-                <IconButton sx={{ p: 1 }} component={NavLink} to="/profile">
+                <IconButton
+                  sx={{ p: 1 }}
+                  component={NavLink}
+                  to={`/profile/${userCtx.userInfo._id}`}
+                >
                   <Avt src={userCtx.userInfo.image_url} />
                 </IconButton>
 

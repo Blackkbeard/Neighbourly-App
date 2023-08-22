@@ -47,7 +47,6 @@ const Listings = (props) => {
                   <CardMedia
                     component="img"
                     height="140"
-                    //   image="/sample-image.webp"
                     image={item.image_url}
                     alt="green iguana"
                     style={{ height: "12rem" }}

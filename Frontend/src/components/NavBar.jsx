@@ -17,39 +17,39 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-const navBar1 = [
-  {
-    item: "The Neighbourhood",
-    link: "/",
-    icon: <GiteIcon fontSize="large" />,
-  },
-  {
-    item: "Profile",
-    link: "/profile",
-    icon: <PersonOutlineOutlinedIcon fontSize="large" />,
-  },
-  {
-    item: "Transactions",
-    link: "/transactions",
-    icon: <SwapHorizOutlinedIcon fontSize="large" />,
-  },
-];
-
-const navBar2 = [
-  {
-    item: "Settings",
-    link: "/settings",
-    icon: <SettingsOutlinedIcon fontSize="large" />,
-  },
-  {
-    item: "Log Out",
-    link: "/sign-in",
-    icon: <CloseIcon fontSize="large" />,
-  },
-];
-
 const NavBar = (props) => {
   const userCtx = useContext(UserContext);
+
+  const navBar1 = [
+    {
+      item: "The Neighbourhood",
+      link: "/",
+      icon: <GiteIcon fontSize="large" />,
+    },
+    {
+      item: "Profile",
+      link: `/profile/${userCtx.userInfo._id}`,
+      icon: <PersonOutlineOutlinedIcon fontSize="large" />,
+    },
+    {
+      item: "Transactions",
+      link: "/transactions",
+      icon: <SwapHorizOutlinedIcon fontSize="large" />,
+    },
+  ];
+
+  const navBar2 = [
+    {
+      item: "Settings",
+      link: "/settings",
+      icon: <SettingsOutlinedIcon fontSize="large" />,
+    },
+    {
+      item: "Log Out",
+      link: "/sign-in",
+      icon: <CloseIcon fontSize="large" />,
+    },
+  ];
 
   return (
     <StyledEngineProvider>

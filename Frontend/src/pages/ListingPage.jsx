@@ -42,7 +42,6 @@ import dayjs from "dayjs";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
-import { CheckBox } from "@mui/icons-material";
 
 const ListingPage = () => {
   const params = useParams();
