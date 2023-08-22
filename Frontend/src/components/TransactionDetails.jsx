@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState, useEffect } from "react";
 import { Box, Typography, Divider, Tooltip, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Btn from "./Btn";
@@ -9,6 +9,8 @@ import { useContext } from "react";
 import UserContext from "../context/user";
 
 const TransactionDetails = (props) => {
+  const [txnToggle, setTxnToggle] = useState("");
+  const [selectedTxn, setSelectedTxn] = useState({});
   const userCtx = useContext(UserContext);
   const user_score = userCtx.userInfo.help_count;
   const navigate = useNavigate();
@@ -37,6 +39,16 @@ const TransactionDetails = (props) => {
     }
   };
 
+  // //NOTE: Not working
+  // useEffect(() => {
+  //   setSelectedTxn(props.selectedTxn);
+  //   console.log("set");
+  // }, [props.selectedTxn]);
+  // useEffect(() => {
+  //   setTxnToggle(props.txnToggle);
+  // }, [props.txnToggle]);
+
+  //generate content based on txnToggle and transaction state
   if (props.txnToggle === "listings") {
     //content for user's listings
     if (props.transactionState === "pending_owner_response") {
@@ -366,7 +378,8 @@ const TransactionDetails = (props) => {
       );
     }
   }
-
+  console.log("requester: " + props.selectedTxn.requester_id.display_name);
+  console.log("owner: " + props.selectedTxn.owner_id.display_name);
   return (
     <>
       <Box sx={{ display: "flex", m: "1rem" }}>
