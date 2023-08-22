@@ -21,20 +21,21 @@ const seedAuth = async (req, res) => {
         mobile_number: 12345678,
         location: [
           {
-            district: "Yishun",
+            district: "Queenstown",
             postal_code: 760758,
             latitude: 1.42602952702202,
             longitude: 103.834266086838,
           },
         ],
+        image_url: "/avatars/8.png",
       },
       {
         _id: "64e2c2fcdce21246ef81b8ee",
         email: "hwee@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         display_name: "Hwee",
-        biography: "I am a test user2",
-        help_count: 0,
+        biography: "A then-laywer. So don't mess with me :)",
+        help_count: 12,
         rating: 0,
         mobile_number: 12345678,
         location: [
@@ -45,6 +46,7 @@ const seedAuth = async (req, res) => {
             longitude: 103.83325903597616,
           },
         ],
+        image_url: "/avatars/30.png",
       },
       {
         _id: "64e2c2ffdce21246ef81b8f4",
@@ -63,6 +65,7 @@ const seedAuth = async (req, res) => {
             longitude: 103.83462747028466,
           },
         ],
+        image_url: "/avatars/1.png",
       },
     ]);
 
@@ -82,6 +85,16 @@ const getAllAccount = async (req, res) => {
     res.json({ status: "error", msg: error.message });
   }
 };
+
+const getAccountById = async (req, res) => {
+  try {
+    const userAcc = await AuthModel.findById(req.params.id);
+    res.json(userAcc);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", msg: error.message });
+  }
+};
 // To Register
 const register = async (req, res) => {
   try {
@@ -90,7 +103,8 @@ const register = async (req, res) => {
       return res.status(400).json({ msg: "Duplicate email" });
     }
     const hash = await bcrypt.hash(req.body.password, 5);
-    await AuthModel.create({
+
+    const createdAuth = new AuthModel({
       email: req.body.email,
       hash,
       display_name: req.body.email,
@@ -99,8 +113,11 @@ const register = async (req, res) => {
       biography: req.body.biography,
       help_count: 0,
       rating: 0,
+      image_url: req.body.image_url,
     });
-    res.status(201).json({ msg: "User created" });
+    await createdAuth.save();
+
+    res.status(201).json({ msg: "User created", createdUser: createdAuth });
   } catch (error) {
     console.log(error.message);
     res.json({ status: "error", msg: "Server error" });
@@ -124,6 +141,7 @@ const login = async (req, res) => {
     }
     const claims = {
       email: auth.email,
+      id: auth._id,
     };
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "20m",
@@ -145,6 +163,7 @@ const refresh = (req, res) => {
     const decoded = jwt.verify(req.body.refresh, process.env.REFRESH_SECRET);
     const claims = {
       email: decoded.email,
+      id: decoded._id,
     };
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
       expiresIn: "30d",
@@ -170,6 +189,7 @@ const updateProfile = async (req, res) => {
     if ("district" in req.body) authDB.location[0].district = req.body.district;
     if ("postal_code" in req.body)
       authDB.location[0].postal_code = req.body.postal_code;
+    if ("image_url" in req.body) authDB.image_url = req.body.image_url;
 
     await authDB.save();
 
@@ -188,7 +208,7 @@ const updateProfile = async (req, res) => {
     // if ("rating" in req.body) updatedProfile.rating = req.body.rating;
     // await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
 
-    res.json({ status: "ok", msg: "Account updated" });
+    res.json({ status: "ok", msg: "Account updated", updatedUser: authDB });
   } catch (error) {
     console.log(error.message);
     res.json({ status: "error", msg: error.message });
@@ -198,6 +218,7 @@ const updateProfile = async (req, res) => {
 module.exports = {
   seedAuth,
   register,
+  getAccountById,
   getAllAccount,
   login,
   refresh,

@@ -2,32 +2,42 @@ import React, { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, TextField } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Autocomplete,
+} from "@mui/material";
 import Btn from "../components/Btn";
 import { useNavigate } from "react-router-dom";
+import DistrictEnums from "../enums/districtEnums";
 
-const Registration = () => {
+const Registration = (props) => {
   const fetchData = useFetch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [zip, setZip] = useState("");
   const [district, setDistrict] = useState("");
+
   const navigate = useNavigate();
 
   const registerUser = async () => {
     const res = await fetchData("/auth/register", "PUT", {
-      email,
-      password,
-      zip,
-      district,
+      email: email,
+      password: password,
+      location: [
+        {
+          district,
+          postal_code: zip,
+        },
+      ],
     });
 
     if (res.ok) {
-      setEmail("");
-      setPassword("");
-      setZip("");
-      setDistrict("");
-      navigate("/profile-setup");
+      console.log(res.data);
+      props.setUserInfo(res.data.createdUser);
+      navigate("/");
     } else {
       console.log(res.data);
     }
@@ -46,21 +56,20 @@ const Registration = () => {
           noValidate
           autoComplete="off"
         >
-          <Grid container>
+          <Grid container alignItems="center">
             <Grid
               xs={12}
-              style={{ borderStyle: "solid" }}
               container
               direction="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Typography textAlign="center">
-                Register For an Account
+              <Typography variant="h5" textAlign="start" margin="2rem 0">
+                Register for an account
               </Typography>
               <div>
                 <TextField
-                  label="Required"
+                  label="Email"
                   variant="outlined"
                   defaultValue="test@test.com"
                   onChange={(e) => setEmail(e.target.value)}
@@ -69,21 +78,13 @@ const Registration = () => {
               <div>
                 <TextField
                   id="outlined-basic"
-                  label="Required"
+                  label="Password"
                   variant="outlined"
                   defaultValue="test12345"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              {/* <div>
-                <TextField
-                  id="outlined-basic"
-                  label="Required"
-                  variant="outlined"
-                  defaultValue="Confirm Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div> */}
+
               <div>
                 <TextField
                   id="outlined-basic"
@@ -94,15 +95,31 @@ const Registration = () => {
                 />
               </div>
               <div>
-                <TextField
+                <Autocomplete
+                  disablePortal
                   id="outlined-basic"
-                  label="Required"
-                  variant="outlined"
-                  defaultValue="Yishun"
-                  onChange={(e) => setDistrict(e.target.value)}
+                  options={DistrictEnums}
+                  inputValue={district}
+                  onInputChange={(event, newInputValue) => {
+                    setDistrict(newInputValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="District" />
+                  )}
                 />
               </div>
-              <Btn onClick={registerUser}>Register</Btn>
+              <Box sx={{ display: "flex", m: "0.5rem" }}>
+                {" "}
+                <Btn onClick={registerUser}>Register</Btn>
+                <Btn
+                  isBrown={true}
+                  onClick={() => {
+                    navigate("/sign-in");
+                  }}
+                >
+                  Cancel
+                </Btn>
+              </Box>
             </Grid>
           </Grid>
         </Box>

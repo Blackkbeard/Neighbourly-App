@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
-import UserContext from "../context/user";
+import React, { useEffect, useState, useContext } from "react";
 import useFetch from "../hooks/useFetch";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -13,9 +12,12 @@ import {
 import TopBar from "../components/TopBar";
 import TransactionCard from "../components/TransactionCards";
 import TransactionDetails from "../components/TransactionDetails";
+import UserContext from "../context/user";
 
 const Transactions = (props) => {
   const userCtx = useContext(UserContext);
+  const user_id = userCtx.userInfo._id;
+  const setUserInfo = userCtx.setUserInfo;
   const fetchData = useFetch();
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
@@ -31,26 +33,28 @@ const Transactions = (props) => {
   //For Listings view - fetch all transactions by owner
   const getTransactionsByOwner = async () => {
     const res = await fetchData("/api/transactions", "POST", {
-      owner_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
+      owner_id: user_id,
     });
 
     if (res.ok) {
-      setTransactions(res.data); //store in state
+      setTransactions(res.data);
     } else {
-      alert(JSON.stringify(res.data));
+      setTransactions([]);
+      console.log(res.data);
     }
   };
 
   //For requests view - fetch all requests by owner
   const getTransactionsByRequester = async () => {
     const res = await fetchData("/api/transactions", "POST", {
-      requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
+      requester_id: user_id,
     });
 
     if (res.ok) {
       setTransactions(res.data);
     } else {
-      alert(JSON.stringify(res.data));
+      setTransactions([]);
+      console.log(res.data);
     }
   };
 
@@ -71,14 +75,33 @@ const Transactions = (props) => {
     }
   };
 
+  //Increment user's score when transaction completes and update userInfo
+  const incrementUserScore = () => {
+    const newScore = userCtx.userInfo.help_count + 1;
+    updateUserScore(newScore);
+  };
+
+  const updateUserScore = async (newScore) => {
+    const res = await fetchData("/auth/update/" + user_id, "PATCH", {
+      help_count: newScore,
+    });
+
+    if (res.ok) {
+      setUserInfo(res.data.updatedUser);
+    } else {
+      console.log(res.data);
+    }
+  };
+
   //On first render, get all transactions
   useEffect(() => {
     if (txnToggle === "listings") getTransactionsByOwner();
-    else if (txnToggle === "requests") getTransactionsByRequester();
+    else getTransactionsByRequester();
   }, [txnToggle]);
 
   // On first render, select first transaction
   useEffect(() => {
+    // if selectedTxn is not yet set, select first retrieved transaction
     if (Object.keys(selectedTxn).length === 0 && transactions.length > 0) {
       setSelectedTxn(transactions[0]);
       setTransactionState(transactions[0].status);
@@ -134,21 +157,23 @@ const Transactions = (props) => {
             {/* transaction list */}
             <Grid xs={4.5}>
               {transactions.map((item, idx) => {
-                return (
-                  <TransactionCard
-                    key={idx}
-                    id={item._id}
-                    listingTitle={item.listing_id.title}
-                    listingImage={item.listing_id.image_url}
-                    status={item.status}
-                    ownerName={item.owner_id.display_name}
-                    ownerImage={item.owner_id.image_url}
-                    requesterName={item.requester_id.display_name}
-                    requesterImage={item.requester_id.image_url}
-                    setSelectedTxnId={setSelectedTxnId}
-                    txnToggle={txnToggle}
-                  />
-                );
+                if (item.listing_id) {
+                  return (
+                    <TransactionCard
+                      key={idx}
+                      id={item?._id}
+                      listingTitle={item.listing_id.title}
+                      listingImage={item.listing_id.image_url}
+                      status={item.status}
+                      ownerName={item.owner_id.display_name}
+                      ownerImage={item.owner_id.image_url}
+                      requesterName={item.requester_id.display_name}
+                      requesterImage={item.requester_id.image_url}
+                      setSelectedTxnId={setSelectedTxnId}
+                      txnToggle={txnToggle}
+                    />
+                  );
+                }
               })}
             </Grid>
 
@@ -158,10 +183,11 @@ const Transactions = (props) => {
             <Grid xs={7}>
               {Object.keys(selectedTxn).length > 0 ? (
                 <TransactionDetails
-                  selectedTxn={selectedTxn}
                   txnToggle={txnToggle}
+                  selectedTxn={selectedTxn}
                   transactionState={transactionState}
                   setTransactionState={setTransactionState}
+                  incrementUserScore={incrementUserScore}
                 ></TransactionDetails>
               ) : (
                 <Box>
@@ -173,7 +199,7 @@ const Transactions = (props) => {
                     display="block"
                     margin="1rem"
                   >
-                    Loading...
+                    Create a transaction to get started!
                   </Typography>
                 </Box>
               )}

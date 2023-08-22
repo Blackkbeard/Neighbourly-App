@@ -1,11 +1,19 @@
-import { React } from "react";
-import { Box, Typography, Divider } from "@mui/material";
+import { React, useState, useEffect } from "react";
+import { Box, Typography, Divider, Tooltip, IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Btn from "./Btn";
 import Avt from "./Avt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import useFetch from "../hooks/useFetch";
+import { useContext } from "react";
+import UserContext from "../context/user";
 
 const TransactionDetails = (props) => {
+  const [txnToggle, setTxnToggle] = useState("");
+  const [selectedTxn, setSelectedTxn] = useState({});
+  const userCtx = useContext(UserContext);
+  const user_score = userCtx.userInfo.help_count;
+  const navigate = useNavigate();
   const fetchData = useFetch();
   let content = "";
 
@@ -21,14 +29,26 @@ const TransactionDetails = (props) => {
       }
     );
     if (res.ok) {
-      snackbarContent = `Transaction successfully ${newStatus}`;
       props.setTransactionState(newStatus);
+      if (newStatus === "completed") {
+        props.incrementUserScore();
+      }
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
 
+  // //NOTE: Not working
+  // useEffect(() => {
+  //   setSelectedTxn(props.selectedTxn);
+  //   console.log("set");
+  // }, [props.selectedTxn]);
+  // useEffect(() => {
+  //   setTxnToggle(props.txnToggle);
+  // }, [props.txnToggle]);
+
+  //generate content based on txnToggle and transaction state
   if (props.txnToggle === "listings") {
     //content for user's listings
     if (props.transactionState === "pending_owner_response") {
@@ -131,7 +151,14 @@ const TransactionDetails = (props) => {
             request for {props.selectedTxn.listing_id.title}.
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
-            <Btn width={15}>View listing</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View listing
+            </Btn>
           </Box>
         </Box>
       );
@@ -152,7 +179,19 @@ const TransactionDetails = (props) => {
               sx={{ fontSize: "60px", color: "pink" }}
             ></FavoriteBorderIcon>
           </Typography>
-
+          <Typography
+            variant="body"
+            component="div"
+            display="block"
+            align="center"
+          >
+            You have helped
+            <span style={{ color: "pink", fontSize: "2rem" }}>
+              {" "}
+              {user_score}{" "}
+            </span>
+            neighbours.<br></br>
+          </Typography>
           <Typography
             variant="body"
             component="div"
@@ -160,16 +199,28 @@ const TransactionDetails = (props) => {
             margin="1rem"
             align="center"
           >
-            This transaction is complete.
+            This transaction is complete. Leave{" "}
+            {props.selectedTxn.requester_id.display_name} a review to say
+            thanks!.
           </Typography>
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
-            <Btn width={15}>Leave a review</Btn>
-            <Btn width={15}>Re-list this item</Btn>
+            {/* add review button after functionality added  */}
+            {/* <Btn width={15}>
+              Leave a review
+            </Btn> */}
+            <Btn
+              width={10}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View Listing
+            </Btn>
           </Box>
         </Box>
       );
     }
-  } else {
+  } else if (props.txnToggle === "requests") {
     //content for user's requests
     if (props.transactionState === "pending_owner_response") {
       content = (
@@ -188,7 +239,14 @@ const TransactionDetails = (props) => {
           </Typography>
 
           <Box sx={{ display: "flex", m: "0.5rem" }}>
-            <Btn width={10}>View Listing</Btn>
+            <Btn
+              width={10}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View Listing
+            </Btn>
           </Box>
         </Box>
       );
@@ -253,7 +311,14 @@ const TransactionDetails = (props) => {
             Better luck next time...
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
-            <Btn width={15}>View listing</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View listing
+            </Btn>
           </Box>
         </Box>
       );
@@ -274,7 +339,19 @@ const TransactionDetails = (props) => {
               sx={{ fontSize: "60px", color: "pink" }}
             ></FavoriteBorderIcon>
           </Typography>
-
+          <Typography
+            variant="body"
+            component="div"
+            display="block"
+            align="center"
+          >
+            {props.selectedTxn.owner_id.display_name} has helped
+            <span style={{ color: "pink", fontSize: "2rem" }}>
+              {" "}
+              {user_score}{" "}
+            </span>
+            neighbours.<br></br>
+          </Typography>
           <Typography
             variant="body"
             component="div"
@@ -286,13 +363,23 @@ const TransactionDetails = (props) => {
             {props.selectedTxn.owner_id.display_name} a review to say thanks!.
           </Typography>
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
-            <Btn width={15}>Leave a review</Btn>
+            <Btn
+              width={15}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View listing
+            </Btn>
+            {/* add review button after functionality added  */}
+            {/* <Btn width={15}>Leave a review</Btn> */}
           </Box>
         </Box>
       );
     }
   }
-
+  console.log("requester: " + props.selectedTxn.requester_id.display_name);
+  console.log("owner: " + props.selectedTxn.owner_id.display_name);
   return (
     <>
       <Box sx={{ display: "flex", m: "1rem" }}>
@@ -300,23 +387,41 @@ const TransactionDetails = (props) => {
           xs={2}
           sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}
         >
-          <Avt
-            sx={{ width: "3rem", height: "3rem" }}
-            alt="Requester's avatar"
-            src={props.selectedTxn.requester_id.image_url}
-          ></Avt>
+          <Tooltip title="View Profile" placement="top">
+            <IconButton
+              onClick={() => {
+                navigate("/profile");
+              }}
+            >
+              <Avt
+                sx={{ width: "3rem", height: "3rem" }}
+                alt="Avatar"
+                src={
+                  props.txnToggle === "listings"
+                    ? props.selectedTxn.requester_id.image_url
+                    : props.selectedTxn.owner_id.image_url
+                }
+              ></Avt>
+            </IconButton>
+          </Tooltip>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
           <Typography component="div" variant="body">
-            {props.selectedTxn.requester_id.display_name}
+            {props.txnToggle === "listings"
+              ? props.selectedTxn.requester_id.display_name
+              : props.selectedTxn.owner_id.display_name}
           </Typography>
           <Typography variant="body" color="text.secondary" component="div">
-            Neighbour in {props.selectedTxn.requester_id.location[0].district}
+            Neighbour in{" "}
+            {props.txnToggle === "listings"
+              ? props.selectedTxn.requester_id.location[0].district
+              : props.selectedTxn.owner_id.location[0].district}
           </Typography>
         </Box>
       </Box>
+
       <Divider variant="middle" sx={{ marginLeft: "5%", marginRight: "5%" }} />
-      {/* display this if props.selectedTxn.status is "pending" */}
+
       {content}
     </>
   );

@@ -20,17 +20,17 @@ const validateCreateListing = [
     "free",
     "loan",
   ]),
-  check("image_url", "image_url should be a string").isString(),
+  check("image_url", "image_url should be a string").optional().isString(),
 ];
 
 const validatePatchListing = [
   check("title", "title must be less than 50 characters").optional().isLength({
     max: 50,
   }),
-  check("description", "description must be less than 100 characters")
+  check("description", "description must be less than 200 characters")
     .optional()
     .isLength({
-      max: 100,
+      max: 200,
     }),
   check("type", "type is required").optional().not().isEmpty(),
   check("type", "type should be either 'free' or 'loan'")

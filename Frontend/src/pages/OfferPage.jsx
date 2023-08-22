@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../context/user";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -11,6 +12,7 @@ import {
   InputAdornment,
   IconButton,
   StyledEngineProvider,
+  CircularProgress,
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
@@ -21,11 +23,17 @@ import useFetch from "../hooks/useFetch";
 
 const OfferPage = () => {
   const userCtx = useContext(UserContext);
-  const [listings, setListings] = useState([]);
+  const navigate = useNavigate();
   const fetchData = useFetch();
 
+  // states
+  const [listings, setListings] = useState([]);
+
+  // endpoints
   const getListings = async () => {
-    const res = await fetchData("/api/listings");
+    const res = await fetchData("/api/listings/district", "POST", {
+      location: userCtx.userInfo.location[0].district,
+    });
 
     if (res.ok) {
       setListings(res.data);
@@ -49,7 +57,7 @@ const OfferPage = () => {
             <Grid container alignItems="center">
               <Grid xs={12}>
                 <Typography variant="h5" textAlign="start" margin="2rem 0">
-                  Happening in USER-LOCATION neighbourhood
+                  {`Happening in ${userCtx.userInfo.location[0].district} neighbourhood`}
                 </Typography>
               </Grid>
               {/* Material UI Search Bar */}
@@ -85,11 +93,17 @@ const OfferPage = () => {
                 </FormControl>
               </Grid>
               <Grid xs={2}>
-                <Btn>+ Add Offer</Btn>
+                <Btn onClick={() => navigate("/add-offer")}>+ Add Offer</Btn>
               </Grid>
 
               {/* listings card */}
-              <Listings listings={listings}></Listings>
+              {listings ? (
+                <Listings listings={listings}></Listings>
+              ) : (
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+              )}
             </Grid>
           </Box>
         </Container>

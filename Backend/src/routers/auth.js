@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   seedAuth,
   register,
+  getAccountById,
   getAllAccount,
   login,
   refresh,
@@ -20,6 +21,7 @@ const checkValid = require("../middleware/checkValid");
 
 router.get("/seed", seedAuth);
 router.get("/accounts", getAllAccount);
+router.get("/accounts/:id", getAccountById);
 router.put("/register", validateRegistrationData, checkValid, register);
 router.post("/login", validateLoginData, checkValid, login);
 router.post("/refresh", validateRefreshToken, checkValid, refresh);
