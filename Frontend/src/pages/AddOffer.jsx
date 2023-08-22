@@ -3,8 +3,19 @@ import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
+import { useNavigate } from "react-router-dom";
 
-import { Container, Typography, Box, TextField, MenuItem } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  MenuItem,
+  Snackbar,
+  IconButton,
+  Button,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -13,6 +24,7 @@ import Btn from "../components/Btn";
 const AddOffer = () => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
 
   // useRef
   const titleRef = useRef("");
@@ -22,8 +34,42 @@ const AddOffer = () => {
 
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
+  const [newListingId, setNewListingId] = useState("");
+  const [open, setOpen] = useState(false); //snackbar
 
   // function
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button
+        style={{ color: "var(--dustypink)" }}
+        size="small"
+        onClick={() => {
+          navigate(`/listing/${newListingId}`);
+        }}
+      >
+        VIEW LISTING
+      </Button>
+
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  // endpoint
   const createListing = async () => {
     const res = await fetchData("/api/listings", "PUT", {
       title: titleRef.current.value,
@@ -32,11 +78,13 @@ const AddOffer = () => {
       owner_id: userCtx.userInfo._id,
       date_available_from: dateFrom,
       date_available_to: dateTo,
-      image_url: imageRef.current.value || "../public/sample-image.webp",
+      image_url: imageRef.current.value || "/sample-image.webp",
     });
 
     if (res.ok) {
-      // setListings(res.data);
+      setOpen(true);
+      //to fetch all data?
+      setNewListingId(res.data.id);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -108,6 +156,17 @@ const AddOffer = () => {
           </Box>
         </Container>
       </LocalizationProvider>
+
+      {/* snackbar */}
+      <div>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          message="Listing created!"
+          action={action}
+        />
+      </div>
     </>
   );
 };

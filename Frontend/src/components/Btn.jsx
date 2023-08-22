@@ -12,6 +12,7 @@ const Btn = (props) => {
           className={props.isBrown ? "btn brown" : "btn burgundy"}
           style={{ width: `${props.width}rem`, margin: "0.25rem" }}
           startIcon={props.startIcon}
+          id={props.id}
         >
           {props.children}
         </Button>

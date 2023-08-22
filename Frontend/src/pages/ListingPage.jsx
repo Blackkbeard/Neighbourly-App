@@ -45,6 +45,7 @@ const ListingPage = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [open, setOpen] = useState(false); //snackbar
+  const [btnName, setBtnName] = useState(""); //for snackbar
 
   const titleRef = useRef("");
   const descriptionRef = useRef("");
@@ -67,6 +68,19 @@ const ListingPage = () => {
     setOpenEdit(false);
   };
 
+  const getMsg = (btnName) => {
+    switch (btnName) {
+      case "edit":
+        return "Listing updated!";
+        break;
+      case "delete":
+        return "Listing deleted!";
+        break;
+      case "submit":
+        return "Request submitted!";
+    }
+  };
+
   // snackbar functions
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -78,15 +92,18 @@ const ListingPage = () => {
 
   const action = (
     <React.Fragment>
-      <Button
-        style={{ color: "var(--dustypink)" }}
-        size="small"
-        onClick={() => {
-          navigate("/transactions");
-        }}
-      >
-        VIEW REQUEST
-      </Button>
+      {btnName === "submit" && (
+        <Button
+          style={{ color: "var(--dustypink)" }}
+          size="small"
+          onClick={() => {
+            navigate("/transactions");
+          }}
+        >
+          VIEW REQUEST
+        </Button>
+      )}
+
       <IconButton
         size="small"
         aria-label="close"
@@ -98,7 +115,7 @@ const ListingPage = () => {
     </React.Fragment>
   );
 
-  const handleSubmitRequest = async () => {
+  const handleSubmitRequest = async (e) => {
     const res = await fetchData("/api/transactions/", "PUT", {
       owner_id: listing.owner_id._id,
       requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: get requester_id
@@ -106,6 +123,7 @@ const ListingPage = () => {
     });
 
     if (res.ok) {
+      setBtnName(e.target.id);
       setOpen(true);
     } else {
       alert(JSON.stringify(res.data));
@@ -125,19 +143,23 @@ const ListingPage = () => {
     }
   };
 
-  const deleteListing = async () => {
+  const deleteListing = async (e) => {
     const res = await fetchData("/api/listings/" + params.item, "DELETE");
 
     if (res.ok) {
-      setOpenDelete(true);
-      navigate("/");
+      // to display snackbar at profile page instead!!!
+      // setBtnName(e.target.id);
+      // setOpen(true);
+
+      setOpenDelete(false);
+      navigate("/profile");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
 
-  const updateListing = async () => {
+  const updateListing = async (e) => {
     const res = await fetchData("/api/listings/" + params.item, "PATCH", {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
@@ -148,6 +170,10 @@ const ListingPage = () => {
 
     if (res.ok) {
       getListingById();
+
+      setBtnName(e.target.id);
+      setOpen(true);
+
       setOpenEdit(false);
     } else {
       alert(JSON.stringify(res.data));
@@ -214,6 +240,7 @@ const ListingPage = () => {
                   <Btn
                     onClick={handleSubmitRequest}
                     startIcon={<HandshakeTwoToneIcon />}
+                    id="submit"
                   >
                     Submit Request
                   </Btn>
@@ -261,7 +288,7 @@ const ListingPage = () => {
           <Btn onClick={handleCloseDelete} isBrown={true}>
             Cancel
           </Btn>
-          <Btn onClick={deleteListing} autoFocus>
+          <Btn onClick={deleteListing} autoFocus id="delete">
             Delete Listing
           </Btn>
         </DialogActions>
@@ -312,7 +339,9 @@ const ListingPage = () => {
           <Btn onClick={handleCloseEdit} isBrown={true}>
             Cancel
           </Btn>
-          <Btn onClick={updateListing}>Confirm</Btn>
+          <Btn onClick={updateListing} id="edit">
+            Confirm
+          </Btn>
         </DialogActions>
       </Dialog>
 
@@ -322,7 +351,7 @@ const ListingPage = () => {
           open={open}
           autoHideDuration={6000}
           onClose={handleCloseSnackbar}
-          message="Request submitted!"
+          message={getMsg(btnName)}
           action={action}
         />
       </div>
