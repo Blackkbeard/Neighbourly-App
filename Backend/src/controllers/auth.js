@@ -103,16 +103,6 @@ const register = async (req, res) => {
     });
     await createdAuth.save();
 
-    // await AuthModel.create({
-    //   email: req.body.email,
-    //   hash,
-    //   display_name: req.body.email,
-    //   location: req.body.location,
-    //   mobile_number: req.body.mobile_number,
-    //   biography: req.body.biography,
-    //   help_count: 0,
-    //   rating: 0,
-    // });
     res.status(201).json({ msg: "User created", createdUser: createdAuth });
   } catch (error) {
     console.log(error.message);
