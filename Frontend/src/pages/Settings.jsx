@@ -8,8 +8,18 @@ import useFetch from "../hooks/useFetch";
 const Settings = (props) => {
   const userCtx = useContext(UserContext);
   const userFullInfo = userCtx.userInfo;
+  const [openUpdate, setOpenUpdate] = useState(false);
+
   const fetchData = useFetch();
   const [fullInfo, setFullInfo] = useState([]);
+
+  // functions
+  const handleOpenUpdate = () => {
+    setOpenUpdate(true);
+  };
+  const handleCloseUpdate = () => {
+    setOpenUpdate(false);
+  };
 
   const getUserFullInfo = async () => {
     const res = await fetchData(
@@ -92,7 +102,12 @@ const Settings = (props) => {
           </Grid>
         </Box>
       </Container>
-      <Dialog></Dialog>
+      <Dialog
+        open={openUpdate}
+        onClose={handleCloseUpdate}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      ></Dialog>
     </>
   );
 };
