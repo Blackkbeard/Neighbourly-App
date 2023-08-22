@@ -182,7 +182,7 @@ const ListingPage = () => {
       // setOpen(true);
 
       setOpenDelete(false);
-      navigate("/profile");
+      navigate(`/profile/${userCtx.userInfo._id}`);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
