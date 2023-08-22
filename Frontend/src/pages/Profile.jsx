@@ -12,6 +12,7 @@ const Profile = () => {
     <>
       <TopBar showBurger={true}></TopBar>
 
+      {/* {JSON.stringify(userCtx.userInfo.location[0].district)} */}
       <Container maxWidth="lg">
         <Box>
           <Grid container>
@@ -32,7 +33,8 @@ const Profile = () => {
                   fontWeight="bold"
                   sx={{ ml: "3rem" }}
                 >
-                  {/* {`Neighbourhood: ${userCtx.userInfo?.location[0].district}`} */}
+                  {/* optional chaining for object and array to prevent page load fail */}
+                  {`Neighbourhood: ${userCtx.userInfo?.location?.[0].district}`}
                 </Typography>
                 <Typography sx={{ ml: "3rem" }}>
                   {userCtx.userInfo.biography}

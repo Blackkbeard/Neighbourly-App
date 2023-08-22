@@ -57,7 +57,7 @@ const OfferPage = () => {
             <Grid container alignItems="center">
               <Grid xs={12}>
                 <Typography variant="h5" textAlign="start" margin="2rem 0">
-                  {`Happening in ${userCtx.userInfo.location[0].district} neighbourhood`}
+                  {`Happening in ${userCtx.userInfo?.location?.[0].district} neighbourhood`}
                 </Typography>
               </Grid>
               {/* Material UI Search Bar */}
