@@ -136,7 +136,6 @@ const AddOffer = () => {
                   label="Available from"
                   variant="outlined"
                   sx={{ width: "25rem" }}
-                  type="date"
                   onChange={(e) =>
                     setDateFrom(e.$d.toISOString().split("T")[0])
                   }
