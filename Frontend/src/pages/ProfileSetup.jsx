@@ -22,6 +22,49 @@ const ProfileSetup = (props) => {
   const [bio, setBio] = useState("");
   const [number, setNumber] = useState("");
 
+  //for image upload
+  const [file, setFile] = useState();
+
+  const submit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const res = await fetch(import.meta.env.VITE_SERVER + "/api/images", {
+      method: "POST",
+      headers: {},
+      body: formData,
+    });
+    const data = await res.json();
+
+    let returnValue = {};
+    if (res.ok) {
+      if (data.status === "error") {
+        returnValue = { ok: false, data: data.msg };
+      } else {
+        returnValue = { ok: true, data };
+      }
+    } else {
+      if (data?.errors && Array.isArray(data.errors)) {
+        const messages = data.errors.map((item) => item.msg);
+        returnValue = { ok: false, data: messages };
+      } else if (data?.status === "error") {
+        returnValue = { ok: false, data: data.message || data.msg };
+      } else {
+        console.log(data);
+        returnValue = { ok: false, data: "An error has occurred" };
+      }
+    }
+
+    return returnValue;
+  };
+
+  const fileSelected = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+  };
+
   // const dispNameRef = useRef("");
   // const bioRef = useRef("");
   // const numberRef = useRef("");
@@ -87,6 +130,7 @@ const ProfileSetup = (props) => {
               <Typography variant="h5" textAlign="start" margin="2rem 0">
                 Welcome To The Neighbourhood!
               </Typography>
+
               <Avatar
                 alt=""
                 src="https://seeklogo.com/images/G/general-assembly-logo-D5C634F07A-seeklogo.com.png"
@@ -133,6 +177,15 @@ const ProfileSetup = (props) => {
             </Grid>
           </Grid>
         </Box>
+        <form
+          onSubmit={submit}
+          style={{ width: 650 }}
+          className="flex flex-col space-y-5 px-5 py-14"
+        >
+          <input onChange={fileSelected} type="file" accept="image/*"></input>
+
+          <button type="submit">Submit</button>
+        </form>
       </Container>
     </>
   );
