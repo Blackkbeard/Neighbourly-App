@@ -318,6 +318,14 @@ const TransactionDetails = (props) => {
             {props.selectedTxn.owner_id.display_name} a review to say thanks!.
           </Typography>
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
+            <Btn
+              width={15}
+              onClick={() => {
+                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
+              }}
+            >
+              View listing
+            </Btn>
             {/* add review button after functionality added  */}
             {/* <Btn width={15}>Leave a review</Btn> */}
           </Box>

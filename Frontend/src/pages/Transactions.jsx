@@ -16,6 +16,7 @@ import TransactionDetails from "../components/TransactionDetails";
 
 const Transactions = (props) => {
   const userCtx = useContext(UserContext);
+  const user_id = userCtx.userInfo._id;
   const fetchData = useFetch();
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
@@ -31,26 +32,28 @@ const Transactions = (props) => {
   //For Listings view - fetch all transactions by owner
   const getTransactionsByOwner = async () => {
     const res = await fetchData("/api/transactions", "POST", {
-      owner_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
+      owner_id: user_id,
     });
 
     if (res.ok) {
-      setTransactions(res.data); //store in state
+      setTransactions(res.data);
     } else {
-      alert(JSON.stringify(res.data));
+      setTransactions([]);
+      console.log(res.data);
     }
   };
 
   //For requests view - fetch all requests by owner
   const getTransactionsByRequester = async () => {
     const res = await fetchData("/api/transactions", "POST", {
-      requester_id: "64e2c2fcdce21246ef81b8ed", //TODO: update to logged-in user
+      requester_id: user_id,
     });
 
     if (res.ok) {
       setTransactions(res.data);
     } else {
-      alert(JSON.stringify(res.data));
+      setTransactions([]);
+      console.log(res.data);
     }
   };
 
@@ -175,7 +178,7 @@ const Transactions = (props) => {
                     display="block"
                     margin="1rem"
                   >
-                    Loading...
+                    Create a transaction to get started!
                   </Typography>
                 </Box>
               )}
