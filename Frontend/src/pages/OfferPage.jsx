@@ -65,7 +65,6 @@ const OfferPage = () => {
                 <FormControl
                   sx={{
                     width: "20rem",
-                    input: { fontFamily: "var(--font)" },
                   }}
                   variant="outlined"
                   className="search-bar"
