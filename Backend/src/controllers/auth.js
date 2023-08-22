@@ -27,6 +27,7 @@ const seedAuth = async (req, res) => {
             longitude: 103.834266086838,
           },
         ],
+        image_url: "/avatars/8.png",
       },
       {
         _id: "64e2c2fcdce21246ef81b8ee",
@@ -45,6 +46,7 @@ const seedAuth = async (req, res) => {
             longitude: 103.83325903597616,
           },
         ],
+        image_url: "/avatars/30.png",
       },
       {
         _id: "64e2c2ffdce21246ef81b8f4",
@@ -63,6 +65,7 @@ const seedAuth = async (req, res) => {
             longitude: 103.83462747028466,
           },
         ],
+        image_url: "/avatars/1.png",
       },
     ]);
 
@@ -100,6 +103,7 @@ const register = async (req, res) => {
       biography: req.body.biography,
       help_count: 0,
       rating: 0,
+      image_url: req.body.image_url,
     });
     await createdAuth.save();
 
@@ -173,6 +177,7 @@ const updateProfile = async (req, res) => {
     if ("district" in req.body) authDB.location[0].district = req.body.district;
     if ("postal_code" in req.body)
       authDB.location[0].postal_code = req.body.postal_code;
+    if ("image_url" in req.body) authDB.image_url = req.body.image_url;
 
     await authDB.save();
 
