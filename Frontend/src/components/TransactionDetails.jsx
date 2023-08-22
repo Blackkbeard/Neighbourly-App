@@ -11,7 +11,6 @@ import UserContext from "../context/user";
 const TransactionDetails = (props) => {
   const userCtx = useContext(UserContext);
   const user_score = userCtx.userInfo.help_count;
-  console.log(user_score);
   const navigate = useNavigate();
   const fetchData = useFetch();
   let content = "";

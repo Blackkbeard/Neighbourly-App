@@ -87,9 +87,7 @@ const Transactions = (props) => {
     });
 
     if (res.ok) {
-      console.log("update succeeded");
-      console.log(res.data);
-      //set user info
+      setUserInfo(res.data.updatedUser);
     } else {
       console.log(res.data);
     }
