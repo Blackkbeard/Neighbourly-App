@@ -1,9 +1,22 @@
 import React, { useContext, useState } from "react";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, Avatar, Dialog } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Avatar,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
+import Btn from "../components/Btn";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 const Settings = (props) => {
   const userCtx = useContext(UserContext);
@@ -21,7 +34,7 @@ const Settings = (props) => {
     setOpenUpdate(false);
   };
 
-  const getUserFullInfo = async () => {
+  const updateUser = async () => {
     const res = await fetchData(
       "/auth/accounts/" + id,
       "GET",
@@ -98,6 +111,12 @@ const Settings = (props) => {
                   {userCtx.userInfo.location[0].postal_code}
                 </Typography>
               </Box>
+              <Btn
+                startIcon={<ModeEditOutlineOutlinedIcon />}
+                onClick={handleOpenUpdate}
+              >
+                Update Profile
+              </Btn>
             </Grid>
           </Grid>
         </Box>
@@ -107,7 +126,55 @@ const Settings = (props) => {
         onClose={handleCloseUpdate}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-      ></Dialog>
+      >
+        <DialogTitle>Update User Profile</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": { m: 3, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <Box xs={2}>
+                <Typography>Name :</Typography>
+                <TextField>{userCtx.userInfo.display_name}</TextField>
+              </Box>
+              <Box xs={2}>
+                <Typography>Email:</Typography>
+                <TextField>{userCtx.userInfo.email}</TextField>
+              </Box>
+              <Box xs={2}>
+                <Typography>Biography :</Typography>
+
+                <TextField>{userCtx.userInfo.biography}</TextField>
+              </Box>
+              <Box xs={2}>
+                <Typography>Mobile Number :</Typography>
+                <TextField>{userCtx.userInfo.mobile_number}</TextField>
+              </Box>
+              <Box xs={2}>
+                <Typography>Locations :</Typography>
+                <TextField>{userCtx.userInfo.location[0].district}</TextField>
+                <TextField>
+                  {userCtx.userInfo.location[0].postal_code}
+                </TextField>
+              </Box>
+            </Box>
+          </DialogContentText>
+
+          <DialogActions>
+            <Btn onClick={handleCloseUpdate} isBrown={true}>
+              Cancel
+            </Btn>
+            {/* <Btn onClick={updateListing} id="edit">
+              Confirm
+            </Btn> */}
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
