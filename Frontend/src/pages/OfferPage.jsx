@@ -32,7 +32,7 @@ const OfferPage = () => {
   // endpoints
   const getListings = async () => {
     const res = await fetchData("/api/listings/district", "POST", {
-      location: userCtx.userInfo.location[0].district,
+      location: userCtx.userInfo.location?.[0].district,
     });
 
     if (res.ok) {
