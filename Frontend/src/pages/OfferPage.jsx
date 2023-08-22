@@ -48,7 +48,9 @@ const OfferPage = () => {
   // function
   const handleSearch = (e) => {
     const filtered = listings.filter((item) => {
-      return item.title.includes(e.target.value);
+      const lowerCaseTitle = item.title.toLowerCase();
+      const lowerCaseInput = e.target.value.toLowerCase();
+      return lowerCaseTitle.includes(lowerCaseInput);
     });
 
     setDispListings(filtered);
