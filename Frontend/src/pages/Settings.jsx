@@ -43,33 +43,44 @@ const Settings = (props) => {
               ></Avatar>
             </Grid>
             <Grid xs={9}>
-              <Typography textAlign="center">Account Settings</Typography>
+              <Typography textAlign="center"></Typography>
               <Box xs={2}>
-                Name :
+                <Typography gutterBottom variant="h4">
+                  Name :
+                </Typography>
                 <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.display_name}
                 </Typography>
               </Box>
               <Box xs={2}>
-                Email:
+                <Typography gutterBottom variant="h4">
+                  Email:
+                </Typography>
                 <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.email}
                 </Typography>
               </Box>
               <Box xs={2}>
-                Biography :
+                <Typography gutterBottom variant="h4">
+                  Biography :
+                </Typography>
+
                 <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.biography}
                 </Typography>
               </Box>
               <Box xs={2}>
-                Mobile Number :
+                <Typography gutterBottom variant="h4">
+                  Mobile Number :
+                </Typography>
                 <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.mobile_number}
                 </Typography>
               </Box>
               <Box xs={2}>
-                Locations :
+                <Typography gutterBottom variant="h4">
+                  Locations :
+                </Typography>
                 <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.location[0].district}
                 </Typography>
