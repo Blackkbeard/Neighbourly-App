@@ -32,6 +32,7 @@ function App() {
         _id: "64e3447ed3dc267fa2b626a4",
       },
     ],
+    image_url: "/avatars/2.png",
     created_at: "2023-08-21T11:03:26.780Z",
   });
   const [showLogin, setShowLogin] = useState(true);
