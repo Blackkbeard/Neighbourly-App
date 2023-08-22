@@ -85,6 +85,16 @@ const getAllAccount = async (req, res) => {
     res.json({ status: "error", msg: error.message });
   }
 };
+
+const getAccountById = async (req, res) => {
+  try {
+    const userAcc = await AuthModel.findById(req.params.id);
+    res.json(userAcc);
+  } catch (error) {
+    console.log(error.message);
+    res.json({ status: "error", msg: error.message });
+  }
+};
 // To Register
 const register = async (req, res) => {
   try {
@@ -206,6 +216,7 @@ const updateProfile = async (req, res) => {
 module.exports = {
   seedAuth,
   register,
+  getAccountById,
   getAllAccount,
   login,
   refresh,
