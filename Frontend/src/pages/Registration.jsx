@@ -12,8 +12,6 @@ import {
 import Btn from "../components/Btn";
 import { useNavigate } from "react-router-dom";
 import DistrictEnums from "../enums/districtEnums";
-import Carousel from "react-material-ui-carousel";
-import CarouselItem from "../components/CarouselItem";
 
 const Registration = (props) => {
   const fetchData = useFetch();
@@ -45,24 +43,6 @@ const Registration = (props) => {
     }
   };
 
-  const carouselItems = [
-    {
-      name: "Random Name #1",
-      description: "Probably the most random thing you have ever seen!",
-      image_src: "public/homepage/1.png",
-    },
-    {
-      name: "Random Name #2",
-      description: "Hello World!",
-      image_src: "public/homepage/2.png",
-    },
-    {
-      name: "Random Name #2",
-      description: "Hello World!",
-      image_src: "public/homepage/3.png",
-    },
-  ];
-
   return (
     <>
       <TopBar></TopBar>
@@ -76,20 +56,9 @@ const Registration = (props) => {
           noValidate
           autoComplete="off"
         >
-          <Grid container>
+          <Grid container alignItems="center">
             <Grid
-              xs={6}
-              justifyContent="center"
-              style={{ borderStyle: "solid" }}
-            >
-              <Carousel>
-                {carouselItems.map((item, i) => (
-                  <CarouselItem key={i} item={item} />
-                ))}
-              </Carousel>
-            </Grid>
-            <Grid
-              xs={6}
+              xs={12}
               container
               direction="column"
               justifyContent="center"
@@ -115,15 +84,7 @@ const Registration = (props) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              {/* <div>
-                <TextField
-                  id="outlined-basic"
-                  label="Required"
-                  variant="outlined"
-                  defaultValue="Confirm Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div> */}
+
               <div>
                 <TextField
                   id="outlined-basic"
