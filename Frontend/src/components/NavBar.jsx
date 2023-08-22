@@ -41,7 +41,11 @@ const navBar2 = [
     link: "/settings",
     icon: <SettingsOutlinedIcon fontSize="large" />,
   },
-  { item: "Log Out", link: "/", icon: <CloseIcon fontSize="large" /> },
+  {
+    item: "Log Out",
+    link: "/sign-in",
+    icon: <CloseIcon fontSize="large" />,
+  },
 ];
 
 const NavBar = (props) => {

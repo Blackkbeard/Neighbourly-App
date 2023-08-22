@@ -92,8 +92,7 @@ const SignIn = (props) => {
                 defaultValue="test1234"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {/* <Link>No Account? Create Account</Link>
-              <Button variant="text">No Account? Create Account</Button> */}
+
               <Btn variant="text" onClick={handleLogin}>
                 Sign In
               </Btn>
@@ -114,9 +113,6 @@ const SignIn = (props) => {
                   Register
                 </Link>
               </Typography>
-              {/* <Btn isBrown={true} width={15}>
-                Cancel
-              </Btn> */}
             </Grid>
           </Grid>
         </Box>
