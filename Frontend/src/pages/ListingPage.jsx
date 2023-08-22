@@ -229,9 +229,21 @@ const ListingPage = () => {
                     variant="outlined"
                     sx={{ mb: "1rem" }}
                   />
-                  <Box sx={{ height: "5rem" }}>
+                  <Box sx={{ height: "6rem" }}>
                     <Typography variant="body1">
                       {listing.description}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ height: "2rem" }}>
+                    <Typography variant="body1" fontSize="0.8rem">
+                      {`Available from: ${
+                        listing.date_available_from?.split("T")[0]
+                      }`}
+                      <br></br>
+                      {listing.date_available_to &&
+                        `Available up to: ${
+                          listing.date_available_to?.split("T")[0]
+                        }`}
                     </Typography>
                   </Box>
                 </CardContent>
