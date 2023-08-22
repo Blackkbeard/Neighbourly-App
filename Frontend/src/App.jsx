@@ -47,6 +47,7 @@ function App() {
   const getUserInfo = async () => {
     const res = await fetchData("/auth/accounts/" + userId);
     setUserInfo(res.data);
+    console.log("userInfo updated");
   };
 
   useEffect(() => {
@@ -74,7 +75,11 @@ function App() {
           <Route
             path="/profile-setup"
             element={
-              <ProfileSetup userInfo={userInfo} setUserInfo={setUserInfo} />
+              <ProfileSetup
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                getUserInfo={getUserInfo}
+              />
             }
           ></Route>
 

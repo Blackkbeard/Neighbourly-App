@@ -93,6 +93,7 @@ const Settings = (props) => {
         returnValue = { ok: false, data: data.msg };
       } else {
         returnValue = { ok: true, data };
+        alert("Profile Picture updated");
       }
     } else {
       if (data?.errors && Array.isArray(data.errors)) {
@@ -132,15 +133,14 @@ const Settings = (props) => {
                 display="flex"
                 justifycontent="center"
               ></Avatar>
-              <form onSubmit={submit} className="flex">
-                <input
-                  onChange={fileSelected}
-                  type="file"
-                  accept="image/*"
-                ></input>
 
-                <Btn type="submit">Update</Btn>
-              </form>
+              <input
+                onChange={fileSelected}
+                type="file"
+                accept="image/*"
+              ></input>
+
+              <Btn onClick={submit}>Update</Btn>
             </Grid>
             <Grid xs={9}>
               <Typography textAlign="center"></Typography>
