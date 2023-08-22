@@ -22,9 +22,14 @@ const Settings = (props) => {
   const userCtx = useContext(UserContext);
   const userFullInfo = userCtx.userInfo;
   const [openUpdate, setOpenUpdate] = useState(false);
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [number, setNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [zip, setZip] = useState("");
+  const [district, setDistrict] = useState("");
 
   const fetchData = useFetch();
-  const [fullInfo, setFullInfo] = useState([]);
 
   // functions
   const handleOpenUpdate = () => {
@@ -34,16 +39,32 @@ const Settings = (props) => {
     setOpenUpdate(false);
   };
 
-  const updateUser = async () => {
+  const updateUser = async (id) => {
+    console.log(id);
+
+    const userData = {
+      display_name: name,
+      biography: bio,
+      mobile_number: number,
+      email: email,
+      location: [
+        {
+          district,
+          postal_code: zip,
+        },
+      ],
+    };
     const res = await fetchData(
       "/auth/accounts/" + id,
-      "GET",
-
-      userFullInfo
+      "PATCH",
+      userData,
+      userCtx.accessToken
     );
-    console.log(userFullInfo);
+
     if (res.ok) {
-      setFullInfo(res.data);
+      handleCloseUpdate();
+      console.log("update succeeded");
+      console.log(res.data);
     } else {
       console.log(res.data);
     }
@@ -140,27 +161,33 @@ const Settings = (props) => {
             >
               <Box xs={2}>
                 <Typography>Name :</Typography>
-                <TextField>{userCtx.userInfo.display_name}</TextField>
+                <TextField
+                  onChange={(e) => setName(e.target.value)}
+                ></TextField>
               </Box>
               <Box xs={2}>
                 <Typography>Email:</Typography>
-                <TextField>{userCtx.userInfo.email}</TextField>
+                <TextField
+                  onChange={(e) => setEmail(e.target.value)}
+                ></TextField>
               </Box>
               <Box xs={2}>
                 <Typography>Biography :</Typography>
 
-                <TextField>{userCtx.userInfo.biography}</TextField>
+                <TextField onChange={(e) => setBio(e.target.value)}></TextField>
               </Box>
               <Box xs={2}>
                 <Typography>Mobile Number :</Typography>
-                <TextField>{userCtx.userInfo.mobile_number}</TextField>
+                <TextField
+                  onChange={(e) => setNumber(e.target.value)}
+                ></TextField>
               </Box>
               <Box xs={2}>
                 <Typography>Locations :</Typography>
-                <TextField>{userCtx.userInfo.location[0].district}</TextField>
-                <TextField>
-                  {userCtx.userInfo.location[0].postal_code}
-                </TextField>
+                <TextField
+                  onChange={(e) => setDistrict(e.target.value)}
+                ></TextField>
+                <TextField onChange={(e) => setZip(e.target.value)}></TextField>
               </Box>
             </Box>
           </DialogContentText>
@@ -169,9 +196,9 @@ const Settings = (props) => {
             <Btn onClick={handleCloseUpdate} isBrown={true}>
               Cancel
             </Btn>
-            {/* <Btn onClick={updateListing} id="edit">
+            <Btn onClick={updateUser} id="edit">
               Confirm
-            </Btn> */}
+            </Btn>
           </DialogActions>
         </DialogContent>
       </Dialog>
