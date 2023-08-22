@@ -34,6 +34,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Btn from "../components/Btn";
+import Avt from "../components/Avt";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -64,6 +65,8 @@ const ListingPage = () => {
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const typeRef = useRef("");
+
+  const listing_owner_id = listing.owner_id?._id;
 
   // functions
   const handleOpenDelete = () => {
@@ -231,14 +234,15 @@ const ListingPage = () => {
                     avatar={
                       <Tooltip title="View Profile" placement="top">
                         <IconButton onClick={() => console.log("to profile")}>
-                          <Avatar
+                          <Avt
                             sx={{ width: "3rem", height: "3rem" }}
-                          ></Avatar>
+                            src={listing.owner_id?.image_url}
+                          ></Avt>
                         </IconButton>
                       </Tooltip>
                     }
                     title={listing?.owner_id?.display_name}
-                    subheader={`Your neighbour at USER-LOCATION`}
+                    subheader={`Your neighbour at ${userCtx.userInfo.location[0].district}`}
                   />
                 </Card>
               </Grid>
@@ -281,29 +285,33 @@ const ListingPage = () => {
                       </Typography>
                     </Box>
                   </CardContent>
-                  <CardActions>
-                    {/* add conditional rendering for neighbour */}
-                    <Btn
-                      onClick={handleSubmitRequest}
-                      startIcon={<HandshakeTwoToneIcon />}
-                      id="submit"
-                    >
-                      Submit Request
-                    </Btn>
 
-                    {/* add conditional rendering for owner */}
-                    <Btn
-                      startIcon={<ModeEditOutlineOutlinedIcon />}
-                      onClick={handleOpenEdit}
-                    >
-                      Edit
-                    </Btn>
-                    <Btn
-                      startIcon={<DeleteForeverOutlinedIcon />}
-                      onClick={handleOpenDelete}
-                    >
-                      Delete
-                    </Btn>
+                  {/* conditional rendering of buttons depending on owner or neighbour */}
+                  <CardActions>
+                    {user_id !== listing_owner_id ? (
+                      <Btn
+                        onClick={handleSubmitRequest}
+                        startIcon={<HandshakeTwoToneIcon />}
+                        id="submit"
+                      >
+                        Submit Request
+                      </Btn>
+                    ) : (
+                      <>
+                        <Btn
+                          startIcon={<ModeEditOutlineOutlinedIcon />}
+                          onClick={handleOpenEdit}
+                        >
+                          Edit
+                        </Btn>
+                        <Btn
+                          startIcon={<DeleteForeverOutlinedIcon />}
+                          onClick={handleOpenDelete}
+                        >
+                          Delete
+                        </Btn>
+                      </>
+                    )}
                   </CardActions>
                 </Card>
               </Grid>

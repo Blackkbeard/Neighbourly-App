@@ -67,7 +67,7 @@ const ProfileSetup = (props) => {
       <TopBar></TopBar>
 
       <Container maxWidth="lg">
-        {JSON.stringify(props.userInfo)}
+        {/* {JSON.stringify(props.userInfo)} */}
         <Box
           component="form"
           sx={{
@@ -79,14 +79,13 @@ const ProfileSetup = (props) => {
           <Grid container>
             <Grid
               xs={12}
-              style={{ borderStyle: "solid" }}
               container
               direction="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Typography textAlign="center">
-                Welcome To The Neighbourhood!!
+              <Typography variant="h5" textAlign="start" margin="2rem 0">
+                Welcome To The Neighbourhood!
               </Typography>
               <Avatar
                 alt=""
@@ -95,7 +94,7 @@ const ProfileSetup = (props) => {
               />
               <TextField
                 id="outlined-basic"
-                label="Required"
+                label="Display Name"
                 variant="outlined"
                 defaultValue="vinesh"
                 onChange={(e) => setDispName(e.target.value)}
@@ -121,9 +120,16 @@ const ProfileSetup = (props) => {
               >
                 Update
               </Btn>
-              <Link onClick={skipUpdate} underline="always">
-                Skip for Now
-              </Link>
+              <Typography
+                variant="subtitle"
+                textAlign="start"
+                margin="1rem 0"
+                sx={{ fontSize: "12px" }}
+              >
+                <Link onClick={skipUpdate} underline="always">
+                  Skip for Now
+                </Link>
+              </Typography>
             </Grid>
           </Grid>
         </Box>

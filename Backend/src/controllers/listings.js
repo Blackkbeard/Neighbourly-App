@@ -62,6 +62,39 @@ const getAllListings = async (req, res) => {
   }
 };
 
+// Get all listings by district
+const getAllListingsByDistrict = async (req, res) => {
+  try {
+    const allListings = await ListingModel.find().populate({
+      path: "owner_id",
+      match: {
+        "location.district": req.body.location,
+      },
+    });
+
+    const filtered = allListings.filter((item) => item.owner_id != null);
+
+    res.json(filtered);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting listings" });
+  }
+};
+
+// Get all listings by userId
+const getAllListingsByUserId = async (req, res) => {
+  try {
+    const allListings = await ListingModel.find({
+      owner_id: req.body.owner_id,
+    });
+
+    res.json(allListings);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting listings" });
+  }
+};
+
 // Get listing by _id
 const getListingById = async (req, res) => {
   try {
@@ -89,7 +122,7 @@ const createListing = async (req, res) => {
       description: req.body.description,
       type: req.body.type,
       owner_id: req.body.owner_id,
-      date_available_from: req.body.date_available_from     
+      date_available_from: req.body.date_available_from,
       // date_available_to: req.body.date_available_to,
       // image_url: req.body.image_url,
     });
@@ -163,6 +196,8 @@ const deleteListing = async (req, res) => {
 module.exports = {
   seedListings,
   getAllListings,
+  getAllListingsByDistrict,
+  getAllListingsByUserId,
   getListingById,
   createListing,
   patchListing,

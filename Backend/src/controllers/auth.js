@@ -21,7 +21,7 @@ const seedAuth = async (req, res) => {
         mobile_number: 12345678,
         location: [
           {
-            district: "Yishun",
+            district: "Queenstown",
             postal_code: 760758,
             latitude: 1.42602952702202,
             longitude: 103.834266086838,
@@ -34,7 +34,7 @@ const seedAuth = async (req, res) => {
         email: "hwee@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         display_name: "Hwee",
-        biography: "I am a test user2",
+        biography: "A then-laywer. So don't mess with me :)",
         help_count: 0,
         rating: 0,
         mobile_number: 12345678,

@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Container, Typography, Box, TextField } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Autocomplete,
+} from "@mui/material";
 import Btn from "../components/Btn";
 import { useNavigate } from "react-router-dom";
+import DistrictEnums from "../enums/districtEnums";
+import Carousel from "react-material-ui-carousel";
+import CarouselItem from "../components/CarouselItem";
 
 const Registration = (props) => {
   const fetchData = useFetch();
@@ -19,21 +28,40 @@ const Registration = (props) => {
     const res = await fetchData("/auth/register", "PUT", {
       email: email,
       password: password,
-      postal_code: zip,
-      district: district,
+      location: [
+        {
+          district,
+          postal_code: zip,
+        },
+      ],
     });
 
     if (res.ok) {
+      console.log(res.data);
       props.setUserInfo(res.data.createdUser);
-      setEmail("");
-      setPassword("");
-      setZip("");
-      setDistrict("");
       navigate("/profile-setup");
     } else {
       console.log(res.data);
     }
   };
+
+  const carouselItems = [
+    {
+      name: "Random Name #1",
+      description: "Probably the most random thing you have ever seen!",
+      image_src: "public/homepage/1.png",
+    },
+    {
+      name: "Random Name #2",
+      description: "Hello World!",
+      image_src: "public/homepage/2.png",
+    },
+    {
+      name: "Random Name #2",
+      description: "Hello World!",
+      image_src: "public/homepage/3.png",
+    },
+  ];
 
   return (
     <>
@@ -50,19 +78,29 @@ const Registration = (props) => {
         >
           <Grid container>
             <Grid
-              xs={12}
+              xs={6}
+              justifyContent="center"
               style={{ borderStyle: "solid" }}
+            >
+              <Carousel>
+                {carouselItems.map((item, i) => (
+                  <CarouselItem key={i} item={item} />
+                ))}
+              </Carousel>
+            </Grid>
+            <Grid
+              xs={6}
               container
               direction="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Typography textAlign="center">
-                Register For an Account
+              <Typography variant="h5" textAlign="start" margin="2rem 0">
+                Register for an account
               </Typography>
               <div>
                 <TextField
-                  label="Required"
+                  label="Email"
                   variant="outlined"
                   defaultValue="test@test.com"
                   onChange={(e) => setEmail(e.target.value)}
@@ -71,7 +109,7 @@ const Registration = (props) => {
               <div>
                 <TextField
                   id="outlined-basic"
-                  label="Required"
+                  label="Password"
                   variant="outlined"
                   defaultValue="test12345"
                   onChange={(e) => setPassword(e.target.value)}
@@ -96,14 +134,20 @@ const Registration = (props) => {
                 />
               </div>
               <div>
-                <TextField
+                <Autocomplete
+                  disablePortal
                   id="outlined-basic"
-                  label="Required"
-                  variant="outlined"
-                  defaultValue="Yishun"
-                  onChange={(e) => setDistrict(e.target.value)}
+                  options={DistrictEnums}
+                  inputValue={district}
+                  onInputChange={(event, newInputValue) => {
+                    setDistrict(newInputValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="District" />
+                  )}
                 />
               </div>
+
               <Btn onClick={registerUser}>Register</Btn>
             </Grid>
           </Grid>

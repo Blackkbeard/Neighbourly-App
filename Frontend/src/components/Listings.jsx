@@ -31,7 +31,7 @@ const Listings = (props) => {
                 avatar={
                   <Tooltip title="View Profile" placement="top">
                     <IconButton onClick={() => console.log("to profile")}>
-                      <Avt size={3}></Avt>
+                      <Avt size={3} src={item.owner_id.image_url}></Avt>
                     </IconButton>
                   </Tooltip>
                 }
