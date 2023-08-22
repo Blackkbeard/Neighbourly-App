@@ -183,14 +183,6 @@ const TransactionDetails = (props) => {
             >
               View Listing
             </Btn>
-            <Btn
-              width={10}
-              onClick={() => {
-                navigate(`/listing/${props.selectedTxn.listing_id._id}`);
-              }}
-            >
-              Delete listing
-            </Btn>
           </Box>
         </Box>
       );
