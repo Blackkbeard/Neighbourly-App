@@ -34,6 +34,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Btn from "../components/Btn";
+import Avt from "../components/Avt";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -231,14 +232,15 @@ const ListingPage = () => {
                     avatar={
                       <Tooltip title="View Profile" placement="top">
                         <IconButton onClick={() => console.log("to profile")}>
-                          <Avatar
+                          <Avt
                             sx={{ width: "3rem", height: "3rem" }}
-                          ></Avatar>
+                            src={listing.owner_id?.image_url}
+                          ></Avt>
                         </IconButton>
                       </Tooltip>
                     }
                     title={listing?.owner_id?.display_name}
-                    subheader={`Your neighbour at USER-LOCATION`}
+                    subheader={`Your neighbour at ${userCtx.userInfo.location[0].district}`}
                   />
                 </Card>
               </Grid>
