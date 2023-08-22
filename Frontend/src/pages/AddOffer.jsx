@@ -103,7 +103,11 @@ const AddOffer = () => {
                 <Typography variant="h5" textAlign="start" margin="2rem 0">
                   Offer Help
                 </Typography>
-                <Typography variant="body1" textAlign="start" margin="2rem 0">
+                <Typography
+                  variant="body1"
+                  textAlign="start"
+                  margin="2rem 0 1rem 0"
+                >
                   Equipment available to lend? Want to share excess food?
                   <br></br>
                   Submit a new listing to help a neighbour out!
@@ -111,31 +115,40 @@ const AddOffer = () => {
               </Grid>
               <Grid xs={5}>
                 <TextField
+                  required
                   label="Title"
                   variant="outlined"
-                  sx={{ width: "25rem" }}
+                  sx={{ width: "25rem", mb: "1rem" }}
                   inputRef={titleRef}
+                  helperText="Name your listing"
                 />
                 <TextField
+                  required
+                  multiline
+                  minRows={4}
                   label="Description"
                   variant="outlined"
-                  sx={{ width: "25rem" }}
+                  sx={{ width: "25rem", mb: "1rem" }}
                   inputRef={descriptionRef}
+                  helperText="Describe what you are offering"
                 />
                 <TextField
+                  required
                   select
                   label="Type"
                   variant="outlined"
-                  sx={{ width: "25rem" }}
+                  sx={{ width: "25rem", mb: "1rem" }}
                   inputRef={typeRef}
+                  helperText="Type of listing"
                 >
                   <MenuItem value="For Loan">For Loan</MenuItem>
                   <MenuItem value="Free">Free</MenuItem>
                 </TextField>
                 <DatePicker
+                  required
                   label="Available from"
                   variant="outlined"
-                  sx={{ width: "25rem" }}
+                  sx={{ width: "25rem", mb: "1rem" }}
                   onChange={(e) =>
                     setDateFrom(e.$d.toISOString().split("T")[0])
                   }
