@@ -49,10 +49,17 @@ const Registration = (props) => {
     {
       name: "Random Name #1",
       description: "Probably the most random thing you have ever seen!",
+      image_src: "public/homepage/1.png",
     },
     {
       name: "Random Name #2",
       description: "Hello World!",
+      image_src: "public/homepage/2.png",
+    },
+    {
+      name: "Random Name #2",
+      description: "Hello World!",
+      image_src: "public/homepage/3.png",
     },
   ];
 
@@ -70,7 +77,11 @@ const Registration = (props) => {
           autoComplete="off"
         >
           <Grid container>
-            <Grid xs={6} style={{ borderStyle: "solid" }}>
+            <Grid
+              xs={6}
+              justifyContent="center"
+              style={{ borderStyle: "solid" }}
+            >
               <Carousel>
                 {carouselItems.map((item, i) => (
                   <CarouselItem key={i} item={item} />
