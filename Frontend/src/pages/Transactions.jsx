@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
-import UserContext from "../context/user";
+import React, { useEffect, useState, useContext } from "react";
 import useFetch from "../hooks/useFetch";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -13,6 +12,7 @@ import {
 import TopBar from "../components/TopBar";
 import TransactionCard from "../components/TransactionCards";
 import TransactionDetails from "../components/TransactionDetails";
+import UserContext from "../context/user";
 
 const Transactions = (props) => {
   const userCtx = useContext(UserContext);

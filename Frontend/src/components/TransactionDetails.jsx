@@ -376,19 +376,29 @@ const TransactionDetails = (props) => {
         >
           <Avt
             sx={{ width: "3rem", height: "3rem" }}
-            alt="Requester's avatar"
-            src={props.selectedTxn.requester_id.image_url}
+            alt="Avatar"
+            src={
+              props.txnToggle === "listings"
+                ? props.selectedTxn.requester_id.image_url
+                : props.selectedTxn.owner_id.image_url
+            }
           ></Avt>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", m: "0.5rem" }}>
           <Typography component="div" variant="body">
-            {props.selectedTxn.requester_id.display_name}
+            {props.txnToggle === "listings"
+              ? props.selectedTxn.requester_id.display_name
+              : props.selectedTxn.owner_id.display_name}
           </Typography>
           <Typography variant="body" color="text.secondary" component="div">
-            Neighbour in {props.selectedTxn.requester_id.location[0].district}
+            Neighbour in{" "}
+            {props.txnToggle === "listings"
+              ? props.selectedTxn.requester_id.location[0].district
+              : props.selectedTxn.owner_id.location[0].district}
           </Typography>
         </Box>
       </Box>
+
       <Divider variant="middle" sx={{ marginLeft: "5%", marginRight: "5%" }} />
 
       {content}

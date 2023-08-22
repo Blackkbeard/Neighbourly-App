@@ -59,8 +59,14 @@ const Transactions = (props) => {
               }}
             >
               <CardContent sx={{ flex: "0 auto" }}>
-                <Avt size={3}></Avt>
-                {/* //TODO: add requester or owner image */}
+                <Avt
+                  size={3}
+                  src={
+                    props.txnToggle === "listings"
+                      ? props.requesterImage
+                      : props.ownerImage
+                  }
+                ></Avt>
               </CardContent>
             </Grid>
             <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
