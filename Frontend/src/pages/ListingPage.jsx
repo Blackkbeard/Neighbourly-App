@@ -28,7 +28,9 @@ import {
   MenuItem,
   CircularProgress,
   Snackbar,
-  Alert,
+  FormControlLabel,
+  FormGroup,
+  Checkbox,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Btn from "../components/Btn";
@@ -39,6 +41,7 @@ import dayjs from "dayjs";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
+import { CheckBox } from "@mui/icons-material";
 
 const ListingPage = () => {
   const params = useParams();
@@ -51,6 +54,7 @@ const ListingPage = () => {
   const [listing, setListing] = useState({});
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [addDisable, setAddDisable] = useState(false);
   const [dateFrom, setDateFrom] = useState(dayjs(listing.date_available_from));
   const [dateTo, setDateTo] = useState(dayjs(listing.date_available_to));
 
@@ -76,6 +80,7 @@ const ListingPage = () => {
 
   const handleCloseEdit = () => {
     setOpenEdit(false);
+    setAddDisable(false);
   };
 
   const getMsg = (btnName) => {
@@ -97,6 +102,11 @@ const ListingPage = () => {
     } else {
       setDateTo(e.$d.toISOString().split("T")[0]);
     }
+  };
+
+  const handleCheckBox = () => {
+    setAddDisable(!addDisable);
+    setDateTo("");
   };
 
   // snackbar functions
@@ -194,6 +204,7 @@ const ListingPage = () => {
       setBtnName(e.target.id);
       setOpen(true);
 
+      setAddDisable(false);
       setOpenEdit(false);
     } else {
       alert(JSON.stringify(res.data));
@@ -379,10 +390,17 @@ const ListingPage = () => {
             <DatePicker
               label="Available to"
               variant="outlined"
-              sx={{ width: "32rem", mt: "0.4rem" }}
+              sx={{ width: "25rem", mt: "0.4rem" }}
               defaultValue={dayjs(listing.date_available_to)}
               onChange={(e) => dateForUpdate(e, false)}
+              disabled={addDisable}
             />
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox onChange={handleCheckBox} />}
+                label="Remove date?"
+              ></FormControlLabel>
+            </FormGroup>
           </DialogContent>
           <DialogActions>
             <Btn onClick={handleCloseEdit} isBrown={true}>
