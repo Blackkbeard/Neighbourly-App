@@ -67,7 +67,7 @@ const ProfileSetup = (props) => {
       <TopBar></TopBar>
 
       <Container maxWidth="lg">
-        {JSON.stringify(props.userInfo)}
+        {/* {JSON.stringify(props.userInfo)} */}
         <Box
           component="form"
           sx={{
