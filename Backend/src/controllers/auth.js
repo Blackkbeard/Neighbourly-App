@@ -90,7 +90,8 @@ const register = async (req, res) => {
       return res.status(400).json({ msg: "Duplicate email" });
     }
     const hash = await bcrypt.hash(req.body.password, 5);
-    await AuthModel.create({
+
+    const createdAuth = new AuthModel({
       email: req.body.email,
       hash,
       display_name: req.body.email,
@@ -100,7 +101,19 @@ const register = async (req, res) => {
       help_count: 0,
       rating: 0,
     });
-    res.status(201).json({ msg: "User created" });
+    await createdAuth.save();
+
+    // await AuthModel.create({
+    //   email: req.body.email,
+    //   hash,
+    //   display_name: req.body.email,
+    //   location: req.body.location,
+    //   mobile_number: req.body.mobile_number,
+    //   biography: req.body.biography,
+    //   help_count: 0,
+    //   rating: 0,
+    // });
+    res.status(201).json({ msg: "User created", createdUser: createdAuth });
   } catch (error) {
     console.log(error.message);
     res.json({ status: "error", msg: "Server error" });
