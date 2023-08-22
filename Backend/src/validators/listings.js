@@ -20,6 +20,7 @@ const validateCreateListing = [
     "free",
     "loan",
   ]),
+  check("date_available_from", "available from date is required").not().isEmpty(),
   check("image_url", "image_url should be a string").optional().isString(),
 ];
 

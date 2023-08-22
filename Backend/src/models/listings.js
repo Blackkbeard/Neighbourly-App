@@ -11,7 +11,7 @@ const ListingSchema = new mongoose.Schema(
       ref: "Auth",
       required: true,
     },
-    date_available_from: { type: Date, default: Date.now },
+    date_available_from: { type: Date, default: Date.now, required: true },
     date_available_to: { type: Date },
     image_url: { type: String },
   },

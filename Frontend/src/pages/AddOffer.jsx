@@ -153,10 +153,15 @@ const AddOffer = () => {
                   onChange={(e) =>
                     setDateFrom(e.$d.toISOString().split("T")[0])
                   }
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
                 <DatePicker
                   disablePast
-                  minDate={dayjs(dateFrom+48)}
+                  minDate={dayjs(dateFrom + 48)}
                   label="Available to"
                   variant="outlined"
                   sx={{ width: "25rem" }}
