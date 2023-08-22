@@ -15,7 +15,7 @@ const seedAuth = async (req, res) => {
         email: "desmond@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         display_name: "desmond@test.com",
-        biography: "I am a test user1",
+        biography: "Ayo, look mat 7?",
         help_count: 0,
         rating: 0,
         mobile_number: 12345678,
@@ -37,7 +37,7 @@ const seedAuth = async (req, res) => {
         biography: "A then-laywer. So don't mess with me :)",
         help_count: 12,
         rating: 0,
-        mobile_number: 12345678,
+        mobile_number: 23904825,
         location: [
           {
             district: "Yishun",
@@ -53,10 +53,10 @@ const seedAuth = async (req, res) => {
         email: "vinesh@test.com",
         hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
         display_name: "Vinesh",
-        biography: "I am a test user3",
+        biography: "Imma cat lover 🐈",
         help_count: 0,
         rating: 0,
-        mobile_number: 12345678,
+        mobile_number: 87654321,
         location: [
           {
             district: "Yishun",
