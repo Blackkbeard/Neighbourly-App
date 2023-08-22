@@ -17,10 +17,10 @@ const Registration = (props) => {
 
   const registerUser = async () => {
     const res = await fetchData("/auth/register", "PUT", {
-      email,
-      password,
-      zip,
-      district,
+      email: email,
+      password: password,
+      postal_code: zip,
+      district: district,
     });
 
     if (res.ok) {
