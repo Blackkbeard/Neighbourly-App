@@ -20,6 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Btn from "../components/Btn";
+import dayjs from "dayjs";
 
 const AddOffer = () => {
   const fetchData = useFetch();
@@ -145,7 +146,7 @@ const AddOffer = () => {
                   <MenuItem value="Free">Free</MenuItem>
                 </TextField>
                 <DatePicker
-                  required
+                  disablePast
                   label="Available from"
                   variant="outlined"
                   sx={{ width: "25rem", mb: "1rem" }}
@@ -154,6 +155,8 @@ const AddOffer = () => {
                   }
                 />
                 <DatePicker
+                  disablePast
+                  minDate={dayjs(dateFrom+48)}
                   label="Available to"
                   variant="outlined"
                   sx={{ width: "25rem" }}

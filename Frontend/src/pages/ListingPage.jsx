@@ -227,7 +227,11 @@ const ListingPage = (props) => {
                     // onClick to listing owner profile
                     avatar={
                       <Tooltip title="View Profile" placement="top">
-                        <IconButton onClick={() => console.log("to profile")}>
+                        <IconButton
+                          onClick={() =>
+                            navigate(`/profile/${userCtx.userInfo._id}`)
+                          }
+                        >
                           <Avt
                             sx={{ width: "3rem", height: "3rem" }}
                             src={listing.owner_id?.image_url}
@@ -394,6 +398,8 @@ const ListingPage = (props) => {
               onChange={(e) => dateForUpdate(e)}
             />
             <DatePicker
+              disablePast
+              minDate={dayjs(dateFrom + 48)}
               label="Available to"
               variant="outlined"
               sx={{ width: "25rem", mt: "0.4rem" }}
