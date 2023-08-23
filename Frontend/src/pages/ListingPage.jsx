@@ -242,8 +242,8 @@ const ListingPage = (props) => {
                     title={listing?.owner_id?.display_name}
                     subheader={
                       user_id !== listing_owner_id
-                        ? `Your neighbour at ${userCtx.userInfo.location[0].district}`
-                        : `Your listing at ${userCtx.userInfo.location[0].district}`
+                        ? `Your neighbour at ${userCtx.userInfo.location?.[0].district}`
+                        : `Your listing at ${userCtx.userInfo.location?.[0].district}`
                     }
                   />
                 </Card>
