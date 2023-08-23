@@ -62,10 +62,8 @@ const Settings = (props) => {
       userCtx.accessToken
     );
 
-    console.log(newZipRef.current.value);
     if (res.ok) {
       handleCloseUpdate();
-      console.log("update succeeded");
       console.log(res.data);
       userCtx.getUserInfo();
     } else {
@@ -78,7 +76,6 @@ const Settings = (props) => {
 
   const submit = async (event) => {
     event.preventDefault();
-    console.log(file);
     if (!file) {
       alert("Please select an image file");
       return;
@@ -116,7 +113,6 @@ const Settings = (props) => {
         returnValue = { ok: false, data: data.message || data.msg };
         alert(returnValue.data);
       } else {
-        console.log(data);
         returnValue = { ok: false, data: "An error has occurred" };
         alert(returnValue.data);
       }
