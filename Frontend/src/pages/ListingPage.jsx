@@ -143,11 +143,16 @@ const ListingPage = (props) => {
   );
 
   const handleSubmitRequest = async (e) => {
-    const res = await fetchData("/api/transactions/", "PUT", {
-      owner_id: listing.owner_id._id,
-      requester_id: user_id,
-      listing_id: params.item,
-    });
+    const res = await fetchData(
+      "/api/transactions/",
+      "PUT",
+      {
+        owner_id: listing.owner_id._id,
+        requester_id: user_id,
+        listing_id: params.item,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setBtnName(e.target.id);
