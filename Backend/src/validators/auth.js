@@ -29,7 +29,10 @@ const validateRefreshToken = [
 ];
 const validateUpdateProfile = [
   body("display_name", "display name is required").not().isEmpty(),
-  body("mobile_number", "mobile number is required").not().isEmpty(),
+  body("mobile_number", "mobile number is required")
+    .not()
+    .isEmpty()
+    .isLength(8),
   body("biography", "biography is required").not().isEmpty(),
 ];
 module.exports = {
