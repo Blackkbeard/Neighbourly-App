@@ -228,6 +228,7 @@ const Settings = (props) => {
                 {/* <Typography>Name :</Typography> */}
                 <TextField
                   id="filled-password-input"
+                  defaultValue={userCtx.userInfo.display_name}
                   label="Name"
                   variant="filled"
                   onChange={(e) => setName(e.target.value)}
@@ -252,6 +253,7 @@ const Settings = (props) => {
                 <TextField
                   id="filled-password-input"
                   label="Interests & Hobbies"
+                  defaultValue={userCtx.userInfo.biography}
                   variant="filled"
                   onChange={(e) => setBio1(e.target.value)}
                 ></TextField>
@@ -261,6 +263,7 @@ const Settings = (props) => {
                 <TextField
                   id="filled-password-input"
                   label="Mobile Number"
+                  defaultValue={userCtx.userInfo.mobile_number}
                   variant="filled"
                   onChange={(e) => setNumber1(e.target.value)}
                 ></TextField>
@@ -274,6 +277,7 @@ const Settings = (props) => {
                   disablePortal
                   id="filled-password-input"
                   variant="filled"
+                  defaultValue={userCtx.userInfo?.location?.[0].district}
                   options={DistrictEnums}
                   inputValue={district1}
                   onInputChange={(event, newInputValue) => {
@@ -287,6 +291,7 @@ const Settings = (props) => {
                   id="filled-password-input"
                   label="Postal Code"
                   variant="filled"
+                  defaultValue={userCtx.userInfo?.location?.[0].postal_code}
                   onChange={(e) => setZip1(e.target.value)}
                 ></TextField>
               </Box>
