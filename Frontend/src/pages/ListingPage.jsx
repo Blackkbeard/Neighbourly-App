@@ -235,6 +235,7 @@ const ListingPage = (props) => {
     const res = await fetchData(
       "/api/listings/" + params.item,
       "DELETE",
+      undefined,
       userCtx.accessToken
     );
 
