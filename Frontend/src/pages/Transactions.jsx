@@ -93,31 +93,31 @@ const Transactions = (props) => {
     }
   };
 
-  //On first render, get all transactions
-
+  //On first render, and when toggle changes, get all transactions
   useEffect(() => {
-    if (txnToggle === "listings") getTransactionsByOwner();
-    else getTransactionsByRequester();
+    if (txnToggle === "listings")
+      getTransactionsByOwner(); //get data and update transactions state
+    else if (txnToggle === "requests") getTransactionsByRequester(); //get data and update transactions state
   }, [txnToggle]);
 
   // On first render, select first transaction
   useEffect(() => {
     // if selectedTxn is not yet set, select first retrieved transaction
-    if (Object.keys(selectedTxn).length === 0 && transactions.length > 0) {
+    if (
+      (Object.keys(selectedTxn).length === 0 && transactions.length > 0) ||
+      (Object.keys(selectedTxn).length > 0 && transactions.length > 0)
+    ) {
       setSelectedTxn(transactions[0]);
       setTransactionState(transactions[0].status);
     }
-  }, [transactions, selectedTxn]);
+
+    //if selectedTxn is set, and when transactions state is updated, select first item in transactions array
+  }, [transactions, selectedTxn, txnToggle]);
 
   //Update selected transaction when selected transaction changes
   useEffect(() => {
     getSelectedTxn(selectedTxnId);
   }, [selectedTxnId]);
-
-  //Update selected transaction when transactions array changes due to toggle
-  useEffect(() => {
-    setSelectedTxn(transactions[0]);
-  }, [transactions]);
 
   return (
     <>

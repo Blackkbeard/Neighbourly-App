@@ -42,7 +42,6 @@ const TransactionDetails = (props) => {
   //NOTE: Not working
   useEffect(() => {
     setSelectedTxn(props.selectedTxn);
-    console.log("set");
   }, [props.selectedTxn]);
 
   useEffect(() => {
@@ -379,11 +378,8 @@ const TransactionDetails = (props) => {
       );
     }
   }
-  console.log("requester: " + props.selectedTxn.requester_id.display_name);
-  console.log("owner: " + props.selectedTxn.owner_id.display_name);
   return (
     <>
-      {JSON.stringify(props)}
       <Box sx={{ display: "flex", m: "1rem" }}>
         <Box
           xs={2}
