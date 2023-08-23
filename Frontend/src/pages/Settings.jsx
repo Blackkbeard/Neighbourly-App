@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import DistrictEnums from "../enums/districtEnums";
@@ -122,7 +123,7 @@ const Settings = (props) => {
     const file = event.target.files[0];
     setFile(file);
   };
-  JSON.stringify(userCtx);
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>
