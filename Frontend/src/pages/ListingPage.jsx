@@ -232,7 +232,11 @@ const ListingPage = (props) => {
   };
 
   const deleteListing = async (e) => {
-    const res = await fetchData("/api/listings/" + params.item, "DELETE");
+    const res = await fetchData(
+      "/api/listings/" + params.item,
+      "DELETE",
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       props.setOpen(true);
@@ -255,7 +259,12 @@ const ListingPage = (props) => {
     };
     if (imageUrl) body.image_url = imageUrl;
 
-    const res = await fetchData("/api/listings/" + params.item, "PATCH", body);
+    const res = await fetchData(
+      "/api/listings/" + params.item,
+      "PATCH",
+      body,
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       getListingById();

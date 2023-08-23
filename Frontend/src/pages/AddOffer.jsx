@@ -74,16 +74,20 @@ const AddOffer = () => {
 
   // endpoint to create listing
   const createListing = async () => {
-    console.log(imageUrl);
-    const res = await fetchData("/api/listings", "PUT", {
-      title: titleRef.current.value,
-      description: descriptionRef.current.value,
-      type: typeRef.current.value === "For Loan" ? "loan" : "free",
-      owner_id: userCtx.userInfo._id,
-      date_available_from: dateFrom,
-      date_available_to: dateTo,
-      image_url: imageUrl || "/sample-image.webp",
-    });
+    const res = await fetchData(
+      "/api/listings",
+      "PUT",
+      {
+        title: titleRef.current.value,
+        description: descriptionRef.current.value,
+        type: typeRef.current.value === "For Loan" ? "loan" : "free",
+        owner_id: userCtx.userInfo._id,
+        date_available_from: dateFrom,
+        date_available_to: dateTo,
+        image_url: imageUrl || "/sample-image.webp",
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setOpen(true);
