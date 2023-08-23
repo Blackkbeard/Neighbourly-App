@@ -28,6 +28,8 @@ const SignIn = (props) => {
     const res = await fetchData("/auth/login", "POST", { email, password });
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
+      localStorage.setItem("accessToken", JSON.stringify(res.data.access));
+
       const decoded = jwtDecode(res.data.access);
 
       userCtx.setUserId(decoded.id);

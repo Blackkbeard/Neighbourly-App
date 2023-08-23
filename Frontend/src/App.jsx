@@ -16,9 +16,10 @@ import Transactions from "./pages/Transactions";
 function App() {
   const fetchData = useFetch();
   const initUserId = JSON.parse(localStorage.getItem("userId"));
+  const initAccessToken = JSON.parse(localStorage.getItem("accessToken"));
 
   // states
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState(initAccessToken);
   const [userId, setUserId] = useState(initUserId);
   const [userInfo, setUserInfo] = useState({});
   const [open, setOpen] = useState(false); //snackbar
