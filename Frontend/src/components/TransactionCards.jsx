@@ -42,7 +42,6 @@ const Transactions = (props) => {
           backgroundColor: "var(--lightpink)",
         }}
         onClick={(e) => {
-          console.log("clicked");
           props.updateSelectedTxn(props.id);
         }}
       >

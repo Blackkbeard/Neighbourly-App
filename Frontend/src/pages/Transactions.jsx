@@ -22,7 +22,7 @@ const Transactions = (props) => {
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
   const [selectedTxn, setSelectedTxn] = useState({});
-  const [selectedTxnId, setSelectedTxnId] = useState("");
+  // const [selectedTxnId, setSelectedTxnId] = useState("");
   const [transactionState, setTransactionState] = useState("");
 
   //Toggle to re-render page with either listings or requests
@@ -58,23 +58,6 @@ const Transactions = (props) => {
     }
   };
 
-  // //Get selected transaction
-  // const getSelectedTxn = async (id) => {
-  //   const res = await fetchData("/api/transactions/" + id);
-  //   if (!id) {
-  //     // Return early if id is empty
-  //     return;
-  //   }
-
-  //   if (res.ok) {
-  //     setSelectedTxn(res.data);
-  //     setTransactionState(res.data.status);
-  //   } else {
-  //     alert(JSON.stringify(res.data));
-  //     console.log(res.data);
-  //   }
-  // };
-
   //Update selected transaction
   const updateSelectedTxn = async (id) => {
     const res = await fetchData("/api/transactions/" + id);
@@ -86,7 +69,6 @@ const Transactions = (props) => {
     if (res.ok) {
       setSelectedTxn(res.data);
       setTransactionState(res.data.status);
-      console.log(selectedTxn);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -129,11 +111,6 @@ const Transactions = (props) => {
       setTransactionState(transactions[0].status);
     }
   }, [transactions, txnToggle]);
-
-  // //Update selected transaction when selected transaction changes
-  // useEffect(() => {
-  //   getSelectedTxn(selectedTxnId);
-  // }, [selectedTxnId]);
 
   return (
     <>
@@ -191,7 +168,7 @@ const Transactions = (props) => {
                       ownerImage={item.owner_id.image_url}
                       requesterName={item.requester_id.display_name}
                       requesterImage={item.requester_id.image_url}
-                      setSelectedTxnId={setSelectedTxnId}
+                      // setSelectedTxnId={setSelectedTxnId}
                       updateSelectedTxn={updateSelectedTxn}
                       txnToggle={txnToggle}
                     />
