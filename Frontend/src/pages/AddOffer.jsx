@@ -82,7 +82,7 @@ const AddOffer = () => {
       owner_id: userCtx.userInfo._id,
       date_available_from: dateFrom,
       date_available_to: dateTo,
-      image_url: imageUrl,
+      image_url: imageUrl || "/sample-image.webp",
     });
 
     if (res.ok) {
