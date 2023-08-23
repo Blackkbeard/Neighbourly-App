@@ -16,6 +16,7 @@ import {
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import Btn from "../components/Btn";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 const Settings = (props) => {
   const userCtx = useContext(UserContext);
