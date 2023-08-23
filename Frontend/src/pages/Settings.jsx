@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -25,12 +25,18 @@ const Settings = (props) => {
   const userCtx = useContext(UserContext);
   const userFullInfo = userCtx.userInfo;
   const [openUpdate, setOpenUpdate] = useState(false);
-  const [name, setName] = useState("");
-  const [bio1, setBio1] = useState("");
-  const [number1, setNumber1] = useState("");
-  const [email1, setEmail1] = useState("");
-  const [zip1, setZip1] = useState("");
+  // const [name, setName] = useState("");
+  // const [bio1, setBio1] = useState("");
+  // const [number1, setNumber1] = useState("");
+  // const [email1, setEmail1] = useState("");
+  // const [zip1, setZip1] = useState("");
   const [district1, setDistrict1] = useState("");
+  const newNameRef = useRef();
+  const newBioRef = useRef();
+  const newNumberRef = useRef();
+  const newEmailRef = useRef();
+  const newZipRef = useRef();
+  // const newDistrictRef = useRef(userCtx.userInfo?.location?.[0].district);
 
   const fetchData = useFetch();
 
@@ -43,27 +49,40 @@ const Settings = (props) => {
   };
 
   const updateUser = async () => {
-    const userData = {
-      display_name: name,
-      biography: bio1,
-      mobile_number: number1,
-      email: email1,
-      location: [
-        {
-          district: district1,
-          postal_code: zip1,
-        },
-      ],
-    };
+    // const userData = {
+    //   display_name: name,
+    //   biography: bio1,
+    //   mobile_number: number1,
+    //   email: email1,
+    //   location: [
+    //     {
+    // district: district1,
+    //       postal_code: zip1,
+    //     },
+    //   ],
+    // };
 
-    console.log("update body: " + JSON.stringify(userData));
+    // console.log("update body: " + JSON.stringify(userData));
     const res = await fetchData(
       "/auth/update/" + userFullInfo._id,
       "PATCH",
-      userData,
-      userCtx.accessToken
+      // userData,
+      {
+        display_name: newNameRef.current.value,
+        biography: newBioRef.current.value,
+        mobile_number: newNumberRef.current.value,
+        email: newEmailRef.current.value,
+        location: [
+          {
+            district: district1,
+            postal_code: newZipRef.current.value,
+          },
+        ],
+      }
+      // userCtx.accessToken
     );
-
+    // console.log(newDistrictRef.current.value);
+    console.log(newZipRef.current.value);
     if (res.ok) {
       handleCloseUpdate();
       console.log("update succeeded");
@@ -234,7 +253,8 @@ const Settings = (props) => {
                   defaultValue={userCtx.userInfo.display_name}
                   label="Name"
                   variant="filled"
-                  onChange={(e) => setName(e.target.value)}
+                  // onChange={(e) => setName(e.target.value)}
+                  inputRef={newNameRef}
                 ></TextField>
               </Box>
               <Box xs={2}>
@@ -247,7 +267,8 @@ const Settings = (props) => {
                     readOnly: true,
                   }}
                   variant="filled"
-                  onChange={(e) => setEmail1(e.target.value)}
+                  // onChange={(e) => setEmail1(e.target.value)}
+                  inputRef={newEmailRef}
                 ></TextField>
               </Box>
               <Box xs={2}>
@@ -258,7 +279,8 @@ const Settings = (props) => {
                   label="Interests & Hobbies"
                   defaultValue={userCtx.userInfo.biography}
                   variant="filled"
-                  onChange={(e) => setBio1(e.target.value)}
+                  // onChange={(e) => setBio1(e.target.value)}
+                  inputRef={newBioRef}
                 ></TextField>
               </Box>
               <Box xs={2}>
@@ -268,7 +290,8 @@ const Settings = (props) => {
                   label="Mobile Number"
                   defaultValue={userCtx.userInfo.mobile_number}
                   variant="filled"
-                  onChange={(e) => setNumber1(e.target.value)}
+                  // onChange={(e) => setNumber1(e.target.value)}
+                  inputRef={newNumberRef}
                 ></TextField>
               </Box>
               <Box xs={2}>
@@ -282,6 +305,7 @@ const Settings = (props) => {
                   variant="filled"
                   defaultValue={userCtx.userInfo?.location?.[0].district}
                   options={DistrictEnums}
+                  // inputValue={newDistrictRef}
                   inputValue={district1}
                   onInputChange={(event, newInputValue) => {
                     setDistrict1(newInputValue);
@@ -295,7 +319,8 @@ const Settings = (props) => {
                   label="Postal Code"
                   variant="filled"
                   defaultValue={userCtx.userInfo?.location?.[0].postal_code}
-                  onChange={(e) => setZip1(e.target.value)}
+                  // onChange={(e) => setZip1(e.target.value)}
+                  inputRef={newZipRef}
                 ></TextField>
               </Box>
             </Box>
