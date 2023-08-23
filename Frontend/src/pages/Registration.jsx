@@ -41,6 +41,7 @@ const Registration = (props) => {
       props.setUserInfo(res.data.createdUser);
       navigate("/profile-setup");
     } else {
+      alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };

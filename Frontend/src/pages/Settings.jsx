@@ -102,6 +102,7 @@ const Settings = (props) => {
     if (res.ok) {
       if (data.status === "error") {
         returnValue = { ok: false, data: data.msg };
+        alert(JSON.stringify(returnValue.data));
       } else {
         returnValue = { ok: true, data };
         alert("Profile Picture updated");
@@ -111,15 +112,16 @@ const Settings = (props) => {
       if (data?.errors && Array.isArray(data.errors)) {
         const messages = data.errors.map((item) => item.msg);
         returnValue = { ok: false, data: messages };
+        alert(returnValue.data);
       } else if (data?.status === "error") {
         returnValue = { ok: false, data: data.message || data.msg };
+        alert(returnValue.data);
       } else {
         console.log(data);
         returnValue = { ok: false, data: "An error has occurred" };
+        alert(returnValue.data);
       }
     }
-
-    return returnValue;
   };
 
   const fileSelected = (event) => {
