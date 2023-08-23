@@ -168,7 +168,6 @@ const ListingPage = (props) => {
   //for image upload
   const submit = async (event) => {
     event.preventDefault();
-    console.log(file);
     if (!file) {
       alert("Please select an image file");
       return;
@@ -197,7 +196,6 @@ const ListingPage = (props) => {
         returnValue = { ok: true, data };
         alert("Image uploaded");
         setImageUrl(data.url);
-        console.log(data.url);
       }
     } else {
       if (data?.errors && Array.isArray(data.errors)) {

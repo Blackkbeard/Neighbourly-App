@@ -50,8 +50,6 @@ const Registration = (props) => {
     setZip(e.target.value);
 
     if (e.target.value >= 100000) {
-      console.log("fetching api");
-      console.log(e.target.value);
       const res = await fetchData(
         `https://www.onemap.gov.sg/api/common/elastic/search?searchVal=${e.target.value}&returnGeom=y&getAddrDetails=y&pageNum=1`,
         "GET",

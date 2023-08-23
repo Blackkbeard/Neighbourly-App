@@ -20,7 +20,6 @@ const ProfileSetup = (props) => {
   };
 
   const updateUser = async (id) => {
-    console.log(id);
     const requestBody = {
       display_name: dispName,
       biography: bio,
@@ -30,7 +29,6 @@ const ProfileSetup = (props) => {
       // bio: bioRef.current.value,
       // number: numberRef.current.value,
     };
-    console.log(requestBody);
     const res = await fetchData(
       "/auth/update/" + id,
       "PATCH",
