@@ -39,7 +39,6 @@ const TransactionDetails = (props) => {
     }
   };
 
-  //NOTE: Not working
   useEffect(() => {
     setSelectedTxn(props.selectedTxn);
   }, [props.selectedTxn]);
