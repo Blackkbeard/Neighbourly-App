@@ -95,6 +95,7 @@ const ProfileSetup = (props) => {
                 label="Phone Number"
                 variant="outlined"
                 defaultValue={userCtx.userInfo?.mobile_number}
+                // defaultValue="number"
                 onChange={(e) => setNumber(e.target.value)}
               />
               <Btn
