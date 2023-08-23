@@ -25,18 +25,12 @@ const Settings = (props) => {
   const userCtx = useContext(UserContext);
   const userFullInfo = userCtx.userInfo;
   const [openUpdate, setOpenUpdate] = useState(false);
-  // const [name, setName] = useState("");
-  // const [bio1, setBio1] = useState("");
-  // const [number1, setNumber1] = useState("");
-  // const [email1, setEmail1] = useState("");
-  // const [zip1, setZip1] = useState("");
   const [district1, setDistrict1] = useState("");
   const newNameRef = useRef();
   const newBioRef = useRef();
   const newNumberRef = useRef();
   const newEmailRef = useRef();
   const newZipRef = useRef();
-  // const newDistrictRef = useRef(userCtx.userInfo?.location?.[0].district);
 
   const fetchData = useFetch();
 
@@ -49,24 +43,10 @@ const Settings = (props) => {
   };
 
   const updateUser = async () => {
-    // const userData = {
-    //   display_name: name,
-    //   biography: bio1,
-    //   mobile_number: number1,
-    //   email: email1,
-    //   location: [
-    //     {
-    // district: district1,
-    //       postal_code: zip1,
-    //     },
-    //   ],
-    // };
-
-    // console.log("update body: " + JSON.stringify(userData));
     const res = await fetchData(
       "/auth/update/" + userFullInfo._id,
       "PATCH",
-      // userData,
+
       {
         display_name: newNameRef.current.value,
         biography: newBioRef.current.value,
@@ -81,7 +61,7 @@ const Settings = (props) => {
       },
       userCtx.accessToken
     );
-    // console.log(newDistrictRef.current.value);
+
     console.log(newZipRef.current.value);
     if (res.ok) {
       handleCloseUpdate();
@@ -269,7 +249,6 @@ const Settings = (props) => {
             label="Name"
             variant="outlined"
             sx={{ width: "32rem" }}
-            // onChange={(e) => setName(e.target.value)}
             inputRef={newNameRef}
           ></TextField>
 
@@ -281,7 +260,6 @@ const Settings = (props) => {
             defaultValue={userCtx.userInfo.email}
             variant="outlined"
             sx={{ width: "32rem" }}
-            // onChange={(e) => setEmail1(e.target.value)}
             inputRef={newEmailRef}
           ></TextField>
 
@@ -292,7 +270,6 @@ const Settings = (props) => {
             defaultValue={userCtx.userInfo.biography}
             variant="outlined"
             sx={{ width: "32rem" }}
-            // onChange={(e) => setBio1(e.target.value)}
             inputRef={newBioRef}
           ></TextField>
 
@@ -303,7 +280,6 @@ const Settings = (props) => {
             defaultValue={userCtx.userInfo.mobile_number}
             variant="outlined"
             sx={{ width: "32rem" }}
-            // onChange={(e) => setNumber1(e.target.value)}
             inputRef={newNumberRef}
           ></TextField>
 
@@ -315,7 +291,6 @@ const Settings = (props) => {
             sx={{ width: "32rem", mt: "0.4rem", mb: "0.2rem" }}
             defaultValue={userCtx.userInfo?.location?.[0].district}
             options={DistrictEnums}
-            // inputValue={newDistrictRef}
             inputValue={district1}
             onInputChange={(event, newInputValue) => {
               setDistrict1(newInputValue);
@@ -329,7 +304,6 @@ const Settings = (props) => {
             variant="outlined"
             sx={{ width: "32rem" }}
             defaultValue={userCtx.userInfo?.location?.[0].postal_code}
-            // onChange={(e) => setZip1(e.target.value)}
             inputRef={newZipRef}
           ></TextField>
         </DialogContent>

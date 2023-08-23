@@ -186,7 +186,6 @@ const Transactions = (props) => {
                       ownerImage={item.owner_id.image_url}
                       requesterName={item.requester_id.display_name}
                       requesterImage={item.requester_id.image_url}
-                      // setSelectedTxnId={setSelectedTxnId}
                       updateSelectedTxn={updateSelectedTxn}
                       txnToggle={txnToggle}
                     />

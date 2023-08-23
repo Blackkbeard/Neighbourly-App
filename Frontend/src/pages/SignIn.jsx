@@ -2,15 +2,7 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
-import {
-  Container,
-  Typography,
-  Box,
-  TextField,
-  Button,
-  Link,
-  Avatar,
-} from "@mui/material";
+import { Container, Typography, Box, TextField, Link } from "@mui/material";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
 import { useNavigate } from "react-router-dom";
@@ -88,13 +80,11 @@ const SignIn = (props) => {
                 Sign-in
               </Typography>
               <TextField
-                // id="outlined-basic"
                 label="Email"
                 variant="outlined"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
-                // id="outlined-basic"
                 label="Password"
                 type="password"
                 variant="outlined"
