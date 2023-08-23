@@ -186,13 +186,11 @@ const updateProfile = async (req, res) => {
     if ("biography" in req.body) authDB.biography = req.body.biography;
     if ("help_count" in req.body) authDB.help_count = req.body.help_count;
     if ("rating" in req.body) authDB.rating = req.body.rating;
+
     if ("location" in req.body)
       authDB.location[0].district = req.body.location[0].district;
-    console.log(req.body.location[0].district);
     if ("location" in req.body)
       authDB.location[0].postal_code = req.body.location[0].postal_code;
-    console.log(req.body.location[0].postal_code);
-
     if ("image_url" in req.body) authDB.image_url = req.body.image_url;
 
     await authDB.save();
