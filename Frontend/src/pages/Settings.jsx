@@ -8,7 +8,6 @@ import {
   Container,
   Typography,
   Box,
-  Avatar,
   TextField,
   Dialog,
   DialogTitle,
@@ -20,6 +19,7 @@ import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 import Btn from "../components/Btn";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import Avt from "../components/Avt";
 
 const Settings = (props) => {
   const userCtx = useContext(UserContext);
@@ -154,19 +154,15 @@ const Settings = (props) => {
 
       <Container maxWidth="lg">
         <Box>
-          <Typography variant="h5" textAlign="start" margin="2rem 0">
-            Account Settings{" "}
-          </Typography>
           <Grid container>
-            <Grid xs={5}>
-              <Avatar
-                alt=""
-                src={userCtx.userInfo.image_url}
-                sx={{ width: 150, height: 150 }}
-                display="flex"
-                justifycontent="center"
-              ></Avatar>
-
+            <Grid xs={12}>
+              <Typography variant="h5" textAlign="start" margin="2rem 0">
+                Account Settings
+              </Typography>
+            </Grid>
+            <Grid xs={4}>
+              <Avt src={userCtx.userInfo.image_url} size="15"></Avt>
+              <br />
               <input
                 onChange={fileSelected}
                 type="file"
@@ -175,168 +171,176 @@ const Settings = (props) => {
 
               <Btn onClick={submit}>Update</Btn>
             </Grid>
-            <Grid xs={5}>
-              <Typography textAlign="center"></Typography>
-              <Box xs={2}>
-                <Typography gutterBottom variant="h4">
-                  Name :
-                </Typography>
-                <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo.display_name}
-                </Typography>
-              </Box>
-              <Box xs={2}>
-                <Typography gutterBottom variant="h4">
-                  Email:
-                </Typography>
-                <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo.email}
-                </Typography>
-              </Box>
-              <Box xs={2}>
-                <Typography gutterBottom variant="h4">
-                  Biography :
-                </Typography>
+            <Grid xs={8}>
+              <Typography
+                gutterBottom
+                variant="h6"
+                fontWeight="bold"
+                className="burgundy-text"
+              >
+                Name
+              </Typography>
+              <Typography gutterBottom variant="body1" sx={{ mb: "2rem" }}>
+                {userCtx.userInfo.display_name}
+              </Typography>
 
-                <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo.biography}
-                </Typography>
-              </Box>
-              <Box xs={2}>
-                <Typography gutterBottom variant="h4">
-                  Mobile Number :
-                </Typography>
-                <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo.mobile_number}
-                </Typography>
-              </Box>
-              <Box xs={2}>
-                <Typography gutterBottom variant="h4">
-                  Location :
-                </Typography>
-                <Typography gutterBottom variant="h6">
-                  District: {userCtx.userInfo?.location?.[0].district}
-                </Typography>
-                <Typography gutterBottom variant="h6">
-                  Postal Code: {userCtx.userInfo?.location?.[0].postal_code}
-                </Typography>
-              </Box>
+              <Typography
+                gutterBottom
+                variant="h6"
+                fontWeight="bold"
+                className="burgundy-text"
+              >
+                Email
+              </Typography>
+              <Typography gutterBottom variant="body1" sx={{ mb: "2rem" }}>
+                {userCtx.userInfo.email}
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="h6"
+                fontWeight="bold"
+                className="burgundy-text"
+              >
+                Biography
+              </Typography>
+
+              <Typography gutterBottom variant="body1" sx={{ mb: "2rem" }}>
+                {userCtx.userInfo.biography}
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="h6"
+                fontWeight="bold"
+                className="burgundy-text"
+              >
+                Mobile Number
+              </Typography>
+              <Typography gutterBottom variant="body1" sx={{ mb: "2rem" }}>
+                {userCtx.userInfo.mobile_number}
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="h6"
+                fontWeight="bold"
+                className="burgundy-text"
+              >
+                Location
+              </Typography>
+              <Typography gutterBottom variant="body1" sx={{ ml: "0" }}>
+                {userCtx.userInfo?.location?.[0].district}
+              </Typography>
+              <Typography
+                gutterBottom
+                variant="body1"
+                sx={{ ml: "0", mb: "2rem" }}
+              >
+                {userCtx.userInfo?.location?.[0].postal_code}
+              </Typography>
+            </Grid>
+            <Grid xs={4}></Grid>
+            <Grid xs={8}>
               <Btn
                 startIcon={<ModeEditOutlineOutlinedIcon />}
                 onClick={handleOpenUpdate}
               >
-                Update Profile
+                Edit Account Info
               </Btn>
             </Grid>
           </Grid>
         </Box>
       </Container>
+
+      {/* Edit account dialogue */}
       <Dialog
         open={openUpdate}
         onClose={handleCloseUpdate}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>Update User Profile</DialogTitle>
+        <DialogTitle>Edit Account Info</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": { m: 3, width: "25ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <Box xs={2}>
-                {/* <Typography>Name :</Typography> */}
-                <TextField
-                  id="filled-password-input"
-                  defaultValue={userCtx.userInfo.display_name}
-                  label="Name"
-                  variant="filled"
-                  // onChange={(e) => setName(e.target.value)}
-                  inputRef={newNameRef}
-                ></TextField>
-              </Box>
-              <Box xs={2}>
-                {/* <Typography>Email:</Typography> */}
-                <TextField
-                  id="filled-read-only-input"
-                  label="Email"
-                  defaultValue={userCtx.userInfo.email}
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  variant="filled"
-                  // onChange={(e) => setEmail1(e.target.value)}
-                  inputRef={newEmailRef}
-                ></TextField>
-              </Box>
-              <Box xs={2}>
-                {/* <Typography>Biography :</Typography> */}
+          <TextField
+            type="text"
+            margin="dense"
+            defaultValue={userCtx.userInfo.display_name}
+            label="Name"
+            variant="outlined"
+            sx={{ width: "32rem" }}
+            // onChange={(e) => setName(e.target.value)}
+            inputRef={newNameRef}
+          ></TextField>
 
-                <TextField
-                  id="filled-password-input"
-                  label="Interests & Hobbies"
-                  defaultValue={userCtx.userInfo.biography}
-                  variant="filled"
-                  // onChange={(e) => setBio1(e.target.value)}
-                  inputRef={newBioRef}
-                ></TextField>
-              </Box>
-              <Box xs={2}>
-                {/* <Typography>Mobile Number :</Typography> */}
-                <TextField
-                  id="filled-password-input"
-                  label="Mobile Number"
-                  defaultValue={userCtx.userInfo.mobile_number}
-                  variant="filled"
-                  // onChange={(e) => setNumber1(e.target.value)}
-                  inputRef={newNumberRef}
-                ></TextField>
-              </Box>
-              <Box xs={2}>
-                {/* <Typography>Locations :</Typography>
-                <TextField
-                  onChange={(e) => setDistrict1(e.target.value)}
-                ></TextField> */}
-                <Autocomplete
-                  disablePortal
-                  id="filled-password-input"
-                  variant="filled"
-                  defaultValue={userCtx.userInfo?.location?.[0].district}
-                  options={DistrictEnums}
-                  // inputValue={newDistrictRef}
-                  inputValue={district1}
-                  onInputChange={(event, newInputValue) => {
-                    setDistrict1(newInputValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} label="District" />
-                  )}
-                />
-                <TextField
-                  id="filled-password-input"
-                  label="Postal Code"
-                  variant="filled"
-                  defaultValue={userCtx.userInfo?.location?.[0].postal_code}
-                  // onChange={(e) => setZip1(e.target.value)}
-                  inputRef={newZipRef}
-                ></TextField>
-              </Box>
-            </Box>
-          </DialogContentText>
+          <TextField
+            disabled
+            type="text"
+            margin="dense"
+            label="Email"
+            defaultValue={userCtx.userInfo.email}
+            variant="outlined"
+            sx={{ width: "32rem" }}
+            // onChange={(e) => setEmail1(e.target.value)}
+            inputRef={newEmailRef}
+          ></TextField>
 
-          <DialogActions>
-            <Btn onClick={handleCloseUpdate} isBrown={true}>
-              Cancel
-            </Btn>
-            <Btn onClick={updateUser} id="edit">
-              Confirm
-            </Btn>
-          </DialogActions>
+          <TextField
+            type="text"
+            margin="dense"
+            label="Biography"
+            defaultValue={userCtx.userInfo.biography}
+            variant="outlined"
+            sx={{ width: "32rem" }}
+            // onChange={(e) => setBio1(e.target.value)}
+            inputRef={newBioRef}
+          ></TextField>
+
+          <TextField
+            type="text"
+            margin="dense"
+            label="Mobile Number"
+            defaultValue={userCtx.userInfo.mobile_number}
+            variant="outlined"
+            sx={{ width: "32rem" }}
+            // onChange={(e) => setNumber1(e.target.value)}
+            inputRef={newNumberRef}
+          ></TextField>
+
+          <Autocomplete
+            disablePortal
+            type="text"
+            margin="dense"
+            variant="outlined"
+            sx={{ width: "32rem", mt: "0.4rem", mb: "0.2rem" }}
+            defaultValue={userCtx.userInfo?.location?.[0].district}
+            options={DistrictEnums}
+            // inputValue={newDistrictRef}
+            inputValue={district1}
+            onInputChange={(event, newInputValue) => {
+              setDistrict1(newInputValue);
+            }}
+            renderInput={(params) => <TextField {...params} label="District" />}
+          />
+          <TextField
+            type="text"
+            margin="dense"
+            label="Postal Code"
+            variant="outlined"
+            sx={{ width: "32rem" }}
+            defaultValue={userCtx.userInfo?.location?.[0].postal_code}
+            // onChange={(e) => setZip1(e.target.value)}
+            inputRef={newZipRef}
+          ></TextField>
         </DialogContent>
+        <DialogActions>
+          <Btn onClick={handleCloseUpdate} isBrown={true}>
+            Cancel
+          </Btn>
+          <Btn onClick={updateUser} id="edit">
+            Confirm
+          </Btn>
+        </DialogActions>
       </Dialog>
     </>
   );
