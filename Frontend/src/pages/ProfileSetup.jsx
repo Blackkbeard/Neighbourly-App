@@ -16,7 +16,7 @@ const ProfileSetup = (props) => {
   const [number, setNumber] = useState("");
 
   const skipUpdate = async () => {
-    navigate("/");
+    navigate("/sign-in");
   };
 
   const updateUser = async (id) => {
@@ -38,7 +38,7 @@ const ProfileSetup = (props) => {
 
     if (res.ok) {
       console.log(res.data);
-      navigate("/");
+      navigate("/sign-in");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
