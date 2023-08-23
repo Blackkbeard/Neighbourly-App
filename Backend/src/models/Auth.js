@@ -39,7 +39,7 @@ const AuthSchema = new mongoose.Schema(
     mobile_number: {
       type: Number,
       required: false,
-      default: "",
+      // default: "",
       minLength: 1,
       maxLength: 9,
     },
