@@ -9,7 +9,7 @@ const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
 const sharp = require("sharp"); //for image resizing
 const AuthModel = require("../models/Auth");
-const ListingModel = require("../models/Listings");
+const ListingModel = require("../models/Listings2");
 
 //set up new s3 object
 const s3 = new S3Client({
