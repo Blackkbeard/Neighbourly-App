@@ -94,6 +94,7 @@ const Transactions = (props) => {
   };
 
   //On first render, get all transactions
+
   useEffect(() => {
     if (txnToggle === "listings") getTransactionsByOwner();
     else getTransactionsByRequester();
@@ -112,6 +113,11 @@ const Transactions = (props) => {
   useEffect(() => {
     getSelectedTxn(selectedTxnId);
   }, [selectedTxnId]);
+
+  //Update selected transaction when transactions array changes due to toggle
+  useEffect(() => {
+    setSelectedTxn(transactions[0]);
+  }, [transactions]);
 
   return (
     <>
