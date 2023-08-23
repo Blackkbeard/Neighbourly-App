@@ -22,7 +22,6 @@ const Transactions = (props) => {
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
   const [selectedTxn, setSelectedTxn] = useState({});
-  // const [selectedTxnId, setSelectedTxnId] = useState("");
   const [transactionState, setTransactionState] = useState("");
 
   //Toggle to re-render page with either listings or requests
@@ -64,7 +63,6 @@ const Transactions = (props) => {
       setTransactions(res.data);
     } else {
       setTransactions([]);
-      console.log(res.data);
     }
   };
 
@@ -97,9 +95,14 @@ const Transactions = (props) => {
   };
 
   const updateUserScore = async (newScore) => {
-    const res = await fetchData("/auth/update/" + user_id, "PATCH", {
-      help_count: newScore,
-    });
+    const res = await fetchData(
+      "/auth/update/" + user_id,
+      "PATCH",
+      {
+        help_count: newScore,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setUserInfo(res.data.updatedUser);

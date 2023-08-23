@@ -78,8 +78,8 @@ const Settings = (props) => {
             postal_code: newZipRef.current.value,
           },
         ],
-      }
-      // userCtx.accessToken
+      },
+      userCtx.accessToken
     );
     // console.log(newDistrictRef.current.value);
     console.log(newZipRef.current.value);

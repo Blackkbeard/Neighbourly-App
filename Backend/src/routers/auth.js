@@ -10,7 +10,7 @@ const {
   refresh,
   updateProfile,
 } = require("../controllers/auth");
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 const {
   validateRegistrationData,
   validateLoginData,
@@ -25,6 +25,6 @@ router.get("/accounts/:id", getAccountById);
 router.put("/register", validateRegistrationData, checkValid, register);
 router.post("/login", validateLoginData, checkValid, login);
 router.post("/refresh", validateRefreshToken, checkValid, refresh);
-router.patch("/update/:id", updateProfile);
+router.patch("/update/:id", auth, updateProfile);
 
 module.exports = router;
