@@ -43,7 +43,7 @@ const SignIn = (props) => {
       image_src: "homepage/2.png",
     },
     {
-      description: "Get to know people in the community",
+      description: "Get to know your community",
       image_src: "homepage/3.png",
     },
   ];
