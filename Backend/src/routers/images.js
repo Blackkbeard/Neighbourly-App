@@ -7,7 +7,7 @@ const upload = multer({ storage: storage }); //string should be name of input
 const { uploadImage } = require("../controllers/images");
 const router = express.Router();
 
-router.post("/images", upload.single("image"), uploadImage);
+router.post("/images/avatars", upload.single("image"), uploadImage);
 // router.get("/images", getImages);
 // router.patch("/images/:id", patchImage);
 // router.delete("/images/:id", deleteImage);

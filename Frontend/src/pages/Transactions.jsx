@@ -22,7 +22,7 @@ const Transactions = (props) => {
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
   const [selectedTxn, setSelectedTxn] = useState({});
-  const [selectedTxnId, setSelectedTxnId] = useState("");
+  // const [selectedTxnId, setSelectedTxnId] = useState("");
   const [transactionState, setTransactionState] = useState("");
 
   //Toggle to re-render page with either listings or requests
@@ -58,8 +58,8 @@ const Transactions = (props) => {
     }
   };
 
-  //Get selected transaction
-  const getSelectedTxn = async (id) => {
+  //Update selected transaction
+  const updateSelectedTxn = async (id) => {
     const res = await fetchData("/api/transactions/" + id);
     if (!id) {
       // Return early if id is empty
@@ -98,26 +98,19 @@ const Transactions = (props) => {
     if (txnToggle === "listings")
       getTransactionsByOwner(); //get data and update transactions state
     else if (txnToggle === "requests") getTransactionsByRequester(); //get data and update transactions state
-  }, [txnToggle]);
+  }, [txnToggle, userCtx.userInfo]);
 
   // On first render, select first transaction
   useEffect(() => {
-    // if selectedTxn is not yet set, select first retrieved transaction
     if (
+      // if selectedTxn is not yet set, select first retrieved transaction
       (Object.keys(selectedTxn).length === 0 && transactions.length > 0) ||
       (Object.keys(selectedTxn).length > 0 && transactions.length > 0)
     ) {
       setSelectedTxn(transactions[0]);
       setTransactionState(transactions[0].status);
     }
-
-    //if selectedTxn is set, and when transactions state is updated, select first item in transactions array
-  }, [transactions, selectedTxn, txnToggle]);
-
-  //Update selected transaction when selected transaction changes
-  useEffect(() => {
-    getSelectedTxn(selectedTxnId);
-  }, [selectedTxnId]);
+  }, [transactions, txnToggle]);
 
   return (
     <>
@@ -175,7 +168,8 @@ const Transactions = (props) => {
                       ownerImage={item.owner_id.image_url}
                       requesterName={item.requester_id.display_name}
                       requesterImage={item.requester_id.image_url}
-                      setSelectedTxnId={setSelectedTxnId}
+                      // setSelectedTxnId={setSelectedTxnId}
+                      updateSelectedTxn={updateSelectedTxn}
                       txnToggle={txnToggle}
                     />
                   );

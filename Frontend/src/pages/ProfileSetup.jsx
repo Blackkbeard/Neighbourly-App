@@ -21,67 +21,9 @@ const ProfileSetup = (props) => {
   const [dispName, setDispName] = useState("");
   const [bio, setBio] = useState("");
   const [number, setNumber] = useState("");
-  const [avatarSrc, setAvatarSrc] = useState("");
 
-  // const randomAvatar = () => {
-  //   // Generate a random number between 1 and 30
-  //   const randomNumber = Math.floor(Math.random() * 30) + 1;
-  //   console.log(randomNumber);
-  //   const randomAvatar = "public/avatars/" + randomNumber + ".png";
-  //   console.log(randomAvatar);
-  // };
-
-  //for image upload
-  const [file, setFile] = useState();
-
-  const submit = async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("user_id", props.userInfo._id);
-
-    const res = await fetch(import.meta.env.VITE_SERVER + "/api/images", {
-      method: "POST",
-      headers: {},
-      body: formData,
-    });
-    const data = await res.json();
-
-    let returnValue = {};
-    if (res.ok) {
-      if (data.status === "error") {
-        returnValue = { ok: false, data: data.msg };
-      } else {
-        returnValue = { ok: true, data };
-        props.getUserInfo();
-        alert("Profile Picture updated");
-      }
-    } else {
-      if (data?.errors && Array.isArray(data.errors)) {
-        const messages = data.errors.map((item) => item.msg);
-        returnValue = { ok: false, data: messages };
-      } else if (data?.status === "error") {
-        returnValue = { ok: false, data: data.message || data.msg };
-      } else {
-        console.log(data);
-        returnValue = { ok: false, data: "An error has occurred" };
-      }
-    }
-
-    return returnValue;
-  };
-
-  const fileSelected = (event) => {
-    const file = event.target.files[0];
-    setFile(file);
-  };
-
-  // const dispNameRef = useRef("");
-  // const bioRef = useRef("");
-  // const numberRef = useRef("");
   const skipUpdate = async () => {
-    navigate("/profile");
+    navigate("/");
   };
 
   const updateUser = async (id) => {
@@ -106,29 +48,12 @@ const ProfileSetup = (props) => {
     if (res.ok) {
       console.log("update succeeded");
       console.log(res.data);
-      // setDispName("");
-      // setBio("");
-      // setNumber("");
-      navigate("/profile");
+
+      navigate("/");
     } else {
       console.log(res.data);
     }
   };
-  // useEffect(() => { dispName: dispNameRef.current.value,
-  //     bio: bioRef.current.value,
-  //     number: numberRef.current.value, } , []);
-
-  //Not working
-  // useEffect(() => {
-  //   // Log for debugging
-  //   console.log("userInfo changed:", props.userInfo);
-
-  //   // Update avatarSrc with the new userInfo's image_url using functional update
-  //   setAvatarSrc((prevAvatarSrc) => props.userInfo.image_url || prevAvatarSrc);
-
-  //   // Log to verify that avatarSrc is updated
-  //   console.log("avatarSrc updated:", avatarSrc);
-  // }, [props.userInfo]);
 
   return (
     <>
@@ -145,36 +70,40 @@ const ProfileSetup = (props) => {
           autoComplete="off"
           alignItems="center"
         >
-          <Typography variant="h5" textAlign="start" margin="2rem 0">
-            Welcome To The Neighbourhood!
-          </Typography>
           <Grid container>
             <Grid
-              xs={6}
+              xs={12}
               container
               direction="column"
               justifyContent="center"
               alignItems="center"
             >
+              <Typography variant="h5" textAlign="start" margin="2rem 0">
+                Welcome To The Neighbourhood!
+              </Typography>
+
+              <Typography variant="subtitle" textAlign="start" margin="1rem 0">
+                Update your public profile:
+              </Typography>
               <TextField
                 id="outlined-basic"
                 label="Display Name"
                 variant="outlined"
-                defaultValue="vinesh"
+                defaultValue={`${userCtx.userInfo?.email}`}
                 onChange={(e) => setDispName(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
                 label="Biography"
                 variant="outlined"
-                defaultValue="run"
+                defaultValue={userCtx.userInfo?.bio}
                 onChange={(e) => setBio(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
                 label="Phone Number"
                 variant="outlined"
-                defaultValue="98879870"
+                defaultValue={userCtx.userInfo?.mobile_number}
                 onChange={(e) => setNumber(e.target.value)}
               />
               <Btn
@@ -194,16 +123,6 @@ const ProfileSetup = (props) => {
                   Skip for Now
                 </Link>
               </Typography>
-            </Grid>
-            <Grid xs={6}>
-              <Avatar alt="" src={avatarSrc} sx={{ width: 180, height: 180 }} />
-              <input
-                onChange={fileSelected}
-                type="file"
-                accept="image/*"
-              ></input>
-
-              <button onClick={submit}>Upload Profile Picture</button>
             </Grid>
           </Grid>
         </Box>

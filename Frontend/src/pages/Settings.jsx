@@ -76,16 +76,23 @@ const Settings = (props) => {
 
   const submit = async (event) => {
     event.preventDefault();
-
+    console.log(file);
+    if (!file) {
+      alert("Please select an image file");
+      return;
+    }
     const formData = new FormData();
     formData.append("image", file);
     formData.append("user_id", userFullInfo._id);
 
-    const res = await fetch(import.meta.env.VITE_SERVER + "/api/images", {
-      method: "POST",
-      headers: {},
-      body: formData,
-    });
+    const res = await fetch(
+      import.meta.env.VITE_SERVER + "/api/images/avatars",
+      {
+        method: "POST",
+        headers: {},
+        body: formData,
+      }
+    );
     const data = await res.json();
 
     let returnValue = {};
@@ -123,10 +130,10 @@ const Settings = (props) => {
       <Container maxWidth="lg">
         <Box>
           <Typography variant="h5" textAlign="start" margin="2rem 0">
-            Your Profile
+            Account Settings{" "}
           </Typography>
           <Grid container>
-            <Grid xs={3}>
+            <Grid xs={5}>
               <Avatar
                 alt=""
                 src={userCtx.userInfo.image_url}
@@ -143,7 +150,7 @@ const Settings = (props) => {
 
               <Btn onClick={submit}>Update</Btn>
             </Grid>
-            <Grid xs={9}>
+            <Grid xs={5}>
               <Typography textAlign="center"></Typography>
               <Box xs={2}>
                 <Typography gutterBottom variant="h4">
@@ -180,13 +187,13 @@ const Settings = (props) => {
               </Box>
               <Box xs={2}>
                 <Typography gutterBottom variant="h4">
-                  Locations :
+                  Location :
                 </Typography>
                 <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo?.location?.[0].district}
+                  District: {userCtx.userInfo?.location?.[0].district}
                 </Typography>
                 <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo?.location?.[0].postal_code}
+                  Postal Code: {userCtx.userInfo?.location?.[0].postal_code}
                 </Typography>
               </Box>
               <Btn
@@ -226,7 +233,7 @@ const Settings = (props) => {
                 ></TextField>
               </Box>
               <Box xs={2}>
-                <Typography>Email:</Typography>
+                {/* <Typography>Email:</Typography> */}
                 <TextField
                   id="filled-read-only-input"
                   label="Email"

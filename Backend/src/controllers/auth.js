@@ -189,6 +189,8 @@ const updateProfile = async (req, res) => {
     if ("district" in req.body) authDB.location[0].district = req.body.district;
     if ("postal_code" in req.body)
       authDB.location[0].postal_code = req.body.postal_code;
+    console.log(req.body.district);
+    console.log(req.body.postal_code);
     if ("image_url" in req.body) authDB.image_url = req.body.image_url;
 
     await authDB.save();
