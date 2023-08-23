@@ -26,6 +26,6 @@ router.get("/accounts/:id", getAccountById);
 router.put("/register", validateRegistrationData, checkValid, register);
 router.post("/login", validateLoginData, checkValid, login);
 router.post("/refresh", validateRefreshToken, checkValid, refresh);
-router.patch("/update/:id", auth, updateProfile);
+router.patch("/update/:id", validateUpdateProfile, auth, updateProfile);
 
 module.exports = router;
