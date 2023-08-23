@@ -16,6 +16,7 @@ const {
 } = require("../validators/transactions");
 const checkValid = require("../middleware/checkValid");
 const router = express.Router();
+const { auth } = require("../middleware/auth");
 
 router.get("/transactions/seed", seedTransactions);
 router.get("/transactions", getAllTransactions);
@@ -27,6 +28,7 @@ router.get(
 );
 router.post(
   "/transactions",
+  auth,
   validateGetByUserId,
   checkValid,
   getTransactionsByUserId
