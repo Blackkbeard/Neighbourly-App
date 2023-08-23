@@ -22,7 +22,6 @@ const Transactions = (props) => {
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
   const [selectedTxn, setSelectedTxn] = useState({});
-  // const [selectedTxnId, setSelectedTxnId] = useState("");
   const [transactionState, setTransactionState] = useState("");
 
   //Toggle to re-render page with either listings or requests
@@ -64,7 +63,6 @@ const Transactions = (props) => {
       setTransactions(res.data);
     } else {
       setTransactions([]);
-      console.log(res.data);
     }
   };
 
