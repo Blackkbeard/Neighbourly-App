@@ -36,8 +36,6 @@ function App() {
     if (initUserInfo) {
       setUserInfo(initUserInfo);
     }
-
-    console.log("userInfo updated");
   };
 
   useEffect(() => {
