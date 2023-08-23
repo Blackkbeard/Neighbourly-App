@@ -23,11 +23,11 @@ const Settings = (props) => {
   const userFullInfo = userCtx.userInfo;
   const [openUpdate, setOpenUpdate] = useState(false);
   const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
-  const [number, setNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [zip, setZip] = useState("");
-  const [district, setDistrict] = useState("");
+  const [bio1, setBio1] = useState("");
+  const [number1, setNumber1] = useState("");
+  const [email1, setEmail1] = useState("");
+  const [zip1, setZip1] = useState("");
+  const [district1, setDistrict1] = useState("");
 
   const fetchData = useFetch();
 
@@ -44,13 +44,13 @@ const Settings = (props) => {
 
     const userData = {
       display_name: name,
-      biography: bio,
-      mobile_number: number,
-      email: email,
+      biography: bio1,
+      mobile_number: number1,
+      email: email1,
       location: [
         {
-          district,
-          postal_code: zip,
+          district: district1,
+          postal_code: zip1,
         },
       ],
     };
@@ -93,6 +93,7 @@ const Settings = (props) => {
         returnValue = { ok: false, data: data.msg };
       } else {
         returnValue = { ok: true, data };
+        alert("Profile Picture updated");
       }
     } else {
       if (data?.errors && Array.isArray(data.errors)) {
@@ -113,7 +114,7 @@ const Settings = (props) => {
     const file = event.target.files[0];
     setFile(file);
   };
-
+  JSON.stringify(userCtx);
   return (
     <>
       <TopBar showBurger={true}></TopBar>
@@ -132,15 +133,14 @@ const Settings = (props) => {
                 display="flex"
                 justifycontent="center"
               ></Avatar>
-              <form onSubmit={submit} className="flex">
-                <input
-                  onChange={fileSelected}
-                  type="file"
-                  accept="image/*"
-                ></input>
 
-                <Btn type="submit">Update</Btn>
-              </form>
+              <input
+                onChange={fileSelected}
+                type="file"
+                accept="image/*"
+              ></input>
+
+              <Btn onClick={submit}>Update</Btn>
             </Grid>
             <Grid xs={9}>
               <Typography textAlign="center"></Typography>
@@ -181,12 +181,12 @@ const Settings = (props) => {
                 <Typography gutterBottom variant="h4">
                   Locations :
                 </Typography>
-                <Typography gutterBottom variant="h6">
+                {/* <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.location[0].district}
                 </Typography>
                 <Typography gutterBottom variant="h6">
                   {userCtx.userInfo.location[0].postal_code}
-                </Typography>
+                </Typography> */}
               </Box>
               <Btn
                 startIcon={<ModeEditOutlineOutlinedIcon />}
@@ -224,27 +224,29 @@ const Settings = (props) => {
               <Box xs={2}>
                 <Typography>Email:</Typography>
                 <TextField
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail1(e.target.value)}
                 ></TextField>
               </Box>
               <Box xs={2}>
                 <Typography>Biography :</Typography>
 
-                <TextField onChange={(e) => setBio(e.target.value)}></TextField>
+                <TextField
+                  onChange={(e) => setBio1(e.target.value)}
+                ></TextField>
               </Box>
               <Box xs={2}>
                 <Typography>Mobile Number :</Typography>
                 <TextField
-                  onChange={(e) => setNumber(e.target.value)}
+                  onChange={(e) => setNumber1(e.target.value)}
                 ></TextField>
               </Box>
-              <Box xs={2}>
+              {/* <Box xs={2}>
                 <Typography>Locations :</Typography>
                 <TextField
-                  onChange={(e) => setDistrict(e.target.value)}
+                  onChange={(e) => setDistrict1(e.target.value)}
                 ></TextField>
-                <TextField onChange={(e) => setZip(e.target.value)}></TextField>
-              </Box>
+                <TextField onChange={(e) => setZip1(e.target.value)}></TextField>
+              </Box> */}
             </Box>
           </DialogContentText>
 

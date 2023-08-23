@@ -21,6 +21,15 @@ const ProfileSetup = (props) => {
   const [dispName, setDispName] = useState("");
   const [bio, setBio] = useState("");
   const [number, setNumber] = useState("");
+  const [avatarSrc, setAvatarSrc] = useState("");
+
+  // const randomAvatar = () => {
+  //   // Generate a random number between 1 and 30
+  //   const randomNumber = Math.floor(Math.random() * 30) + 1;
+  //   console.log(randomNumber);
+  //   const randomAvatar = "public/avatars/" + randomNumber + ".png";
+  //   console.log(randomAvatar);
+  // };
 
   //for image upload
   const [file, setFile] = useState();
@@ -45,6 +54,8 @@ const ProfileSetup = (props) => {
         returnValue = { ok: false, data: data.msg };
       } else {
         returnValue = { ok: true, data };
+        props.getUserInfo();
+        alert("Profile Picture updated");
       }
     } else {
       if (data?.errors && Array.isArray(data.errors)) {
@@ -106,6 +117,19 @@ const ProfileSetup = (props) => {
   // useEffect(() => { dispName: dispNameRef.current.value,
   //     bio: bioRef.current.value,
   //     number: numberRef.current.value, } , []);
+
+  //Not working
+  // useEffect(() => {
+  //   // Log for debugging
+  //   console.log("userInfo changed:", props.userInfo);
+
+  //   // Update avatarSrc with the new userInfo's image_url using functional update
+  //   setAvatarSrc((prevAvatarSrc) => props.userInfo.image_url || prevAvatarSrc);
+
+  //   // Log to verify that avatarSrc is updated
+  //   console.log("avatarSrc updated:", avatarSrc);
+  // }, [props.userInfo]);
+
   return (
     <>
       <TopBar></TopBar>
@@ -119,24 +143,19 @@ const ProfileSetup = (props) => {
           }}
           noValidate
           autoComplete="off"
+          alignItems="center"
         >
+          <Typography variant="h5" textAlign="start" margin="2rem 0">
+            Welcome To The Neighbourhood!
+          </Typography>
           <Grid container>
             <Grid
-              xs={12}
+              xs={6}
               container
               direction="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Typography variant="h5" textAlign="start" margin="2rem 0">
-                Welcome To The Neighbourhood!
-              </Typography>
-
-              <Avatar
-                alt=""
-                src="https://seeklogo.com/images/G/general-assembly-logo-D5C634F07A-seeklogo.com.png"
-                sx={{ width: 180, height: 180 }}
-              />
               <TextField
                 id="outlined-basic"
                 label="Display Name"
@@ -176,17 +195,18 @@ const ProfileSetup = (props) => {
                 </Link>
               </Typography>
             </Grid>
+            <Grid xs={6}>
+              <Avatar alt="" src={avatarSrc} sx={{ width: 180, height: 180 }} />
+              <input
+                onChange={fileSelected}
+                type="file"
+                accept="image/*"
+              ></input>
+
+              <button onClick={submit}>Upload Profile Picture</button>
+            </Grid>
           </Grid>
         </Box>
-        <form
-          onSubmit={submit}
-          style={{ width: 650 }}
-          className="flex flex-col space-y-5 px-5 py-14"
-        >
-          <input onChange={fileSelected} type="file" accept="image/*"></input>
-
-          <button type="submit">Submit</button>
-        </form>
       </Container>
     </>
   );
