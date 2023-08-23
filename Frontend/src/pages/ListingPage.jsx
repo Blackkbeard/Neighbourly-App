@@ -60,6 +60,8 @@ const ListingPage = (props) => {
 
   const [open, setOpen] = useState(false); //snackbar
   const [btnName, setBtnName] = useState(""); //for snackbar
+  const [file, setFile] = useState(); //image file
+  const [imageUrl, setImageUrl] = useState("");
 
   const titleRef = useRef("");
   const descriptionRef = useRef("");
@@ -158,6 +160,60 @@ const ListingPage = (props) => {
     }
   };
 
+  //for image upload
+  const submit = async (event) => {
+    event.preventDefault();
+    console.log(file);
+    if (!file) {
+      alert("Please select an image file");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+
+    // append listing_id to update existing listing
+    // formData.append("listing_id", userFullInfo._id);
+
+    const res = await fetch(
+      import.meta.env.VITE_SERVER + "/api/images/listings",
+      {
+        method: "POST",
+        headers: {},
+        body: formData,
+      }
+    );
+    const data = await res.json();
+
+    let returnValue = {};
+    if (res.ok) {
+      if (data.status === "error") {
+        returnValue = { ok: false, data: data.msg };
+      } else {
+        returnValue = { ok: true, data };
+        alert("Image uploaded");
+        setImageUrl(data.url);
+        console.log(data.url);
+      }
+    } else {
+      if (data?.errors && Array.isArray(data.errors)) {
+        const messages = data.errors.map((item) => item.msg);
+        returnValue = { ok: false, data: messages };
+      } else if (data?.status === "error") {
+        returnValue = { ok: false, data: data.message || data.msg };
+      } else {
+        console.log(data);
+        returnValue = { ok: false, data: "An error has occurred" };
+      }
+    }
+
+    return returnValue;
+  };
+
+  const fileSelected = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+  };
+
   // endpoint
   const getListingById = async () => {
     const res = await fetchData("/api/listings/" + params.item);
@@ -185,15 +241,16 @@ const ListingPage = (props) => {
   };
 
   const updateListing = async (e) => {
-    const res = await fetchData("/api/listings/" + params.item, "PATCH", {
+    const body = {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
       type: typeRef.current.value === "For Loan" ? "loan" : "free",
       date_available_from: dateFrom,
       date_available_to: dateTo,
-      // image_url:
-      //   "https://i.pcmag.com/imagery/roundups/06msR0ZNV3Oc2GfpqCu9AcT-14..v1632927607.jpg",
-    });
+    };
+    if (imageUrl) body.image_url = imageUrl;
+
+    const res = await fetchData("/api/listings/" + params.item, "PATCH", body);
 
     if (res.ok) {
       getListingById();
@@ -352,7 +409,9 @@ const ListingPage = (props) => {
 
         {/* dialog for edit listing */}
         <Dialog open={openEdit} onClose={handleCloseEdit}>
-          <DialogTitle>Edit Listing Details</DialogTitle>
+          <DialogTitle sx={{ pl: "5rem", pr: "5rem" }}>
+            Edit Listing Details
+          </DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
@@ -402,7 +461,7 @@ const ListingPage = (props) => {
               minDate={dayjs(dateFrom + 48)}
               label="Available to"
               variant="outlined"
-              sx={{ width: "25rem", mt: "0.4rem" }}
+              sx={{ width: "32rem", mt: "0.4rem" }}
               defaultValue={dayjs(listing.date_available_to)}
               onChange={(e) => dateForUpdate(e, false)}
               disabled={addDisable}
@@ -413,6 +472,12 @@ const ListingPage = (props) => {
                 label="Remove date?"
               ></FormControlLabel>
             </FormGroup>
+            <br />
+            <input onChange={fileSelected} type="file" accept="image/*"></input>
+            <Typography variant="body2" fontSize="0.8rem">
+              *Upload an image only if you want to replace the existing image
+            </Typography>
+            <Btn onClick={submit}>Upload image</Btn>
           </DialogContent>
           <DialogActions>
             <Btn onClick={handleCloseEdit} isBrown={true}>
