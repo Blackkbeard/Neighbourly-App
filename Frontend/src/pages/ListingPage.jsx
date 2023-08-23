@@ -299,7 +299,7 @@ const ListingPage = (props) => {
                       <Tooltip title="View Profile" placement="top">
                         <IconButton
                           onClick={() =>
-                            navigate(`/profile/${userCtx.userInfo._id}`)
+                            navigate(`/profile/${listing.owner_id?._id}`)
                           }
                         >
                           <Avt
