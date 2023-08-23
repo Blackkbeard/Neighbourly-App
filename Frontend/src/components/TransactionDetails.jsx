@@ -9,8 +9,6 @@ import { useContext } from "react";
 import UserContext from "../context/user";
 
 const TransactionDetails = (props) => {
-  const [txnToggle, setTxnToggle] = useState("");
-  const [selectedTxn, setSelectedTxn] = useState({});
   const userCtx = useContext(UserContext);
   const user_score = userCtx.userInfo.help_count;
   const navigate = useNavigate();
@@ -39,14 +37,6 @@ const TransactionDetails = (props) => {
       console.log(res.data);
     }
   };
-
-  useEffect(() => {
-    setSelectedTxn(props.selectedTxn);
-  }, [props.selectedTxn]);
-
-  useEffect(() => {
-    setTxnToggle(props.txnToggle);
-  }, [props.txnToggle]);
 
   //generate content based on txnToggle and transaction state
   if (props.txnToggle === "listings") {
