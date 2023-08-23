@@ -55,7 +55,8 @@ const Settings = (props) => {
         },
       ],
     };
-    console.log(userFullInfo);
+
+    console.log("update body: " + JSON.stringify(userData));
     const res = await fetchData(
       "/auth/update/" + userFullInfo._id,
       "PATCH",
