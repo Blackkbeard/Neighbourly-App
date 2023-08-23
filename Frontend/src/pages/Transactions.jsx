@@ -70,7 +70,12 @@ const Transactions = (props) => {
 
   //Update selected transaction
   const updateSelectedTxn = async (id) => {
-    const res = await fetchData("/api/transactions/" + id);
+    const res = await fetchData(
+      "/api/transactions/" + id,
+      undefined,
+      undefined,
+      userCtx.accessToken
+    );
     if (!id) {
       // Return early if id is empty
       return;
