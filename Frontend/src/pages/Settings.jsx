@@ -180,13 +180,13 @@ const Settings = (props) => {
               </Box>
               <Box xs={2}>
                 <Typography gutterBottom variant="h4">
-                  Locations :
+                  Location :
                 </Typography>
                 <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo?.location?.[0].district}
+                  District: {userCtx.userInfo?.location?.[0].district}
                 </Typography>
                 <Typography gutterBottom variant="h6">
-                  {userCtx.userInfo?.location?.[0].postal_code}
+                  Postal Code: {userCtx.userInfo?.location?.[0].postal_code}
                 </Typography>
               </Box>
               <Btn
