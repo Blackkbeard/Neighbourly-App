@@ -100,7 +100,6 @@ const Registration = (props) => {
                 <TextField
                   label="Email"
                   variant="outlined"
-                  defaultValue="test@test.com"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -109,7 +108,6 @@ const Registration = (props) => {
                   id="outlined-basic"
                   label="Password"
                   variant="outlined"
-                  defaultValue="test12345"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -120,7 +118,6 @@ const Registration = (props) => {
                   id="outlined-basic"
                   label="Zip Code"
                   variant="outlined"
-                  defaultValue="760758"
                   onChange={(e) => validateZipCode(e)}
                   helperText={isInvalid && "Invalid zip code"}
                 />
