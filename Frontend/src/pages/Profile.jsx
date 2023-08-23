@@ -67,7 +67,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     getListingsByUserId();
-  });
+  }, [userCtx.userInfo]);
   return (
     <>
       <TopBar showBurger={true}></TopBar>

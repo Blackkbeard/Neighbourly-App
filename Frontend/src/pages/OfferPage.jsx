@@ -58,7 +58,7 @@ const OfferPage = () => {
 
   useEffect(() => {
     getListings();
-  }, []);
+  }, [userCtx.userInfo]);
 
   return (
     <>
