@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -22,12 +22,14 @@ import Btn from "../components/Btn";
 import Listings from "../components/Listings";
 
 const Profile = (props) => {
+  const params = useParams();
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
   const navigate = useNavigate();
 
   // states
   const [listings, setListings] = useState([]);
+  const [currProfile, setCurrProfile] = useState([]);
 
   // snackbar functions
   const handleCloseSnackbar = (event, reason) => {
@@ -54,7 +56,7 @@ const Profile = (props) => {
   // Endpoint
   const getListingsByUserId = async () => {
     const res = await fetchData("/api/listings/userId", "POST", {
-      owner_id: userCtx.userInfo._id,
+      owner_id: params.item,
     });
 
     if (res.ok) {
@@ -65,8 +67,20 @@ const Profile = (props) => {
     }
   };
 
+  const getProfileInfo = async () => {
+    const res = await fetchData("/auth/accounts/" + params.item);
+
+    if (res.ok) {
+      setCurrProfile(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
   useEffect(() => {
     getListingsByUserId();
+    getProfileInfo();
   }, [userCtx.userInfo]);
   return (
     <>
@@ -76,7 +90,7 @@ const Profile = (props) => {
         <Box>
           <Grid container>
             <Grid xs={2} sx={{ mt: "2rem" }}>
-              <Avt size={12} src={userCtx.userInfo?.image_url}></Avt>
+              <Avt size={12} src={currProfile.image_url}></Avt>
             </Grid>
             <Grid xs={8} sx={{ mt: "2rem" }}>
               <Box>
@@ -85,7 +99,7 @@ const Profile = (props) => {
                   marginBottom="1rem"
                   sx={{ ml: "3rem", mr: "3rem" }}
                 >
-                  {userCtx.userInfo?.display_name}
+                  {currProfile.display_name}
                 </Typography>
                 <Typography
                   variant="body1"
@@ -93,10 +107,10 @@ const Profile = (props) => {
                   sx={{ ml: "3rem" }}
                 >
                   {/* optional chaining for object and array to prevent page load fail */}
-                  {`Neighbourhood: ${userCtx.userInfo?.location?.[0].district}`}
+                  {`Neighbourhood: ${currProfile.location?.[0].district}`}
                 </Typography>
                 <Typography sx={{ ml: "3rem" }}>
-                  {userCtx.userInfo.biography}
+                  {currProfile.biography}
                 </Typography>
               </Box>
               <Chip
@@ -106,7 +120,7 @@ const Profile = (props) => {
                     style={{ color: "var(--burgundy)" }}
                   />
                 }
-                label={`${userCtx.userInfo?.help_count} Neighbours helped`}
+                label={`${currProfile.help_count} Neighbours helped`}
                 variant="outlined"
                 sx={{ ml: "3rem", mt: "1rem" }}
                 style={{
