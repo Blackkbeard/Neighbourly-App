@@ -88,15 +88,15 @@ const Transactions = (props) => {
     }
   };
 
-  //Increment user's score when transaction completes and update userInfo
-  const incrementUserScore = () => {
-    const newScore = userCtx.userInfo.help_count + 1;
-    updateUserScore(newScore);
+  //Increment owner's score when transaction completes and update userInfo
+  const incrementOwnerScore = () => {
+    const newScore = selectedTxn.owner_id.help_count + 1;
+    updateOwnerScore(newScore);
   };
 
-  const updateUserScore = async (newScore) => {
+  const updateOwnerScore = async (newScore) => {
     const res = await fetchData(
-      "/auth/update/" + user_id,
+      "/auth/update/" + selectedTxn.owner_id._id,
       "PATCH",
       {
         help_count: newScore,
@@ -204,7 +204,7 @@ const Transactions = (props) => {
                   selectedTxn={selectedTxn}
                   transactionState={transactionState}
                   setTransactionState={setTransactionState}
-                  incrementUserScore={incrementUserScore}
+                  incrementOwnerScore={incrementOwnerScore}
                 ></TransactionDetails>
               ) : (
                 <Box>
