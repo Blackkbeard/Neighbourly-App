@@ -44,6 +44,8 @@ const Transactions = (props) => {
       setTransactions(res.data);
     } else {
       setTransactions([]);
+      setSelectedTxn({});
+      setTransactionState("");
       console.log(res.data);
     }
   };
@@ -63,6 +65,8 @@ const Transactions = (props) => {
       setTransactions(res.data);
     } else {
       setTransactions([]);
+      setSelectedTxn({});
+      setTransactionState("");
     }
   };
 
