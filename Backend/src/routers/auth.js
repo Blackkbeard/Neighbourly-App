@@ -15,6 +15,7 @@ const {
   validateRegistrationData,
   validateLoginData,
   validateRefreshToken,
+  validateUpdateProfile,
 } = require("../validators/auth");
 
 const checkValid = require("../middleware/checkValid");
