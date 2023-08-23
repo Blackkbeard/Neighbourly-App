@@ -82,7 +82,7 @@ const Profile = (props) => {
   useEffect(() => {
     getListingsByUserId();
     getProfileInfo();
-  }, []);
+  }, [params.item]);
 
   return (
     <>
