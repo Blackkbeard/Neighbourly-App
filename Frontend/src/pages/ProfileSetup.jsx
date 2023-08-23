@@ -4,14 +4,7 @@ import TopBar from "../components/TopBar";
 import Grid from "@mui/material/Unstable_Grid2";
 import Btn from "../components/Btn";
 import UserContext from "../context/user";
-import {
-  Container,
-  Typography,
-  Box,
-  Avatar,
-  Link,
-  TextField,
-} from "@mui/material";
+import { Container, Typography, Box, Link, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const ProfileSetup = (props) => {
@@ -60,7 +53,6 @@ const ProfileSetup = (props) => {
       <TopBar></TopBar>
 
       <Container maxWidth="lg">
-        {/* {JSON.stringify(props.userInfo)} */}
         <Box
           component="form"
           sx={{
