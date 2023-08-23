@@ -86,7 +86,7 @@ const getAllListingsByUserId = async (req, res) => {
   try {
     const allListings = await ListingModel.find({
       owner_id: req.body.owner_id,
-    });
+    }).populate("owner_id");
 
     res.json(allListings);
   } catch (error) {

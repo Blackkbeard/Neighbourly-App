@@ -9,10 +9,8 @@ import { useContext } from "react";
 import UserContext from "../context/user";
 
 const TransactionDetails = (props) => {
-  const [txnToggle, setTxnToggle] = useState("");
-  const [selectedTxn, setSelectedTxn] = useState({});
   const userCtx = useContext(UserContext);
-  const user_score = userCtx.userInfo.help_count;
+  const user_score = props.selectedTxn.owner_id.help_count;
   const navigate = useNavigate();
   const fetchData = useFetch();
   let content = "";
@@ -26,27 +24,19 @@ const TransactionDetails = (props) => {
       "PATCH",
       {
         status: newStatus,
-      }
+      },
+      userCtx.accessToken
     );
     if (res.ok) {
       props.setTransactionState(newStatus);
       if (newStatus === "completed") {
-        props.incrementUserScore();
+        props.incrementOwnerScore();
       }
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
-
-  // //NOTE: Not working
-  // useEffect(() => {
-  //   setSelectedTxn(props.selectedTxn);
-  //   console.log("set");
-  // }, [props.selectedTxn]);
-  // useEffect(() => {
-  //   setTxnToggle(props.txnToggle);
-  // }, [props.txnToggle]);
 
   //generate content based on txnToggle and transaction state
   if (props.txnToggle === "listings") {
@@ -126,7 +116,7 @@ const TransactionDetails = (props) => {
             </Btn>
           </Box>
 
-          <Typography
+          {/* <Typography
             variant="body"
             component="div"
             display="block"
@@ -134,7 +124,7 @@ const TransactionDetails = (props) => {
           >
             You can exchange reviews once you have marked this transaction as
             complete.
-          </Typography>
+          </Typography> */}
         </Box>
       );
     } else if (props.transactionState === "declined") {
@@ -192,7 +182,7 @@ const TransactionDetails = (props) => {
             </span>
             neighbours.<br></br>
           </Typography>
-          <Typography
+          {/* <Typography
             variant="body"
             component="div"
             display="block"
@@ -202,7 +192,7 @@ const TransactionDetails = (props) => {
             This transaction is complete. Leave{" "}
             {props.selectedTxn.requester_id.display_name} a review to say
             thanks!.
-          </Typography>
+          </Typography> */}
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
             {/* add review button after functionality added  */}
             {/* <Btn width={15}>
@@ -285,7 +275,7 @@ const TransactionDetails = (props) => {
             </Btn>
           </Box>
 
-          <Typography
+          {/* <Typography
             variant="body"
             component="div"
             display="block"
@@ -293,7 +283,7 @@ const TransactionDetails = (props) => {
           >
             You can exchange reviews once you have marked this transaction as
             complete.
-          </Typography>
+          </Typography> */}
         </Box>
       );
     } else if (props.transactionState === "declined") {
@@ -352,7 +342,7 @@ const TransactionDetails = (props) => {
             </span>
             neighbours.<br></br>
           </Typography>
-          <Typography
+          {/* <Typography
             variant="body"
             component="div"
             display="block"
@@ -361,7 +351,7 @@ const TransactionDetails = (props) => {
           >
             This transaction is complete. Leave{" "}
             {props.selectedTxn.owner_id.display_name} a review to say thanks!.
-          </Typography>
+          </Typography> */}
           <Box sx={{ display: "flex", m: "0.5rem" }} justifyContent="center">
             <Btn
               width={15}
@@ -378,8 +368,6 @@ const TransactionDetails = (props) => {
       );
     }
   }
-  console.log("requester: " + props.selectedTxn.requester_id.display_name);
-  console.log("owner: " + props.selectedTxn.owner_id.display_name);
   return (
     <>
       <Box sx={{ display: "flex", m: "1rem" }}>
@@ -390,7 +378,13 @@ const TransactionDetails = (props) => {
           <Tooltip title="View Profile" placement="top">
             <IconButton
               onClick={() => {
-                navigate("/profile");
+                navigate(
+                  `/profile/${
+                    props.txnToggle === "listings"
+                      ? props.selectedTxn.requester_id._id
+                      : props.selectedTxn.owner_id._id
+                  }`
+                );
               }}
             >
               <Avt

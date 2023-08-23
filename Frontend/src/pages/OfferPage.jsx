@@ -28,24 +28,37 @@ const OfferPage = () => {
 
   // states
   const [listings, setListings] = useState([]);
+  const [dispListings, setDispListings] = useState([]);
 
   // endpoints
   const getListings = async () => {
     const res = await fetchData("/api/listings/district", "POST", {
-      location: userCtx.userInfo.location[0].district,
+      location: userCtx.userInfo.location?.[0].district,
     });
 
     if (res.ok) {
       setListings(res.data);
+      setDispListings(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
 
+  // function
+  const handleSearch = (e) => {
+    const filtered = listings.filter((item) => {
+      const lowerCaseTitle = item.title.toLowerCase();
+      const lowerCaseInput = e.target.value.toLowerCase();
+      return lowerCaseTitle.includes(lowerCaseInput);
+    });
+
+    setDispListings(filtered);
+  };
+
   useEffect(() => {
     getListings();
-  }, []);
+  }, [userCtx.userInfo]);
 
   return (
     <>
@@ -57,7 +70,7 @@ const OfferPage = () => {
             <Grid container alignItems="center">
               <Grid xs={12}>
                 <Typography variant="h5" textAlign="start" margin="2rem 0">
-                  {`Happening in ${userCtx.userInfo.location[0].district} neighbourhood`}
+                  {`Happening in ${userCtx.userInfo?.location?.[0].district} neighbourhood`}
                 </Typography>
               </Grid>
               {/* Material UI Search Bar */}
@@ -65,11 +78,11 @@ const OfferPage = () => {
                 <FormControl
                   sx={{
                     width: "20rem",
-                    input: { fontFamily: "var(--font)" },
                   }}
                   variant="outlined"
                   className="search-bar"
                   color="secondary"
+                  onChange={handleSearch}
                 >
                   <InputLabel
                     htmlFor="outlined-adornment"
@@ -98,7 +111,7 @@ const OfferPage = () => {
 
               {/* listings card */}
               {listings ? (
-                <Listings listings={listings}></Listings>
+                <Listings listings={dispListings}></Listings>
               ) : (
                 <Box sx={{ display: "flex" }}>
                   <CircularProgress />

@@ -22,7 +22,6 @@ const Transactions = (props) => {
   const [transactions, setTransactions] = useState([]);
   const [txnToggle, setTxnToggle] = useState("requests");
   const [selectedTxn, setSelectedTxn] = useState({});
-  const [selectedTxnId, setSelectedTxnId] = useState("");
   const [transactionState, setTransactionState] = useState("");
 
   //Toggle to re-render page with either listings or requests
@@ -32,9 +31,14 @@ const Transactions = (props) => {
 
   //For Listings view - fetch all transactions by owner
   const getTransactionsByOwner = async () => {
-    const res = await fetchData("/api/transactions", "POST", {
-      owner_id: user_id,
-    });
+    const res = await fetchData(
+      "/api/transactions",
+      "POST",
+      {
+        owner_id: user_id,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setTransactions(res.data);
@@ -46,21 +50,30 @@ const Transactions = (props) => {
 
   //For requests view - fetch all requests by owner
   const getTransactionsByRequester = async () => {
-    const res = await fetchData("/api/transactions", "POST", {
-      requester_id: user_id,
-    });
+    const res = await fetchData(
+      "/api/transactions",
+      "POST",
+      {
+        requester_id: user_id,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setTransactions(res.data);
     } else {
       setTransactions([]);
-      console.log(res.data);
     }
   };
 
-  //Get selected transaction
-  const getSelectedTxn = async (id) => {
-    const res = await fetchData("/api/transactions/" + id);
+  //Update selected transaction
+  const updateSelectedTxn = async (id) => {
+    const res = await fetchData(
+      "/api/transactions/" + id,
+      undefined,
+      undefined,
+      userCtx.accessToken
+    );
     if (!id) {
       // Return early if id is empty
       return;
@@ -75,16 +88,21 @@ const Transactions = (props) => {
     }
   };
 
-  //Increment user's score when transaction completes and update userInfo
-  const incrementUserScore = () => {
-    const newScore = userCtx.userInfo.help_count + 1;
-    updateUserScore(newScore);
+  //Increment owner's score when transaction completes and update userInfo
+  const incrementOwnerScore = () => {
+    const newScore = selectedTxn.owner_id.help_count + 1;
+    updateOwnerScore(newScore);
   };
 
-  const updateUserScore = async (newScore) => {
-    const res = await fetchData("/auth/update/" + user_id, "PATCH", {
-      help_count: newScore,
-    });
+  const updateOwnerScore = async (newScore) => {
+    const res = await fetchData(
+      "/auth/update/" + selectedTxn.owner_id._id,
+      "PATCH",
+      {
+        help_count: newScore,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setUserInfo(res.data.updatedUser);
@@ -93,25 +111,24 @@ const Transactions = (props) => {
     }
   };
 
-  //On first render, get all transactions
+  //On first render, and when toggle changes, get all transactions
   useEffect(() => {
-    if (txnToggle === "listings") getTransactionsByOwner();
-    else getTransactionsByRequester();
-  }, [txnToggle]);
+    if (txnToggle === "listings")
+      getTransactionsByOwner(); //get data and update transactions state
+    else if (txnToggle === "requests") getTransactionsByRequester(); //get data and update transactions state
+  }, [txnToggle, userCtx.userInfo]);
 
   // On first render, select first transaction
   useEffect(() => {
-    // if selectedTxn is not yet set, select first retrieved transaction
-    if (Object.keys(selectedTxn).length === 0 && transactions.length > 0) {
+    if (
+      // if selectedTxn is not yet set, select first retrieved transaction
+      (Object.keys(selectedTxn).length === 0 && transactions.length > 0) ||
+      (Object.keys(selectedTxn).length > 0 && transactions.length > 0)
+    ) {
       setSelectedTxn(transactions[0]);
       setTransactionState(transactions[0].status);
     }
-  }, [transactions, selectedTxn]);
-
-  //Update selected transaction when selected transaction changes
-  useEffect(() => {
-    getSelectedTxn(selectedTxnId);
-  }, [selectedTxnId]);
+  }, [transactions, txnToggle]);
 
   return (
     <>
@@ -169,7 +186,7 @@ const Transactions = (props) => {
                       ownerImage={item.owner_id.image_url}
                       requesterName={item.requester_id.display_name}
                       requesterImage={item.requester_id.image_url}
-                      setSelectedTxnId={setSelectedTxnId}
+                      updateSelectedTxn={updateSelectedTxn}
                       txnToggle={txnToggle}
                     />
                   );
@@ -187,7 +204,7 @@ const Transactions = (props) => {
                   selectedTxn={selectedTxn}
                   transactionState={transactionState}
                   setTransactionState={setTransactionState}
-                  incrementUserScore={incrementUserScore}
+                  incrementOwnerScore={incrementOwnerScore}
                 ></TransactionDetails>
               ) : (
                 <Box>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -9,13 +9,14 @@ import {
   CardHeader,
   Typography,
   CardActionArea,
-  Avatar,
   Tooltip,
   IconButton,
 } from "@mui/material";
+import ShareIcon from "@mui/icons-material/Share";
 import Avt from "./Avt";
 
 const Listings = (props) => {
+  const navigate = useNavigate();
   return (
     <>
       {props.listings.map((item, id) => {
@@ -27,10 +28,11 @@ const Listings = (props) => {
               style={{ borderRadius: "1rem", marginTop: "2rem" }}
             >
               <CardHeader
-                // onClick to listing owner profile
                 avatar={
                   <Tooltip title="View Profile" placement="top">
-                    <IconButton onClick={() => console.log("to profile")}>
+                    <IconButton
+                      onClick={() => navigate(`/profile/${item.owner_id._id}`)}
+                    >
                       <Avt size={3} src={item.owner_id.image_url}></Avt>
                     </IconButton>
                   </Tooltip>
@@ -38,6 +40,15 @@ const Listings = (props) => {
                 title={item.owner_id.display_name}
                 subheader={item.created_at.split("T")[0]}
                 style={{ backgroundColor: "var(--lightpink)" }}
+                action={
+                  <IconButton
+                    // onClick={() =>
+                    //   navigator.clipboard.writeText(`${window.location.origin}/listing/${item._id}`)
+                    // }
+                  >
+                    <ShareIcon />
+                  </IconButton>
+                }
               />
               <Link
                 to={`/listing/${item._id}`}
@@ -47,9 +58,7 @@ const Listings = (props) => {
                   <CardMedia
                     component="img"
                     height="140"
-                    //   image="/sample-image.webp"
                     image={item.image_url}
-                    alt="green iguana"
                     style={{ height: "12rem" }}
                   />
                   <CardContent style={{ backgroundColor: "var(--lightpink)" }}>

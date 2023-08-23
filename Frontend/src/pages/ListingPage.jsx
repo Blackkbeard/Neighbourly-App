@@ -42,9 +42,8 @@ import dayjs from "dayjs";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import HandshakeTwoToneIcon from "@mui/icons-material/HandshakeTwoTone";
-import { CheckBox } from "@mui/icons-material";
 
-const ListingPage = () => {
+const ListingPage = (props) => {
   const params = useParams();
   const navigate = useNavigate();
   const fetchData = useFetch();
@@ -61,6 +60,8 @@ const ListingPage = () => {
 
   const [open, setOpen] = useState(false); //snackbar
   const [btnName, setBtnName] = useState(""); //for snackbar
+  const [file, setFile] = useState(); //image file
+  const [imageUrl, setImageUrl] = useState("");
 
   const titleRef = useRef("");
   const descriptionRef = useRef("");
@@ -90,9 +91,6 @@ const ListingPage = () => {
     switch (btnName) {
       case "edit":
         return "Listing updated!";
-        break;
-      case "delete":
-        return "Listing deleted!";
         break;
       case "submit":
         return "Request submitted!";
@@ -147,11 +145,16 @@ const ListingPage = () => {
   );
 
   const handleSubmitRequest = async (e) => {
-    const res = await fetchData("/api/transactions/", "PUT", {
-      owner_id: listing.owner_id._id,
-      requester_id: user_id,
-      listing_id: params.item,
-    });
+    const res = await fetchData(
+      "/api/transactions/",
+      "PUT",
+      {
+        owner_id: listing.owner_id._id,
+        requester_id: user_id,
+        listing_id: params.item,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setBtnName(e.target.id);
@@ -160,6 +163,58 @@ const ListingPage = () => {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
+  };
+
+  //for image upload
+  const submit = async (event) => {
+    event.preventDefault();
+    if (!file) {
+      alert("Please select an image file");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+
+    // append listing_id to update existing listing
+    // formData.append("listing_id", userFullInfo._id);
+
+    const res = await fetch(
+      import.meta.env.VITE_SERVER + "/api/images/listings",
+      {
+        method: "POST",
+        headers: {},
+        body: formData,
+      }
+    );
+    const data = await res.json();
+
+    let returnValue = {};
+    if (res.ok) {
+      if (data.status === "error") {
+        returnValue = { ok: false, data: data.msg };
+      } else {
+        returnValue = { ok: true, data };
+        alert("Image uploaded");
+        setImageUrl(data.url);
+      }
+    } else {
+      if (data?.errors && Array.isArray(data.errors)) {
+        const messages = data.errors.map((item) => item.msg);
+        returnValue = { ok: false, data: messages };
+      } else if (data?.status === "error") {
+        returnValue = { ok: false, data: data.message || data.msg };
+      } else {
+        console.log(data);
+        returnValue = { ok: false, data: "An error has occurred" };
+      }
+    }
+
+    return returnValue;
+  };
+
+  const fileSelected = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
   };
 
   // endpoint
@@ -175,15 +230,18 @@ const ListingPage = () => {
   };
 
   const deleteListing = async (e) => {
-    const res = await fetchData("/api/listings/" + params.item, "DELETE");
+    const res = await fetchData(
+      "/api/listings/" + params.item,
+      "DELETE",
+      undefined,
+      userCtx.accessToken
+    );
 
     if (res.ok) {
-      // to display snackbar at profile page instead!!!
-      // setBtnName(e.target.id);
-      // setOpen(true);
+      props.setOpen(true);
 
       setOpenDelete(false);
-      navigate("/profile");
+      navigate(`/profile/${userCtx.userInfo._id}`);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -191,15 +249,21 @@ const ListingPage = () => {
   };
 
   const updateListing = async (e) => {
-    const res = await fetchData("/api/listings/" + params.item, "PATCH", {
+    const body = {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
       type: typeRef.current.value === "For Loan" ? "loan" : "free",
       date_available_from: dateFrom,
       date_available_to: dateTo,
-      // image_url:
-      //   "https://i.pcmag.com/imagery/roundups/06msR0ZNV3Oc2GfpqCu9AcT-14..v1632927607.jpg",
-    });
+    };
+    if (imageUrl) body.image_url = imageUrl;
+
+    const res = await fetchData(
+      "/api/listings/" + params.item,
+      "PATCH",
+      body,
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       getListingById();
@@ -233,7 +297,11 @@ const ListingPage = () => {
                     // onClick to listing owner profile
                     avatar={
                       <Tooltip title="View Profile" placement="top">
-                        <IconButton onClick={() => console.log("to profile")}>
+                        <IconButton
+                          onClick={() =>
+                            navigate(`/profile/${userCtx.userInfo._id}`)
+                          }
+                        >
                           <Avt
                             sx={{ width: "3rem", height: "3rem" }}
                             src={listing.owner_id?.image_url}
@@ -242,7 +310,11 @@ const ListingPage = () => {
                       </Tooltip>
                     }
                     title={listing?.owner_id?.display_name}
-                    subheader={`Your neighbour at ${userCtx.userInfo.location[0].district}`}
+                    subheader={
+                      user_id !== listing_owner_id
+                        ? `Your neighbour at ${userCtx.userInfo.location?.[0].district}`
+                        : `Your listing at ${userCtx.userInfo.location?.[0].district}`
+                    }
                   />
                 </Card>
               </Grid>
@@ -396,9 +468,11 @@ const ListingPage = () => {
               onChange={(e) => dateForUpdate(e)}
             />
             <DatePicker
+              disablePast
+              minDate={dayjs(dateFrom + 48)}
               label="Available to"
               variant="outlined"
-              sx={{ width: "25rem", mt: "0.4rem" }}
+              sx={{ width: "32rem", mt: "0.4rem" }}
               defaultValue={dayjs(listing.date_available_to)}
               onChange={(e) => dateForUpdate(e, false)}
               disabled={addDisable}
@@ -409,6 +483,12 @@ const ListingPage = () => {
                 label="Remove date?"
               ></FormControlLabel>
             </FormGroup>
+            <br />
+            <input onChange={fileSelected} type="file" accept="image/*"></input>
+            <Typography variant="body2" fontSize="0.8rem">
+              *Upload an image only if you want to replace the existing image
+            </Typography>
+            <Btn onClick={submit}>Upload image</Btn>
           </DialogContent>
           <DialogActions>
             <Btn onClick={handleCloseEdit} isBrown={true}>

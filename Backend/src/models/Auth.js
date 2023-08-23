@@ -5,13 +5,11 @@ const LocationSchema = new mongoose.Schema(
     district: {
       type: String,
       required: true,
-      enum: ["Yishun", "Queenstown", "Outram Park", "Jurong East"],
     },
     postal_code: {
       type: Number,
-      default: 0,
       required: true,
-      minLength: 1,
+      minLength: 6,
       maxLength: 6,
     },
     latitude: { type: Number, required: false, default: 0 },
@@ -41,9 +39,9 @@ const AuthSchema = new mongoose.Schema(
     mobile_number: {
       type: Number,
       required: false,
-      default: 0,
-      minLength: 1,
-      maxLength: 9,
+      // default: "",
+      minLength: 8,
+      maxLength: 8,
     },
     help_count: { type: Number, required: false, default: 0 },
     rating: { type: Number, required: false, default: 0 },

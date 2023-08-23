@@ -42,7 +42,7 @@ const Transactions = (props) => {
           backgroundColor: "var(--lightpink)",
         }}
         onClick={(e) => {
-          props.setSelectedTxnId(props.id);
+          props.updateSelectedTxn(props.id);
         }}
       >
         <CardActionArea

@@ -15,39 +15,31 @@ import Transactions from "./pages/Transactions";
 
 function App() {
   const fetchData = useFetch();
-  const [accessToken, setAccessToken] = useState("");
-  const [userId, setUserId] = useState("");
-  const [userInfo, setUserInfo] = useState({
-    _id: "64e2c2fcdce21246ef81b8ee",
-    email: "hwee@test.com",
-    hash: "$2b$05$NJohi/xGECGnXCit27WdvOSjGrRyZlU1at0MCCIg/9h8T6R6uEvLW",
-    display_name: "Hwee",
-    biography: "A then-laywer. So don't mess with me :)",
-    mobile_number: 12345678,
-    help_count: 0,
-    rating: 0,
-    location: [
-      {
-        district: "Yishun",
-        postal_code: 760761,
-        latitude: 1.4253984246908402,
-        longitude: 103.83325903597616,
-        _id: "64e3447ed3dc267fa2b626a4",
-      },
-    ],
-    image_url: "/avatars/30.png",
-    created_at: "2023-08-21T11:03:26.780Z",
-  });
+  const initUserId = JSON.parse(localStorage.getItem("userId"));
+  const initAccessToken = JSON.parse(localStorage.getItem("accessToken"));
 
+  // states
+  const [accessToken, setAccessToken] = useState(initAccessToken);
+  const [userId, setUserId] = useState(initUserId);
+  const [userInfo, setUserInfo] = useState({});
+  const [open, setOpen] = useState(false); //snackbar
+
+  //endpoints
   const getUserInfo = async () => {
-    console.log(userId);
     const res = await fetchData("/auth/accounts/" + userId);
-    setUserInfo(res.data);
-    console.log(res.data);
+
+    // Store userInfo to localStorage and set as initial state
+    localStorage.setItem("userInfo", JSON.stringify(res.data));
+
+    // Set initial userInfo from localStorage after component mounts
+    const initUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (initUserInfo) {
+      setUserInfo(initUserInfo);
+    }
   };
 
+  //when user logs in, userId is updated and app gets user info
   useEffect(() => {
-    // console.log(userId);
     getUserInfo();
   }, [userId]);
 
@@ -61,6 +53,7 @@ function App() {
           setUserInfo,
           userId,
           setUserId,
+          getUserInfo,
         }}
       >
         <Routes>
@@ -72,15 +65,25 @@ function App() {
           <Route
             path="/profile-setup"
             element={
-              <ProfileSetup userInfo={userInfo} setUserInfo={setUserInfo} />
+              <ProfileSetup
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                getUserInfo={getUserInfo}
+              />
             }
           ></Route>
 
           <Route path="/" element={<OfferPage />}></Route>
           <Route path="/add-offer" element={<AddOffer />}></Route>
-          <Route path="/listing/:item" element={<ListingPage />}></Route>
+          <Route
+            path="/listing/:item"
+            element={<ListingPage setOpen={setOpen} />}
+          ></Route>
 
-          <Route path="/profile" element={<Profile />}></Route>
+          <Route
+            path="/profile/:item"
+            element={<Profile open={open} setOpen={setOpen} />}
+          ></Route>
           <Route path="/settings" element={<Settings />}></Route>
 
           <Route path="/transactions" element={<Transactions />}></Route>
