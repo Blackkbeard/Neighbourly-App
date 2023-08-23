@@ -76,16 +76,23 @@ const Settings = (props) => {
 
   const submit = async (event) => {
     event.preventDefault();
-
+    console.log(file);
+    if (!file) {
+      alert("Please select an image file");
+      return;
+    }
     const formData = new FormData();
     formData.append("image", file);
     formData.append("user_id", userFullInfo._id);
 
-    const res = await fetch(import.meta.env.VITE_SERVER + "/api/images", {
-      method: "POST",
-      headers: {},
-      body: formData,
-    });
+    const res = await fetch(
+      import.meta.env.VITE_SERVER + "/api/images/avatars",
+      {
+        method: "POST",
+        headers: {},
+        body: formData,
+      }
+    );
     const data = await res.json();
 
     let returnValue = {};
