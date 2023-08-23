@@ -65,9 +65,11 @@ const Profile = (props) => {
     }
   };
 
+  //render on mount and when userInfo refreshes
   useEffect(() => {
     getListingsByUserId();
   }, [userCtx.userInfo]);
+
   return (
     <>
       <TopBar showBurger={true}></TopBar>

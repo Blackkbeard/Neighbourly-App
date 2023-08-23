@@ -58,8 +58,25 @@ const Transactions = (props) => {
     }
   };
 
-  //Get selected transaction
-  const getSelectedTxn = async (id) => {
+  // //Get selected transaction
+  // const getSelectedTxn = async (id) => {
+  //   const res = await fetchData("/api/transactions/" + id);
+  //   if (!id) {
+  //     // Return early if id is empty
+  //     return;
+  //   }
+
+  //   if (res.ok) {
+  //     setSelectedTxn(res.data);
+  //     setTransactionState(res.data.status);
+  //   } else {
+  //     alert(JSON.stringify(res.data));
+  //     console.log(res.data);
+  //   }
+  // };
+
+  //Update selected transaction
+  const updateSelectedTxn = async (id) => {
     const res = await fetchData("/api/transactions/" + id);
     if (!id) {
       // Return early if id is empty
@@ -69,6 +86,7 @@ const Transactions = (props) => {
     if (res.ok) {
       setSelectedTxn(res.data);
       setTransactionState(res.data.status);
+      console.log(selectedTxn);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -98,26 +116,24 @@ const Transactions = (props) => {
     if (txnToggle === "listings")
       getTransactionsByOwner(); //get data and update transactions state
     else if (txnToggle === "requests") getTransactionsByRequester(); //get data and update transactions state
-  }, [txnToggle]);
+  }, [txnToggle, userCtx.userInfo]);
 
   // On first render, select first transaction
   useEffect(() => {
-    // if selectedTxn is not yet set, select first retrieved transaction
     if (
+      // if selectedTxn is not yet set, select first retrieved transaction
       (Object.keys(selectedTxn).length === 0 && transactions.length > 0) ||
       (Object.keys(selectedTxn).length > 0 && transactions.length > 0)
     ) {
       setSelectedTxn(transactions[0]);
       setTransactionState(transactions[0].status);
     }
+  }, [transactions, txnToggle]);
 
-    //if selectedTxn is set, and when transactions state is updated, select first item in transactions array
-  }, [transactions, selectedTxn, txnToggle]);
-
-  //Update selected transaction when selected transaction changes
-  useEffect(() => {
-    getSelectedTxn(selectedTxnId);
-  }, [selectedTxnId]);
+  // //Update selected transaction when selected transaction changes
+  // useEffect(() => {
+  //   getSelectedTxn(selectedTxnId);
+  // }, [selectedTxnId]);
 
   return (
     <>
@@ -176,6 +192,7 @@ const Transactions = (props) => {
                       requesterName={item.requester_id.display_name}
                       requesterImage={item.requester_id.image_url}
                       setSelectedTxnId={setSelectedTxnId}
+                      updateSelectedTxn={updateSelectedTxn}
                       txnToggle={txnToggle}
                     />
                   );

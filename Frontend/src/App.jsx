@@ -26,7 +26,7 @@ function App() {
   //endpoints
   const getUserInfo = async () => {
     const res = await fetchData("/auth/accounts/" + userId);
-    setUserInfo(res.data);
+    // setUserInfo(res.data);
 
     // Store userInfo to localStorage and set as initial state
     localStorage.setItem("userInfo", JSON.stringify(res.data));
@@ -38,6 +38,7 @@ function App() {
     }
   };
 
+  //when user logs in, userId is updated and app gets user info
   useEffect(() => {
     getUserInfo();
   }, [userId]);
