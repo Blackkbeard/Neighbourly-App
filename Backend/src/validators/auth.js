@@ -8,8 +8,12 @@ const validateRegistrationData = [
     .not()
     .isEmpty()
     .isLength({ min: 8, max: 50 }),
-  body("district", "district is required").not().isEmpty(),
-  body("postal_code", "postal code is required").not().isEmpty().isLength(6),
+  // body("lcoation", "location error").isArray(),
+  body("location.*.district", "district is required").not().isEmpty(),
+  body("location.*.postal_code", "postal code is required")
+    .not()
+    .isEmpty()
+    .isLength(6),
 ];
 
 const validateLoginData = [
