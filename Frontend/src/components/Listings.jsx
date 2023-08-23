@@ -42,9 +42,9 @@ const Listings = (props) => {
                 style={{ backgroundColor: "var(--lightpink)" }}
                 action={
                   <IconButton
-                    // onClick={() =>
-                    //   navigator.clipboard.writeText(`${window.location.origin}/listing/${item._id}`)
-                    // }
+                    onClick={() =>
+                      navigator.clipboard.writeText(`${window.location.origin}/listing/${item._id}`)
+                    }
                   >
                     <ShareIcon />
                   </IconButton>
