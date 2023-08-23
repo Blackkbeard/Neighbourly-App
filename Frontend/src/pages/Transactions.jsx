@@ -95,9 +95,14 @@ const Transactions = (props) => {
   };
 
   const updateUserScore = async (newScore) => {
-    const res = await fetchData("/auth/update/" + user_id, "PATCH", {
-      help_count: newScore,
-    });
+    const res = await fetchData(
+      "/auth/update/" + user_id,
+      "PATCH",
+      {
+        help_count: newScore,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setUserInfo(res.data.updatedUser);
