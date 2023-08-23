@@ -9,10 +9,10 @@ import {
   CardHeader,
   Typography,
   CardActionArea,
-  Avatar,
   Tooltip,
   IconButton,
 } from "@mui/material";
+import ShareIcon from "@mui/icons-material/Share";
 import Avt from "./Avt";
 
 const Listings = (props) => {
@@ -40,6 +40,15 @@ const Listings = (props) => {
                 title={item.owner_id.display_name}
                 subheader={item.created_at.split("T")[0]}
                 style={{ backgroundColor: "var(--lightpink)" }}
+                action={
+                  <IconButton
+                    // onClick={() =>
+                    //   navigator.clipboard.writeText(`${window.location.origin}/listing/${item._id}`)
+                    // }
+                  >
+                    <ShareIcon />
+                  </IconButton>
+                }
               />
               <Link
                 to={`/listing/${item._id}`}
@@ -50,7 +59,6 @@ const Listings = (props) => {
                     component="img"
                     height="140"
                     image={item.image_url}
-                    alt="green iguana"
                     style={{ height: "12rem" }}
                   />
                   <CardContent style={{ backgroundColor: "var(--lightpink)" }}>
