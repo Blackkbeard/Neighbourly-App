@@ -10,6 +10,7 @@ const LocationSchema = new mongoose.Schema(
       type: Number,
       required: true,
       minLength: 6,
+      maxLength: 6,
     },
     latitude: { type: Number, required: false, default: 0 },
 
@@ -38,7 +39,7 @@ const AuthSchema = new mongoose.Schema(
     mobile_number: {
       type: Number,
       required: false,
-      default: 0,
+      default: "",
       minLength: 1,
       maxLength: 9,
     },

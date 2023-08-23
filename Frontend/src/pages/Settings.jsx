@@ -123,10 +123,10 @@ const Settings = (props) => {
       <Container maxWidth="lg">
         <Box>
           <Typography variant="h5" textAlign="start" margin="2rem 0">
-            Your Profile
+            Account Settings{" "}
           </Typography>
           <Grid container>
-            <Grid xs={3}>
+            <Grid xs={5}>
               <Avatar
                 alt=""
                 src={userCtx.userInfo.image_url}
@@ -143,7 +143,7 @@ const Settings = (props) => {
 
               <Btn onClick={submit}>Update</Btn>
             </Grid>
-            <Grid xs={9}>
+            <Grid xs={5}>
               <Typography textAlign="center"></Typography>
               <Box xs={2}>
                 <Typography gutterBottom variant="h4">
@@ -226,7 +226,7 @@ const Settings = (props) => {
                 ></TextField>
               </Box>
               <Box xs={2}>
-                <Typography>Email:</Typography>
+                {/* <Typography>Email:</Typography> */}
                 <TextField
                   id="filled-read-only-input"
                   label="Email"
