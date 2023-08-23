@@ -26,7 +26,8 @@ const TransactionDetails = (props) => {
       "PATCH",
       {
         status: newStatus,
-      }
+      },
+      userCtx.accessToken
     );
     if (res.ok) {
       props.setTransactionState(newStatus);

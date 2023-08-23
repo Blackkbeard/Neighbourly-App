@@ -32,9 +32,14 @@ const Transactions = (props) => {
 
   //For Listings view - fetch all transactions by owner
   const getTransactionsByOwner = async () => {
-    const res = await fetchData("/api/transactions", "POST", {
-      owner_id: user_id,
-    });
+    const res = await fetchData(
+      "/api/transactions",
+      "POST",
+      {
+        owner_id: user_id,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setTransactions(res.data);
@@ -46,9 +51,14 @@ const Transactions = (props) => {
 
   //For requests view - fetch all requests by owner
   const getTransactionsByRequester = async () => {
-    const res = await fetchData("/api/transactions", "POST", {
-      requester_id: user_id,
-    });
+    const res = await fetchData(
+      "/api/transactions",
+      "POST",
+      {
+        requester_id: user_id,
+      },
+      userCtx.accessToken
+    );
 
     if (res.ok) {
       setTransactions(res.data);
