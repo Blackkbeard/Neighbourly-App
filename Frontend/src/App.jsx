@@ -26,7 +26,6 @@ function App() {
   //endpoints
   const getUserInfo = async () => {
     const res = await fetchData("/auth/accounts/" + userId);
-    // setUserInfo(res.data);
 
     // Store userInfo to localStorage and set as initial state
     localStorage.setItem("userInfo", JSON.stringify(res.data));
@@ -53,6 +52,7 @@ function App() {
           setUserInfo,
           userId,
           setUserId,
+          getUserInfo,
         }}
       >
         <Routes>

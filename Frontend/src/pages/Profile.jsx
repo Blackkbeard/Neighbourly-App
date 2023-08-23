@@ -78,11 +78,11 @@ const Profile = (props) => {
     }
   };
 
-  //render on mount and when userInfo refreshes
+  //render on mount
   useEffect(() => {
     getListingsByUserId();
     getProfileInfo();
-  }, [userCtx.userInfo]);
+  }, []);
 
   return (
     <>

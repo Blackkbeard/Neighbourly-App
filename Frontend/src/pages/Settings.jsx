@@ -67,6 +67,7 @@ const Settings = (props) => {
       handleCloseUpdate();
       console.log("update succeeded");
       console.log(res.data);
+      userCtx.getUserInfo();
     } else {
       console.log(res.data);
     }
@@ -103,6 +104,7 @@ const Settings = (props) => {
       } else {
         returnValue = { ok: true, data };
         alert("Profile Picture updated");
+        userCtx.getUserInfo();
       }
     } else {
       if (data?.errors && Array.isArray(data.errors)) {
