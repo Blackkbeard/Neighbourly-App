@@ -133,7 +133,9 @@ const Profile = (props) => {
               />
             </Grid>
             <Grid xs={2} sx={{ mt: "2rem" }}>
-              <Btn onClick={() => navigate("/settings")}>Edit Profile</Btn>
+              {userCtx.userId === params.item && (
+                <Btn onClick={() => navigate("/settings")}>Edit Profile</Btn>
+              )}
             </Grid>
           </Grid>
           <Divider
@@ -141,10 +143,16 @@ const Profile = (props) => {
           />
           <Grid container alignItems="center">
             <Grid xs={10} sx={{ mt: "1rem" }}>
-              <Typography variant="h5">Your Listings</Typography>
+              <Typography variant="h5">
+                {userCtx.userId === params.item
+                  ? "Your Listings"
+                  : `${currProfile.display_name}'s Listings`}
+              </Typography>
             </Grid>
             <Grid xs={2} sx={{ mt: "1rem" }}>
-              <Btn onClick={() => navigate("/add-offer")}>+ Add Offer</Btn>
+              {userCtx.userId === params.item && (
+                <Btn onClick={() => navigate("/add-offer")}>+ Add Offer</Btn>
+              )}
             </Grid>
             {/* listings card */}
             {listings ? (
