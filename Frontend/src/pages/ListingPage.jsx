@@ -424,9 +424,7 @@ const ListingPage = (props) => {
 
         {/* dialog for edit listing */}
         <Dialog open={openEdit} onClose={handleCloseEdit}>
-          <DialogTitle sx={{ pl: "5rem", pr: "5rem" }}>
-            Edit Listing Details
-          </DialogTitle>
+          <DialogTitle>Edit Listing Details</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
