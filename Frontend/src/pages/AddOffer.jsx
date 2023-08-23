@@ -37,6 +37,8 @@ const AddOffer = () => {
   const [dateTo, setDateTo] = useState("");
   const [newListingId, setNewListingId] = useState("");
   const [open, setOpen] = useState(false); //snackbar
+  const [file, setFile] = useState(); //image file
+  const [imageUrl, setImageUrl] = useState("");
 
   // function
   const handleCloseSnackbar = (event, reason) => {
@@ -70,8 +72,9 @@ const AddOffer = () => {
     </React.Fragment>
   );
 
-  // endpoint
+  // endpoint to create listing
   const createListing = async () => {
+    console.log(imageUrl);
     const res = await fetchData("/api/listings", "PUT", {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
@@ -79,7 +82,7 @@ const AddOffer = () => {
       owner_id: userCtx.userInfo._id,
       date_available_from: dateFrom,
       date_available_to: dateTo,
-      image_url: imageRef.current.value || "/sample-image.webp",
+      image_url: imageUrl || "/sample-image.webp",
     });
 
     if (res.ok) {
@@ -90,6 +93,60 @@ const AddOffer = () => {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
+  };
+
+  //for image upload
+  const submit = async (event) => {
+    event.preventDefault();
+    console.log(file);
+    if (!file) {
+      alert("Please select an image file");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+
+    // append listing_id to update existing listing
+    // formData.append("listing_id", userFullInfo._id);
+
+    const res = await fetch(
+      import.meta.env.VITE_SERVER + "/api/images/listings",
+      {
+        method: "POST",
+        headers: {},
+        body: formData,
+      }
+    );
+    const data = await res.json();
+
+    let returnValue = {};
+    if (res.ok) {
+      if (data.status === "error") {
+        returnValue = { ok: false, data: data.msg };
+      } else {
+        returnValue = { ok: true, data };
+        alert("Image uploaded");
+        setImageUrl(data.url);
+        console.log(data.url);
+      }
+    } else {
+      if (data?.errors && Array.isArray(data.errors)) {
+        const messages = data.errors.map((item) => item.msg);
+        returnValue = { ok: false, data: messages };
+      } else if (data?.status === "error") {
+        returnValue = { ok: false, data: data.message || data.msg };
+      } else {
+        console.log(data);
+        returnValue = { ok: false, data: "An error has occurred" };
+      }
+    }
+
+    return returnValue;
+  };
+
+  const fileSelected = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
   };
 
   return (
@@ -168,7 +225,23 @@ const AddOffer = () => {
                   onChange={(e) => setDateTo(e.$d.toISOString().split("T")[0])}
                 />
               </Grid>
-              <Grid xs={7}></Grid>
+              <Grid xs={7}>
+                {/* <img
+                  alt=""
+                  src="public/sample-image.jpg"
+                  sx={{ width: 150, height: 150 }}
+                  display="flex"
+                  justifycontent="center"
+                ></img> */}
+
+                <input
+                  onChange={fileSelected}
+                  type="file"
+                  accept="image/*"
+                ></input>
+
+                <Btn onClick={submit}>Upload image</Btn>
+              </Grid>
               <Grid xs={12}>
                 <Btn onClick={createListing}>Create Listing</Btn>
               </Grid>

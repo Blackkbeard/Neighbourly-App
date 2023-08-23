@@ -194,21 +194,6 @@ const updateProfile = async (req, res) => {
 
     await authDB.save();
 
-    // const updatedProfile = {};
-    // if ("display_name" in req.body)
-    //   updatedProfile.display_name = req.body.display_name;
-    // if ("mobile_number" in req.body)
-    //   updatedProfile.mobile_number = req.body.mobile_number;
-
-    // if ("location" in req.body) updatedProfile.location = req.body.location;
-    // if ("postal_code" in req.body)
-    //   updatedProfile.location[0].postal_code = req.body.postal_code;
-    // if ("biography" in req.body) updatedProfile.biography = req.body.biography;
-    // if ("help_count" in req.body)
-    //   updatedProfile.help_count = req.body.help_count;
-    // if ("rating" in req.body) updatedProfile.rating = req.body.rating;
-    // await AuthModel.findByIdAndUpdate(req.params.id, updatedProfile);
-
     res.json({ status: "ok", msg: "Account updated", updatedUser: authDB });
   } catch (error) {
     console.log(error.message);

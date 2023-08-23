@@ -1,15 +1,14 @@
 const express = require("express");
 const multer = require("multer"); //middleware to read image data
-//multer functions to store images in memory
+
+//functions to store images in memory until uploaded
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }); //string should be name of input
 
-const { uploadImage } = require("../controllers/images");
+const { uploadAvatar, uploadListingImage } = require("../controllers/images");
 const router = express.Router();
 
-router.post("/images/avatars", upload.single("image"), uploadImage);
-// router.get("/images", getImages);
-// router.patch("/images/:id", patchImage);
-// router.delete("/images/:id", deleteImage);
+router.post("/images/avatars", upload.single("image"), uploadAvatar);
+router.post("/images/listings", upload.single("image"), uploadListingImage);
 
 module.exports = router;
