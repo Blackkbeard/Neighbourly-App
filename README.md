@@ -55,34 +55,59 @@ An app inspired by good neighbours. Often, the help we need can be found right n
 - Express
 
 ### Others
-- Jira
-- Figma
+- Project management: Jira
+- Wireframes: Figma
 - AWS S3
 - OneMap API
 
-[CHOOSE TABLE OR LISTING FORMATTTTT]
-
-|Front-end|Back-end|Others|
-|---|---|---|
-|React|MongoDB|Jira|
-|JavaScript|Mongoose|Figma|
-|CSS|Express|AWS S3|
-|Material UI||OneMap API|
-
 ---
-## Getting started
+## Setup
 
-Install dependencies
+### Express Backend
+All the backend code is in the Back-end directory, run all backend commands from inside that directory.
+
+### Setup .env for Backend
+Create a new file in the express directory called .env and add the following lines:
 ```
-npm install
+PORT=5001
+DATABASE=''
+
+#Generate your own secrets 
+ACCESS_SECRET=''
+REFRESH_SECRET=''
+
+# AWS variables for image 
+BUCKET_NAME=''
+BUCKET_REGION=''
+ACCESS_KEY=''
+SECRET_ACCESS_KEY=''
+```
+Add in your values here. Note
+- The database url has to be for a mongoDB database.
+- Generate your own Access Secret and Refresh Secret
+- Add AWS variables 
+
+### Run the app
+```
+npm i
+npm run dev
 ```
 
-You'll need xxx
-Add these environment variables
+### React Front-end
+All the frontend react code is in the Front-end directory. Run all frontend commands from inside that directory.
 
+### Setup .env for Front-end
+Create a new file in the express directory called .env and add the following lines:
 ```
-...
+VITE_SERVER=http://localhost:5001
 ```
+
+### Run the app
+```
+npm i
+npm run dev
+```
+
 
 ## Future development
 
