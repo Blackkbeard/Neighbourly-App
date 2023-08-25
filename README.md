@@ -9,7 +9,7 @@ This app enables people in the neighbourhood to connect and share resources, be 
 This is a group product done by a team of 3 developers as part of General Assembly's Software Engineering Immersive. 
 
 ---
-## Features Highlight 
+## Feature Highlights
 
 <img width="1449" alt="Homepage" src="https://github.com/Blackkbeard/Neighbourly-App/assets/47060493/aa6e3b95-d16a-4bd4-a27f-af16d593e1e1">
 
