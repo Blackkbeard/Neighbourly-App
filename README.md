@@ -49,15 +49,16 @@ This app enables people in the neighbourhood to connect and share resources, be 
 - Material UI
 
 ### Back-end
-- MongoDB
-- Mongoose
-- Express
+- Express.js
+- Database: MongoDB
+- Driver: Mongoose
+- Image storage: AWS S3
+- Location APIs: OneMap API
 
 ### Others
 - Project management: Jira
 - Wireframes: Figma
-- AWS S3
-- OneMap API
+- Lucidchart: ERD
 
 ---
 ## Setup
@@ -106,6 +107,16 @@ VITE_SERVER=http://localhost:5001
 npm i
 npm run dev
 ```
+
+---
+## Wireframes and technical designs
+
+![Screenshot 2023-08-25 at 11 16 32 AM](https://github.com/Blackkbeard/Neighbourly-App/assets/47060493/cbef922c-0488-4797-88eb-80d46b0073bf)
+
+Check out our [Figma](https://www.figma.com/file/s99zepn0OQnpONiTH3P8Ef/Neighbourly?type=design&node-id=54295%3A401&mode=design&t=glvxB0l58AMcp6qo-1) for: 
+- UI Wireframes
+- Front-end component map
+- Back-end Entity relationship diagram 
 
 ---
 
