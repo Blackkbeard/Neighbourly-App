@@ -2,29 +2,36 @@
 
 # Neighbourly
 
--- Short intro -- 
+An app inspired by our neighbours--the help we need can often be found right next door. 
+
+This app enables people in your neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
+
+This is a group product done by a team of 3 full-stack developers as part of General Assembly's Software Engineering Immersive. 
 
 ---
-## Features Highlight 
+## Feature Highlights
 
-### 1) Profile Page
-- Your display name, registered neighbourhood, and bio are accessible on the profile page. It's the perfect spot to highlight your Neighbourly journey and the number of neighbours you've assisted!
+<img width="1449" alt="Homepage" src="https://github.com/Blackkbeard/Neighbourly-App/assets/47060493/aa6e3b95-d16a-4bd4-a27f-af16d593e1e1">
+
+
+### 1) The Neighbourhood
+- Dive into The Neighbourly homepage -- your neighbourhood's vibrant community hub. Discover valuable posts and offerings from people staying near you.
+<img width="1501" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/6f903873-d9c8-48d7-b57d-60c2fe24b62b">
+
+- Engage by submitting requests for listings that interest you or extend a helping hand by creating your own "+ Add Offer" listing. Be sure to complete your listing with a clear photo!
+<img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/ef28bc84-e63b-44a5-9d16-ba0c9743d35e">
+<img width="1510" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/49e5f790-a012-464b-900c-91cfd0824882">
+
+### 2) Profile Page
+- Your display name, registered neighbourhood, and bio are accessible on your profile page. It's the perfect spot to highlight your Neighbourly journey and the number of neighbours you've assisted!
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/7bf0e69f-e421-42f0-9a14-1244031b0600">
 
-### 2) Listings
+### 3) Listings
 - Manage and review your listings conveniently from your profile page.
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/56d00232-2fb7-4a56-b537-2c27ea1b5ef9">
 
 - Explore detailed information about each listing by clicking on them. Here, you can perform edits or deletion.
 <img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/0233a01c-8efb-4095-9c1f-d58518bf344b">
-
-### 3) The Neighbourly
-- Dive into your neighbourhood's vibrant community hub, known as The Neighbourly homepage. Discover valuable posts and offerings from your neighbours.
-<img width="1501" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/6f903873-d9c8-48d7-b57d-60c2fe24b62b">
-
-- Engage by submitting requests for listings that interest you or extend a helping hand by creating your own "+ Add Offer" listing. Be dsure to complete your listing with a clear photo!
-<img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/ef28bc84-e63b-44a5-9d16-ba0c9743d35e">
-<img width="1510" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/49e5f790-a012-464b-900c-91cfd0824882">
 
 ### 4) Transactions
 - Stay informed about the status of your requests in the "My Requests" section.
@@ -35,14 +42,8 @@
 - Effortlessly navigate through Neighbourly with the user-friendly navigation bar, conveniently located in the corner.
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/124db4b8-4207-4dfc-b15c-89f6a3fd9fca">
 
-## Demo site
-
-- [Check out the Demo site][1]
-
-[1]: https://...
-
 ---
-## Technologies Used
+## Languages and Technologies Used
 
 ### Front-end
 - React
@@ -51,39 +52,77 @@
 - Material UI
 
 ### Back-end
-- MongoDB
-- Mongoose
-- Express
+- Express.js
+- Database: MongoDB
+- Driver: Mongoose
+- Image storage: AWS S3
+- Location APIs: OneMap API
 
 ### Others
-- Jira
-- Figma
-- AWS S3
-- OneMap API
-
-[CHOOSE TABLE OR LISTING FORMATTTTT]
-
-|Front-end|Back-end|Others|
-|---|---|---|
-|React|MongoDB|Jira|
-|JavaScript|Mongoose|Figma|
-|CSS|Express|AWS S3|
-|Material UI||OneMap API|
+- Project management: Jira
+- UI Wireframing and prototyping: Figma
+- Design system: Material 3
+- Data modelling: Lucidchart
 
 ---
-## Getting started
+## Setup
 
-Install dependencies
+### Express Backend
+All the backend code is in the Back-end directory. Run all backend commands from inside that directory.
+
+### Setup .env for Backend
+Create a new .env file in the back-end directory and add the following lines:
 ```
-npm install
+PORT=5001
+DATABASE=''
+
+#Generate your own secrets 
+ACCESS_SECRET=''
+REFRESH_SECRET=''
+
+# AWS variables for image 
+BUCKET_NAME=''
+BUCKET_REGION=''
+ACCESS_KEY=''
+SECRET_ACCESS_KEY=''
+```
+Add in your values here. 
+- The database url has to be for a mongoDB database.
+- Generate your own Access Secret and Refresh Secret
+- Add in credentials for your AWS S3 bucket
+
+### Run the app
+```
+npm i
+npm run dev
 ```
 
-You'll need xxx
-Add these environment variables
+### React Front-end
+All the frontend react code is in the Front-end directory. Run all frontend commands from inside that directory.
 
+### Setup .env for Front-end
+Create a new .env file in the front-end directory and add the following lines:
 ```
-...
+VITE_SERVER=http://localhost:5001
 ```
+
+### Run the app
+```
+npm i
+npm run dev
+```
+
+---
+## Wireframes and technical designs
+
+![Screenshot 2023-08-25 at 11 16 32 AM](https://github.com/Blackkbeard/Neighbourly-App/assets/47060493/cbef922c-0488-4797-88eb-80d46b0073bf)
+
+Check out our [Figma](https://www.figma.com/file/s99zepn0OQnpONiTH3P8Ef/Neighbourly?type=design&node-id=54295%3A401&mode=design&t=glvxB0l58AMcp6qo-1) for: 
+- UI Wireframes
+- Front-end component map
+- Back-end Entity relationship diagram 
+
+---
 
 ## Future development
 
@@ -132,7 +171,9 @@ Add these environment variables
 - [Singapore Districts and URA Map](https://www.propertyguru.com.sg/property-guides/ccr-ocr-rcr-region-singapore-ura-map-21045)
 - [Filter out populated results in Mongoose](https://stackoverflow.com/questions/46391630/mongoosejs-filter-out-populate-results)
 
-### Special credit to [Ivan Tong](https://www.behance.net/ivantong1?fbclid=PAAaZDZ9fGW5H0rf3B750mvN3W2acqYTYUHGMSaZy_A28J1nqJaZEb2cqd0B0) for designing the artwork on Sign Up page! ❤️
-
+---
+## Credits
+- Special credit to [Ivan Tong](https://www.behance.net/ivantong1?fbclid=PAAaZDZ9fGW5H0rf3B750mvN3W2acqYTYUHGMSaZy_A28J1nqJaZEb2cqd0B0) for designing the artwork on Sign Up page! ❤️
+- Material Design 3D Avatars: [Janet Mac](https://janet-mac.com/google-avatar-project)
 
 
