@@ -29,6 +29,7 @@ This is a group product done by a team of 3 full-stack developers as part of Gen
 ### 3) Listings
 - Manage and review your listings conveniently from your profile page.
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/56d00232-2fb7-4a56-b537-2c27ea1b5ef9">
+
 - Explore detailed information about each listing by clicking on them. Here, you can perform edits or deletion.
 <img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/0233a01c-8efb-4095-9c1f-d58518bf344b">
 
