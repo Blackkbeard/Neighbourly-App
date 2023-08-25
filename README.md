@@ -2,11 +2,11 @@
 
 # Neighbourly
 
-An app inspired by good neighbours. The help we need can often be found right next door. 
+An app inspired by our neighbours--the help we need can often be found right next door. 
 
-This app enables people in the neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
+This app enables people in your neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
 
-This is a group product done by a team of 3 developers as part of General Assembly's Software Engineering Immersive. 
+This is a group product done by a team of 3 full-stack developers as part of General Assembly's Software Engineering Immersive. 
 
 ---
 ## Feature Highlights
@@ -42,7 +42,7 @@ This is a group product done by a team of 3 developers as part of General Assemb
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/124db4b8-4207-4dfc-b15c-89f6a3fd9fca">
 
 ---
-## Technologies Used
+## Languages and Technologies Used
 
 ### Front-end
 - React
@@ -59,14 +59,15 @@ This is a group product done by a team of 3 developers as part of General Assemb
 
 ### Others
 - Project management: Jira
-- Wireframes: Figma
-- Lucidchart: Data modelling
+- UI Wireframing and prototyping: Figma
+- Design system: Material 3
+- Data modelling: Lucidchart
 
 ---
 ## Setup
 
 ### Express Backend
-All the backend code is in the Back-end directory, run all backend commands from inside that directory.
+All the backend code is in the Back-end directory. Run all backend commands from inside that directory.
 
 ### Setup .env for Backend
 Create a new .env file in the back-end directory and add the following lines:
@@ -84,7 +85,7 @@ BUCKET_REGION=''
 ACCESS_KEY=''
 SECRET_ACCESS_KEY=''
 ```
-Add in your values here. Note
+Add in your values here. 
 - The database url has to be for a mongoDB database.
 - Generate your own Access Secret and Refresh Secret
 - Add in credentials for your AWS S3 bucket
@@ -170,8 +171,8 @@ Check out our [Figma](https://www.figma.com/file/s99zepn0OQnpONiTH3P8Ef/Neighbou
 - [Filter out populated results in Mongoose](https://stackoverflow.com/questions/46391630/mongoosejs-filter-out-populate-results)
 
 ---
-
-### Special credit to [Ivan Tong](https://www.behance.net/ivantong1?fbclid=PAAaZDZ9fGW5H0rf3B750mvN3W2acqYTYUHGMSaZy_A28J1nqJaZEb2cqd0B0) for designing the artwork on Sign Up page! ❤️
-
+## Credits
+- Special credit to [Ivan Tong](https://www.behance.net/ivantong1?fbclid=PAAaZDZ9fGW5H0rf3B750mvN3W2acqYTYUHGMSaZy_A28J1nqJaZEb2cqd0B0) for designing the artwork on Sign Up page! ❤️
+- Material Design 3D Avatars: [Janet Mac](https://janet-mac.com/google-avatar-project)
 
 
