@@ -2,7 +2,7 @@
 
 # Neighbourly
 
-An app inspired by our neighbours--the help we need can often be found right next door. 
+A local marketplace app inspired by our neighbours--the help we need can often be found right next door. 
 
 This app enables people in your neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
 
