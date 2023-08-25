@@ -2,9 +2,11 @@
 
 # Neighbourly
 
-An app inspired by good neighbours. We believe that the help we need can often be found right next door. 
+An app inspired by good neighbours. The help we need can often be found right next door. 
 
 This app enables people in the neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
+
+This is a group product done by a team of 3 developers as part of General Assembly's Software Engineering Immersive. 
 
 ---
 ## Features Highlight 
@@ -13,15 +15,15 @@ This app enables people in the neighbourhood to connect and share resources, be 
 
 
 ### 1) The Neighbourhood
-- Dive into your neighbourhood's vibrant community hub, known as The Neighbourly homepage. Discover valuable posts and offerings from your neighbours.
+- Dive into The Neighbourly homepage -- your neighbourhood's vibrant community hub. Discover valuable posts and offerings from people staying near you.
 <img width="1501" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/6f903873-d9c8-48d7-b57d-60c2fe24b62b">
 
-- Engage by submitting requests for listings that interest you or extend a helping hand by creating your own "+ Add Offer" listing. Be dsure to complete your listing with a clear photo!
+- Engage by submitting requests for listings that interest you or extend a helping hand by creating your own "+ Add Offer" listing. Be sure to complete your listing with a clear photo!
 <img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/ef28bc84-e63b-44a5-9d16-ba0c9743d35e">
 <img width="1510" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/49e5f790-a012-464b-900c-91cfd0824882">
 
 ### 2) Profile Page
-- Your display name, registered neighbourhood, and bio are accessible on the profile page. It's the perfect spot to highlight your Neighbourly journey and the number of neighbours you've assisted!
+- Your display name, registered neighbourhood, and bio are accessible on your profile page. It's the perfect spot to highlight your Neighbourly journey and the number of neighbours you've assisted!
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/7bf0e69f-e421-42f0-9a14-1244031b0600">
 
 ### 3) Listings
@@ -58,7 +60,7 @@ This app enables people in the neighbourhood to connect and share resources, be 
 ### Others
 - Project management: Jira
 - Wireframes: Figma
-- Lucidchart: ERD
+- Lucidchart: Data modelling
 
 ---
 ## Setup
@@ -67,7 +69,7 @@ This app enables people in the neighbourhood to connect and share resources, be 
 All the backend code is in the Back-end directory, run all backend commands from inside that directory.
 
 ### Setup .env for Backend
-Create a new file in the express directory called .env and add the following lines:
+Create a new .env file in the back-end directory and add the following lines:
 ```
 PORT=5001
 DATABASE=''
@@ -85,7 +87,7 @@ SECRET_ACCESS_KEY=''
 Add in your values here. Note
 - The database url has to be for a mongoDB database.
 - Generate your own Access Secret and Refresh Secret
-- Add AWS variables 
+- Add in credentials for your AWS S3 bucket
 
 ### Run the app
 ```
@@ -97,7 +99,7 @@ npm run dev
 All the frontend react code is in the Front-end directory. Run all frontend commands from inside that directory.
 
 ### Setup .env for Front-end
-Create a new file in the express directory called .env and add the following lines:
+Create a new .env file in the front-end directory and add the following lines:
 ```
 VITE_SERVER=http://localhost:5001
 ```
