@@ -2,10 +2,15 @@
 
 # Neighbourly
 
-An app inspired by good neighbours. Often, the help we need can be found right next door. This app enables people in the neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
+An app inspired by good neighbours. We believe that the help we need can often be found right next door. 
+
+This app enables people in the neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
 
 ---
 ## Features Highlight 
+
+<img width="1449" alt="Homepage" src="https://github.com/Blackkbeard/Neighbourly-App/assets/47060493/aa6e3b95-d16a-4bd4-a27f-af16d593e1e1">
+
 
 ### 1) The Neighbourhood
 - Dive into your neighbourhood's vibrant community hub, known as The Neighbourly homepage. Discover valuable posts and offerings from your neighbours.
