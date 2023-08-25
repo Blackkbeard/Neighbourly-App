@@ -2,29 +2,28 @@
 
 # Neighbourly
 
--- Short intro -- 
+An app inspired by good neighbours. Often, the help we need can be found right next door. This app enables people in the neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
 
 ---
 ## Features Highlight 
 
-### 1) Profile Page
-- Your display name, registered neighbourhood, and bio are accessible on the profile page. It's the perfect spot to highlight your Neighbourly journey and the number of neighbours you've assisted!
-<img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/7bf0e69f-e421-42f0-9a14-1244031b0600">
-
-### 2) Listings
-- Manage and review your listings conveniently from your profile page.
-<img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/56d00232-2fb7-4a56-b537-2c27ea1b5ef9">
-
-- Explore detailed information about each listing by clicking on them. Here, you can perform edits or deletion.
-<img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/0233a01c-8efb-4095-9c1f-d58518bf344b">
-
-### 3) The Neighbourly
+### 1) The Neighbourhood
 - Dive into your neighbourhood's vibrant community hub, known as The Neighbourly homepage. Discover valuable posts and offerings from your neighbours.
 <img width="1501" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/6f903873-d9c8-48d7-b57d-60c2fe24b62b">
 
 - Engage by submitting requests for listings that interest you or extend a helping hand by creating your own "+ Add Offer" listing. Be dsure to complete your listing with a clear photo!
 <img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/ef28bc84-e63b-44a5-9d16-ba0c9743d35e">
 <img width="1510" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/49e5f790-a012-464b-900c-91cfd0824882">
+
+### 2) Profile Page
+- Your display name, registered neighbourhood, and bio are accessible on the profile page. It's the perfect spot to highlight your Neighbourly journey and the number of neighbours you've assisted!
+<img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/7bf0e69f-e421-42f0-9a14-1244031b0600">
+
+### 3) Listings
+- Manage and review your listings conveniently from your profile page.
+<img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/56d00232-2fb7-4a56-b537-2c27ea1b5ef9">
+- Explore detailed information about each listing by clicking on them. Here, you can perform edits or deletion.
+<img width="1512" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/0233a01c-8efb-4095-9c1f-d58518bf344b">
 
 ### 4) Transactions
 - Stay informed about the status of your requests in the "My Requests" section.
