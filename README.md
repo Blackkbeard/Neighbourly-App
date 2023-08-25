@@ -34,12 +34,6 @@ An app inspired by good neighbours. Often, the help we need can be found right n
 - Effortlessly navigate through Neighbourly with the user-friendly navigation bar, conveniently located in the corner.
 <img width="1511" alt="image" src="https://github.com/Blackkbeard/Project-3/assets/107420497/124db4b8-4207-4dfc-b15c-89f6a3fd9fca">
 
-## Demo site
-
-- [Check out the Demo site][1]
-
-[1]: https://...
-
 ---
 ## Technologies Used
 
@@ -108,6 +102,7 @@ npm i
 npm run dev
 ```
 
+---
 
 ## Future development
 
@@ -155,6 +150,8 @@ npm run dev
 - [Setting up MongoDB Atlas](https://coding-boot-camp.github.io/full-stack/mongodb/how-to-set-up-mongodb-atlas)
 - [Singapore Districts and URA Map](https://www.propertyguru.com.sg/property-guides/ccr-ocr-rcr-region-singapore-ura-map-21045)
 - [Filter out populated results in Mongoose](https://stackoverflow.com/questions/46391630/mongoosejs-filter-out-populate-results)
+
+---
 
 ### Special credit to [Ivan Tong](https://www.behance.net/ivantong1?fbclid=PAAaZDZ9fGW5H0rf3B750mvN3W2acqYTYUHGMSaZy_A28J1nqJaZEb2cqd0B0) for designing the artwork on Sign Up page! ❤️
 
