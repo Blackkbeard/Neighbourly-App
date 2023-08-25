@@ -73,7 +73,12 @@ function App() {
             }
           ></Route>
 
-          <Route path="/" element={<OfferPage />}></Route>
+          {/* Make path "/" to direct to SignIn if no accessToken */}
+          {!accessToken ? (
+            <Route path="/" element={<SignIn />}></Route>
+          ) : (
+            <Route path="/" element={<OfferPage />}></Route>
+          )}
           <Route path="/add-offer" element={<AddOffer />}></Route>
           <Route
             path="/listing/:item"
