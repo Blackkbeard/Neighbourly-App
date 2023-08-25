@@ -4,7 +4,7 @@
 
 A local marketplace app inspired by our neighbours--the help we need can often be found right next door. 
 
-This app enables people in your neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. 
+This app enables people in your neighbourhood to connect and share resources, be it extra food, equipment loans, or specialised services. Feel free to explore the demo site [here](https://neighbour-ly.netlify.app/) ! 
 
 This is a group product done by a team of 3 full-stack developers as part of General Assembly's Software Engineering Immersive. 
 
