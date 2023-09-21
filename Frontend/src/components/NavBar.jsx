@@ -46,7 +46,7 @@ const NavBar = (props) => {
     },
     {
       item: "Log Out",
-      link: "/sign-in",
+      link: "/",
       icon: <CloseIcon fontSize="large" />,
     },
   ];
