@@ -137,12 +137,11 @@ const Registration = (props) => {
                 />
               </div>
               <Box sx={{ display: "flex", m: "0.5rem" }}>
-                {" "}
                 <Btn onClick={registerUser}>Register</Btn>
                 <Btn
                   isBrown={true}
                   onClick={() => {
-                    navigate("/sign-in");
+                    navigate("/");
                   }}
                 >
                   Cancel

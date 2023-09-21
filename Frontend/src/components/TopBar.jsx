@@ -20,7 +20,16 @@ const TopBar = (props) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
+    if (e.target.innerText == "Log Out") {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("userId");
+
+      userCtx.setAccessToken("");
+      userCtx.setUserInfo({});
+      userCtx.setUserId("");
+    }
     setAnchorElUser(false);
   };
 
@@ -41,7 +50,7 @@ const TopBar = (props) => {
               }}
               className="burgundy"
               component={NavLink}
-              to={props.showBurger ? "/" : "/sign-in"}
+              to="/"
             >
               <GiteIcon />
             </IconButton>
