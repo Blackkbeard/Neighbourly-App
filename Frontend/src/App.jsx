@@ -40,7 +40,7 @@ function App() {
 
   //when user logs in, userId is updated and app gets user info
   useEffect(() => {
-    getUserInfo();
+    userId && getUserInfo();
   }, [userId]);
 
   return (
